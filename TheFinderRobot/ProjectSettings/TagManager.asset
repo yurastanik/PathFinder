@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - one
+  - two
+  - three
+  - four
+  - Blue
+  - Red
+  - green
+  - left
+  - right
+  - forrward
   layers:
   - Default
   - TransparentFX
