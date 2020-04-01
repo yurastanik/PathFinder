@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SetActive : MonoBehaviour
 {
-   static int number = 4;
-   public GameObject[] button_list = new GameObject[number];
+    public int numer = 4;
+    static int num = 4;
+  // num = number;
+   public GameObject[] button_list = new GameObject[num];
 
    public bool touch = false;
 

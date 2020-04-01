@@ -5,10 +5,9 @@ using UnityEngine;
 public class For_input : MonoBehaviour
 {
     public GameObject inputField;
-    public Component the_scrpit;
+
 
     public GameObject the_button;
- //   public ScriptableObject the_scrpit;
     public int index = 0;
     void OnMouseUp() {
         
@@ -16,20 +15,19 @@ public class For_input : MonoBehaviour
             if (Input.GetMouseButtonUp(0)) {
                     Debug.Log(gameObject.tag);
                     index = inputField.GetComponent<SetActive>().button;
-                    if (inputField.GetComponent<SetActive>().button_list[index].tag == "one")
-                        the_scrpit = inputField.GetComponent<SetActive>().button_list[index].GetComponent<TouchOne1>();
-                    if (inputField.GetComponent<SetActive>().button_list[index].tag == "two")
-                        the_scrpit = inputField.GetComponent<SetActive>().button_list[index].GetComponent<Touchtwo>();
-                    if (inputField.GetComponent<SetActive>().button_list[index].tag == "three")
-                        the_scrpit = inputField.GetComponent<SetActive>().button_list[index].GetComponent<Touchthree>();
-                    if (inputField.GetComponent<SetActive>().button_list[index].tag == "four")
-                        the_scrpit = inputField.GetComponent<SetActive>().button_list[index].GetComponent<Touchfour>();
-                    Debug.Log(the_scrpit);
+                    if (gameObject.tag == "Blue")
+                        the_button.GetComponent<Button_play>().input_arr[index].color = (int) Input_Class.Colors.Blue;
+                    if (gameObject.tag == "Red")
+                        the_button.GetComponent<Button_play>().input_arr[index].color = (int) Input_Class.Colors.Red;
+                    if (gameObject.tag == "green")
+                        the_button.GetComponent<Button_play>().input_arr[index].color = (int) Input_Class.Colors.Green;
+                    if (gameObject.tag == "forrward")
+                        the_button.GetComponent<Button_play>().input_arr[index].direct = (int) Input_Class.Directs.forward;
+                    if (gameObject.tag == "left")
+                        the_button.GetComponent<Button_play>().input_arr[index].direct = (int) Input_Class.Directs.left;
+                    if (gameObject.tag == "right")
+                        the_button.GetComponent<Button_play>().input_arr[index].direct = (int) Input_Class.Directs.right;
 
-
-                    //the_scrpit = inputField.GetComponent<SetActive>().button_list[index].GetComponent(the_scrpit).
-                    // if (gameObject.tag == "Blue")
-                    //     inputField.GetComponent<SetActive>().button_list[index].
                 }
         }
     }

@@ -15,7 +15,6 @@ public class TouchOne1 : MonoBehaviour
             inputField.GetComponent<SetActive>().touch = true;
             inputField.GetComponent<SetActive>().button = 0;
             Debug.Log(gameObject.tag);
-
        }
     }
 }
