@@ -2,131 +2,169 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestCorutine : MonoBehaviour
-{
-    int[,] card = new int[,] {{ 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, {2, 2, 0, 0, 0}, { 1, 2, 3, 0, 0 }, { 0, 0, 0, 0, 0 }};
-    int[,] moves = new int[,] {{1, 0}, {2, 2}, {1, 0}, {2, 2}, {1, 0}, {2, 2}, {1, 0}};
-    List<int> startPoint = new List<int>() {3, 0};
-    bool isUp;
-    public GameObject plate;
-    string currentPosition = "down";
-    // Start is called before the first frame update
-    void Start() {
-        Moving();
+public class TestCorutine : MonoBehaviour {
+
+    private int[,] card = new int[,] {  { 0, 0, 0, 0, 0 },
+                                        { 0, 0, 0, 0, 0 },
+                                        { 2, 2, 0, 0, 0 },
+                                        { 1, 2, 3, 0, 0 },
+                                        { 0, 0, 0, 0, 0 } };
+
+    private int[,] moves = new int[,] { {1, 0},
+                                        {2, 2},
+                                        {1, 0},
+                                        {2, 2},
+                                        {1, 0},
+                                        {2, 2},
+                                        {1, 0} };
+
+    // List<int> startPoint = new List<int>() {3, 0};
+
+    private Transform directionArrow;
+
+    private Vector2Int startPos;
+    private string currentDirection = "down";
+
+    bool isActive = true;
+    int i = 0;
+
+    private void Start() {
+        directionArrow = GameObject.Find("RotationPivot").transform;
+        startPos = new Vector2Int(3, 0);
+        StartCoroutine(MovesHandler());
     }
 
-    // Update is called once per frame
-    void Update() {  
-        
+    private void SetCameraPosition(Vector3Int newPos) {
+        Camera mainCamera = Camera.main;
+        mainCamera.transform.position += newPos;
     }
 
-    void Moving() {
-        //for (int dimension = 1; dimension <= moves.Rank; dimension++)
-        for (int i = 0; i <= moves.GetUpperBound(0); i++) {
-            print( "x: " + startPoint[0] + " y: " + startPoint[1]);
-            if (moves[i, 0] == 1) {
-                if (moves[i, 1] == 0) {
-                    FaceDirection(currentPosition);
-                }
-                else if (moves[i, 1] == card[startPoint[0], startPoint[1]]) {
-                    FaceDirection(currentPosition);
-                }                
-            }
-            else if (moves[i, 0] == 2)  {
-                if (moves[i, 1] == 0) {
-                    ChangePos(currentPosition, 2);
-                    }
-                else if (moves[i, 1] == card[startPoint[0], startPoint[1]]) {
-                    ChangePos(currentPosition, 2);
-                } 
-                }
-            else if (moves[i, 0] == 3)  {
-                if (moves[i, 1] == 0) {
-                    ChangePos(currentPosition, 3);
-                }
-                else if (moves[i, 1] == card[startPoint[0], startPoint[1]]) {
-                    ChangePos(currentPosition, 3);
-                }                              
-            }        
-        }
-    }
-
-    public void ChangePos(string Position, int Move) {
-        if (Move == 2) {
-            if (Position == "down") {
-                currentPosition = "left";
-            }
-            if (Position == "up") {
-                currentPosition = "right";
-            }
-            if (Position == "left") {
-                currentPosition = "up";
-            }
-            if (Position == "right") {
-                currentPosition = "down";
+    private void CheckMoveType() {
+        Debug.Log("i: " + i + "  x: " + startPos.x + "  y: " + startPos.y);
+        if (moves[i, 0] == 1) {
+            if (moves[i, 1] == 0)
+                FaceDirection(currentDirection);
+            else if (moves[i, 1] == card[startPos.x, startPos.y]) {
+                FaceDirection(currentDirection);
             }
         }
-        if (Move == 3) {
-            if (Position == "down") {
-                currentPosition = "right";
+        else if (moves[i, 0] == 2) {
+            if (moves[i, 1] == 0)
+                ChangeDirection(currentDirection, 2);
+            else if (moves[i, 1] == card[startPos.x, startPos.y]) {
+                ChangeDirection(currentDirection, 2);
             }
-            if (Position == "up") {
-                currentPosition = "left";
-            }
-            if (Position == "left") {
-                currentPosition = "down";
-            }
-            if (Position == "right") {
-                currentPosition = "up";
+        }
+        else if (moves[i, 0] == 3) {
+            if (moves[i, 1] == 0)
+                ChangeDirection(currentDirection, 3);
+            else if (moves[i, 1] == card[startPos.x, startPos.y]) {
+                ChangeDirection(currentDirection, 3);
             }
         }
     }
 
-    public void FaceDirection(string Position) {
-        if (Position == "down") {
-            StartCoroutine(MoveDown());
-            if (card[startPoint[0], startPoint[1]] == 0) {
-                Debug.Log("Game Over!");
+    private void ChangeDirection(string direction, int move) {
+        if (move == 2) {
+            directionArrow.rotation *= Quaternion.Euler(0, 90, 0);
+            if (direction == "down") {
+                currentDirection = "left";
+            }
+            else if (direction == "up") {
+                currentDirection = "right";
+            }
+            else if (direction == "left") {
+                currentDirection = "up";
+            }
+            else {
+                currentDirection = "down";
             }
         }
-        if (Position == "up") {
-            StartCoroutine(MoveUp());
-            if (card[startPoint[0], startPoint[1]] == 0) {
-                Debug.Log("Game Over!");
+        if (move == 3) {
+            directionArrow.rotation *= Quaternion.Euler(0, -90, 0);
+            if (direction == "down") {
+                currentDirection = "right";
             }
-        }
-        if (Position == "left") {
-            StartCoroutine(MoveLeft());         
-            if (card[startPoint[0], startPoint[1]] == 0) {
-                Debug.Log("Game Over!");
+            else if (direction == "up") {
+                currentDirection = "left";
             }
-        }
-        if (Position == "right") {
-            StartCoroutine(MoveRight());
-            if (card[startPoint[0], startPoint[1]] == 0) {
-                Debug.Log("Game Over!");
+            else if (direction == "left") {
+                currentDirection = "down";
+            }
+            else {
+                currentDirection = "up";
             }
         }
     }
-    IEnumerator MoveLeft() {
-        startPoint[0] -= 1;
-        transform.Translate(-2, 0, 0);
-        yield return new WaitForSeconds(2f);
+
+    private void FaceDirection(string direction) {
+        if (direction == "down") {
+            SetPosition(new Vector2Int(0, 1));
+            if (card[startPos.x, startPos.y] == 0)
+                GameOver();
+        }
+        if (direction == "up") {
+            SetPosition(new Vector2Int(0, -1));
+            if (card[startPos.x, startPos.y] == 0)
+                GameOver();
+        }
+        if (direction == "left") {
+            SetPosition(new Vector2Int(-1, 0));
+            if (card[startPos.x, startPos.y] == 0)
+                GameOver();
+        }
+        if (direction == "right") {
+            SetPosition(new Vector2Int(1, 0));
+            if (card[startPos.x, startPos.y] == 0)
+                GameOver();
+        }
     }
-    IEnumerator MoveRight() {
-        startPoint[0] += 1;
-        transform.Translate(2, 0, 0);
-        yield return new WaitForSeconds(2f);
+
+    private void GameOver() {
+        Debug.Log("Game Over!");
+        isActive = false;
     }
-    IEnumerator MoveUp() {
-        startPoint[1] -= 1;
-        transform.Translate(0, 2, 0);
-        yield return new WaitForSeconds(2f);
+
+    private void SetPosition(Vector2Int newPos) {
+        startPos.x += newPos.x;
+        startPos.y += newPos.y;
+        SetCameraPosition(new Vector3Int(newPos.x * 2, 10, -(newPos.y * 2) - 10));
+        transform.Translate(newPos.x * 2, 0, -(newPos.y * 2));
     }
-    IEnumerator MoveDown() {
-        startPoint[1] += 1;
-        transform.Translate(0, -2, 0);
-        yield return new WaitForSeconds(2f);
+
+    private IEnumerator MovesHandler() {
+        for (i = 0; i <= moves.GetUpperBound(0); i++) {
+            if (isActive)
+                CheckMoveType();
+            yield return new WaitForSeconds(0.5f);
+        }
     }
-}     
-            
+
+    // private IEnumerator MoveLeft() {
+    //     startPos.x -= 1;
+    //     transform.Translate(-2, 0, 0);
+    //     yield return new WaitForSeconds(2f);
+    //     Moving();
+    // }
+
+    // private IEnumerator MoveRight() {
+    //     startPos.x += 1;
+    //     transform.Translate(2, 0, 0);
+    //     yield return new WaitForSeconds(2f);
+    //     Moving();
+    // }
+
+    // private IEnumerator MoveUp() {
+    //     startPos.y -= 1;
+    //     transform.Translate(0, 0, 2);
+    //     yield return new WaitForSeconds(2f);
+    //     Moving();
+    // }
+
+    // private IEnumerator MoveDown() {
+    //     startPos.y += 1;
+    //     transform.Translate(0, 0, -2);
+    //     yield return new WaitForSeconds(2f);
+    //     Moving();
+    // }
+}
