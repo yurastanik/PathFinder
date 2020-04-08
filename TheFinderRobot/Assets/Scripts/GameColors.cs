@@ -6,10 +6,10 @@ public class GameColors {
 
     public static Color GetColor(int col) {
         if (col == 1)
-            return Color.green;
+            return Color.blue;
         else if (col == 2)
-            return Color.red;
-        return Color.black;
+            return Color.green;
+        return Color.yellow;
     }
 
 }

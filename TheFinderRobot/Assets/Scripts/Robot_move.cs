@@ -16,8 +16,9 @@ public class Robot_move : MonoBehaviour {
                                     //    {0, 0, 0, 0, 0, 0, 3, 0},
                                     //    {0, 0, 0, 0, 0, 0, 2, 0},
                                     //    {0, 0, 0, 0, 0, 0, 0, 0} };
-    public GameObject starting;
-    private List <Input_Class> input_arr;
+
+    //private List <Input_Class> input_arr;
+
     private int[,] card = new int[,] { {0, 0, 0, 0, 0},
                                        {0, 0, 0, 2, 0},
                                        {0, 2, 3, 1, 0},
@@ -41,17 +42,25 @@ public class Robot_move : MonoBehaviour {
     bool isActive = true;
     int i = 0;
 
-    private void Start() {
-        input_arr = starting.GetComponent<Button_play>().input_arr;
-        Debug.Log(input_arr);
-        directionArrow = GameObject.Find("RotationPivot").transform;
-        startPos = new Vector2Int(2, 1);
-        StartCoroutine(MovesHandler());
+    private void LoadMap() {
+        MapLoader loader = GameObject.Find("Map").GetComponent<MapLoader>();
+        Map loadedMap = loader.GetMap();
+
+        card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
+        moves = MapLoader.OneDToTwoDArray(loadedMap.moves, 2);
+        startPos = loadedMap.startPos;
+        currentDirection = loadedMap.direction;
     }
 
-    private void SetCameraPosition(Vector3Int newPos) {
-        Camera mainCamera = Camera.main;
-        mainCamera.transform.position += newPos;
+    private void Start() {
+        LoadMap();
+
+        // input_arr = starting.GetComponent<Button_play>().input_arr;
+        // Debug.Log(input_arr);
+
+        transform.position = (Vector3Int)(startPos * 2);
+        directionArrow = GameObject.Find("RotationPivot").transform;
+        StartCoroutine(MovesHandler());
     }
 
     private void CheckMoveType() {
@@ -159,7 +168,6 @@ public class Robot_move : MonoBehaviour {
     private void SetPosition(Vector2Int newPos) {
         startPos.x += newPos.x;
         startPos.y += newPos.y;
-        SetCameraPosition(new Vector3Int(newPos.x * 2, 10, -(newPos.y * 2) - 10));
         transform.Translate(newPos.x * 2, 0, -(newPos.y * 2));
     }
 

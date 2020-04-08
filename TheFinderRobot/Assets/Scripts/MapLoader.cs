@@ -19,6 +19,10 @@ public class MapLoader : MonoBehaviour {
         RenderMap(loadedMap.map, loadedMap.mapWidth);
     }
 
+    public Map GetMap() {
+        return loadedMap;
+    }
+
     public void OnMapUpdate(int[,] newMap) {
         loadedMap.map = TwoDToOneDArray(newMap);
         RenderMap(loadedMap.map, loadedMap.mapWidth);
@@ -28,13 +32,13 @@ public class MapLoader : MonoBehaviour {
         int rows = map.Length / width;
         int col = 0;
 
-        foreach (GameObject child in transform)
+        foreach (Transform child in transform)
             GameObject.Destroy(child);
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < width; x++) {
                 col = map[(y * width) + x];
                 if (col != 0)
-                    CreateColumn(new Vector3Int(x * 2, 0, y * 2), col);
+                    CreateColumn(new Vector3Int(x * 2, 0, -(y * 2)), col);
             }
         }
     }
@@ -54,9 +58,9 @@ public class MapLoader : MonoBehaviour {
         }
     }
 
-    public int[,] OneDToTwoDArray(int[] map, int width) {
+    public static int[,] OneDToTwoDArray(int[] map, int width) {
         int rows = map.Length / width;
-        int[,] res = new int[width, rows];
+        int[,] res = new int[rows, width];
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < width; x++) {
@@ -66,7 +70,7 @@ public class MapLoader : MonoBehaviour {
         return res;
     }
 
-    public int[] TwoDToOneDArray(int[,] map) {
+    public static int[] TwoDToOneDArray(int[,] map) {
         int[] res = new int[map.Length];
         int i = 0;
 
