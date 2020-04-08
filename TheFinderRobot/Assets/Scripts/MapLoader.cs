@@ -19,7 +19,7 @@ public class MapLoader : MonoBehaviour {
         RenderMap(loadedMap.map, loadedMap.mapWidth);
     }
 
-    public Map GetMap() {
+    public Map  GetMap() {
         return loadedMap;
     }
 
@@ -89,6 +89,7 @@ public class Map {
     public int[] map;
     public int mapWidth;
     public int[] moves;
+    public int[] targets;
     public Vector2Int startPos;
     public string direction;
 }
