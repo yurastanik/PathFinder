@@ -4,16 +4,19 @@ using UnityEngine;
 using System.IO;
 
 public class MapLoader : MonoBehaviour {
-
-    [SerializeField] private string mapName;
+    
     [SerializeField] private GameObject columnPrefab;
 
     private StreamReader stream;
     private string path;
     private Map loadedMap;
 
-    private void Start() {
-        path = Application.dataPath + "/Maps/" + mapName + ".json";
+    private void Start() {        
+        MapNext(1);        
+    }
+
+    public void MapNext(int mapNumb) {
+        path = Application.dataPath + "/Maps/Map" + mapNumb + ".json";
         stream = new StreamReader(path);
         loadedMap = JsonUtility.FromJson<Map>(stream.ReadToEnd());
         RenderMap(loadedMap.map, loadedMap.mapWidth);
@@ -28,12 +31,11 @@ public class MapLoader : MonoBehaviour {
         RenderMap(loadedMap.map, loadedMap.mapWidth);
     }
 
-    private void RenderMap(int[] map, int width) {
+    private void RenderMap(int[] map, int width) {        
         int rows = map.Length / width;
         int col = 0;
-
-        foreach (Transform child in transform)
-            GameObject.Destroy(child);
+        foreach (Transform child in transform) 
+            GameObject.Destroy(child.gameObject);        
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < width; x++) {
                 col = map[(y * width) + x];
@@ -46,7 +48,6 @@ public class MapLoader : MonoBehaviour {
     private void CreateColumn(Vector3Int pos, int col) {
         GameObject newChild = GameObject.Instantiate(columnPrefab, transform);
         MeshRenderer topRend;
-
         newChild.transform.position = pos;
         Transform[] childs = newChild.GetComponentsInChildren<Transform>();
         for (int i = 0; i < childs.Length; i++) {
@@ -61,7 +62,6 @@ public class MapLoader : MonoBehaviour {
     public static int[,] OneDToTwoDArray(int[] map, int width) {
         int rows = map.Length / width;
         int[,] res = new int[rows, width];
-
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < width; x++) {
                 res[y, x] = map[(y * width) + x];

@@ -1,44 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Threading;
 using UnityEngine;
 
 public class Robot_move : MonoBehaviour {
-                                    //  { {0, 0, 0, 0, 0, 0, 0, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 2, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 2, 3, 3, 3, 3, 1, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 3, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 2, 0},
-                                    //    {0, 0, 0, 0, 0, 0, 0, 0} };
-
-    //private List <Input_Class> input_arr;
 
     private int[,] card;
     private int[,] moves;
     private int[,] targets;
 
-    // List<int> startPoint = new List<int>() {3, 0};
-
     private Transform directionArrow;
     private Vector2Int startPos;
-    private string currentDirection = "down";
+    private string currentDirection;
+    private MapLoader loader;
 
-    bool isActive = true;
+    bool repeat = false;
+    bool isActive = false;
     int i = 0;
     int movenum = 0;
     int winnum = 0;
+    int currentMap = 1;
 
     private void LoadMap() {
-        MapLoader loader = GameObject.Find("Map").GetComponent<MapLoader>();
+        loader = GameObject.Find("Map").GetComponent<MapLoader>();
         Map loadedMap = loader.GetMap();
-
         card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
         moves = MapLoader.OneDToTwoDArray(loadedMap.moves, 2);
         targets = MapLoader.OneDToTwoDArray(loadedMap.targets, 2);
@@ -46,17 +32,36 @@ public class Robot_move : MonoBehaviour {
         currentDirection = loadedMap.direction;
     }
 
-    private void Start() {
-        LoadMap();
-        // input_arr = starting.GetComponent<Button_play>().input_arr;
-        // Debug.Log(input_arr);
-        transform.position = new Vector3Int(startPos.y *2, 0, startPos.x * -2);
+    private void Level() {
+        LoadMap(); 
+        transform.position = new Vector3Int(startPos.y *2, 0, startPos.x * -2);        
         directionArrow = GameObject.Find("RotationPivot").transform;
-        StartCoroutine(MovesHandler());
+        DirectAtStart();       
+    }
+
+    private void Start() {
+        Level();  
+    }    
+
+    private void Update() {
+        if (Input.GetKey(KeyCode.S)) {
+            isActive = true;
+            StartCoroutine(MovesHandler());
+        }
+    }
+
+    private void DirectAtStart() {        
+        if (currentDirection == "up") 
+            directionArrow.rotation = Quaternion.Euler(0, 180, 0);
+        else if (currentDirection == "right")
+            directionArrow.rotation = Quaternion.Euler(0, -90, 0);
+        else if (currentDirection == "left")
+            directionArrow.rotation = Quaternion.Euler(0, 90, 0);
+        else 
+            directionArrow.rotation = Quaternion.Euler(0, 0, 0);          
     }
 
     private void CheckMoveType() {
-        
         if (moves[movenum, 0] == 1) {
             if (moves[movenum, 1] == 0) {
                 FaceDirection(currentDirection);
@@ -84,14 +89,17 @@ public class Robot_move : MonoBehaviour {
             }
         }
         else if (moves[movenum, 0] == 4){
-            card[startPos.x, startPos.y] = moves[movenum, 1];     
+            card[startPos.x, startPos.y] = moves[movenum, 1];    
+            loader.OnMapUpdate(card);
         }
         else if (moves[movenum, 0] == 5) {
             if (moves[movenum, 1] == 0){
-                isActive = false;                
+                repeat = true;
+                isActive = false;              
                 StartCoroutine(MovesHandler());
             }
             else if (moves[movenum, 1] == card[startPos.x, startPos.y]) {
+                repeat = true;
                 isActive = false;                
                 StartCoroutine(MovesHandler());
             }
@@ -157,13 +165,13 @@ public class Robot_move : MonoBehaviour {
     private void CheckTarget() {        
         for (int target = 0; target <= targets.GetUpperBound(0); target++) {
             if (startPos.x == targets[target, 0] && startPos.y == targets[target, 1]) {
-                Debug.Log("Picked star " + target);
+                Debug.Log("Picked star " + (target + 1));
                 Array.Clear(targets, target*2, 2);
                 GameWinner();
             }
         }
     }
-
+ 
     private void GameWinner() {
         foreach (int win in targets) {
             if (win == 0)
@@ -171,7 +179,11 @@ public class Robot_move : MonoBehaviour {
         }
         if (winnum == targets.Length) {
             Debug.Log("You WIN!!!");
+            winnum = 0;
+            currentMap += 1;
             isActive = false;
+            loader.MapNext(currentMap);
+            Level();
         }
         else
             winnum = 0;
@@ -179,29 +191,36 @@ public class Robot_move : MonoBehaviour {
 
     private void GameOver() {
         Debug.Log("Game Over!");
-        Debug.Log(startPos.x + " " + startPos.y);
         isActive = false;
     }
 
     private void SetPosition(Vector2Int newPos) {
-        startPos.x += newPos.y;
-        startPos.y += newPos.x;
         transform.Translate(newPos.x * 2, 0, -(newPos.y * 2));
+        startPos.x += newPos.y;
+        startPos.y += newPos.x;        
     }
-
+ 
     private IEnumerator MovesHandler() {
         for (i = 0; i <= moves.GetUpperBound(0); i++) {
             if (isActive) {
                 CheckMoveType();
-                movenum += 1;
-                yield return new WaitForSeconds(0.2f);
+                movenum += 1;                                  
             }
-            else {
+            else if (!isActive && repeat) {
                 i = -1;
-                movenum = -1; 
+                movenum = -1;
                 isActive = true;
+                repeat = false;
+                yield return new WaitForSeconds(0.75f);
                 yield break;
             }
+            else {
+                i = 0;
+                movenum = 0;
+                yield break;
+            }
+            yield return new WaitForSeconds(0.75f);
+                     
        }
     }
 }
