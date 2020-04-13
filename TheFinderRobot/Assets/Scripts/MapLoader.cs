@@ -5,7 +5,7 @@ using System.IO;
 
 public class MapLoader : MonoBehaviour {
 
-    [SerializeField] private string mapName = null;
+    // [SerializeField] private string mapName = null;
     [SerializeField] private GameObject columnPrefab = null;
 
     private StreamReader stream;
@@ -13,13 +13,17 @@ public class MapLoader : MonoBehaviour {
     private Map loadedMap;
 
     private void Awake() {
-        path = Application.dataPath + "/Maps/" + mapName + ".json";
+        MapNext(1);
+    }
+
+    public void MapNext(int mapNum) {
+        path = Application.dataPath + "/Maps/Map" + mapNum + ".json";
         stream = new StreamReader(path);
         loadedMap = JsonUtility.FromJson<Map>(stream.ReadToEnd());
         RenderMap(loadedMap.map, loadedMap.mapWidth);
     }
 
-    public Map  GetMap() {
+    public Map GetMap() {
         return loadedMap;
     }
 
@@ -32,8 +36,8 @@ public class MapLoader : MonoBehaviour {
         int rows = map.Length / width;
         int col = 0;
 
-        foreach (Transform child in transform)
-            GameObject.Destroy(child);
+        foreach (Transform child in transform) 
+            GameObject.Destroy(child.gameObject);
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < width; x++) {
                 col = map[(y * width) + x];

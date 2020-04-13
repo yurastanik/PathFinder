@@ -164,7 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6aba8f176056924da9b5fa0dbce20c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapName: Map1
   columnPrefab: {fileID: 7287349878236699154, guid: af5250075497b4faf9fc3c0a7b55ed0b,
     type: 3}
 --- !u!1 &527606451
@@ -193,13 +192,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527606451}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.9999996, z: -0, w: -0.0009598614}
   m_LocalPosition: {x: 0, y: 0, z: -0.5}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 894193491}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180.11, z: 0}
 --- !u!65 &527606453
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -484,6 +483,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2e0eedfd1834721903c7da443a1a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1729383599
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729383597}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12b82e959e80056439ecfc45c73d29cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &638132672037921287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -604,6 +622,11 @@ PrefabInstance:
     - target: {fileID: 8522959568171426991, guid: d7254cefcd5bc4974a0ecc8a03757587,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8522959568171426991, guid: d7254cefcd5bc4974a0ecc8a03757587,
+        type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
