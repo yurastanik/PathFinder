@@ -103,9 +103,11 @@ public class Robot_move : MonoBehaviour {
         }
         else if (movelist[movenum, 0] == 2) {
             if (movelist[movenum, 1] == 0) {
+                Debug.Log(card[startPos.x, startPos.y] + " tyt 0");
                 ChangeDirection(currentDirection, 2);
             }
             else if (movelist[movenum, 1] == card[startPos.x, startPos.y]) {
+                Debug.Log(card[startPos.x, startPos.y]);
                 ChangeDirection(currentDirection, 2);
             } 
         } 
@@ -191,7 +193,7 @@ public class Robot_move : MonoBehaviour {
                 currentDirection = "down";
             }
         }
-        else if (move == 3) {
+        else {
             directionArrow.rotation *= Quaternion.Euler(0, -90, 0);
             if (direction == "down") {
                 currentDirection = "right";
@@ -214,17 +216,17 @@ public class Robot_move : MonoBehaviour {
             if (card[startPos.x, startPos.y] == 0)
                 GameOver();
         }
-        if (direction == "up") {
+        else if (direction == "up") {
             SetPosition(new Vector2Int(0, -1));
             if (card[startPos.x, startPos.y] == 0)
                 GameOver();
         }
-        if (direction == "left") {
+        else if (direction == "left") {
             SetPosition(new Vector2Int(-1, 0));
             if (card[startPos.x, startPos.y] == 0)
                 GameOver();
         }
-        if (direction == "right") {
+        else {
             SetPosition(new Vector2Int(1, 0));
             if (card[startPos.x, startPos.y] == 0)
                 GameOver();
@@ -281,20 +283,38 @@ public class Robot_move : MonoBehaviour {
         currentMap += 1;
     }
 
-    private string IntToMove(int move) {
-        if (move == 1) {
-            anim.Play("Run", 0);
-            return "Run";
-        }
-        else if (move == 2) {
-            anim.Play("Right", 0);
-            return "Right";
-        }
-        else if (move == 3) {
-            anim.Play("Left", 0);
-            return "Left";            
+    private string IntToMove(int move, bool doit = true) {
+        if (doit) {
+            if (move == 1) {
+                anim.Play("Run", 0);
+                return "Run";
+            }
+            else if (move == 2) {
+                anim.Play("Right", 0);
+                return "Right";
+            }
+            else if (move == 3) {
+                anim.Play("Left", 0);
+                return "Left";            
+            }
+            else if (move == 4) {
+                return "Scratch";
+            }
+            return "Other";
         }
         else {
+            if (move == 1) {
+                return "Run";
+            }
+            else if (move == 2) {
+                return "Right";
+            }
+            else if (move == 3) {
+                return "Left";            
+            }
+            else if (move == 4) {
+                return "Scratch";
+            }
             return "Other";
         }
     }
@@ -322,18 +342,25 @@ public class Robot_move : MonoBehaviour {
     private IEnumerator MovesHandler() {
         for (i = 0; i <= listik.GetUpperBound(0); i++) {            
             if (isActive) {
-                Debug.Log(card[startPos.x, startPos.y]);
-                var name = IntToMove(listik[movenum, 0]);
+                Debug.Log("s");
+                var name = "Other";
+                if (listik[movenum, 1] == card[startPos.x, startPos.y] || listik[movenum, 1] == 0 || listik[movenum, 0] == 4)
+                    name = IntToMove(listik[movenum, 0], false);
                 CheckMoveType(listik);
                 movenum += 1;
-                if (name != "Other"){
-                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(IntToMove(listik[movenum-1, 0])));
-                    yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                    // yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(IntToMove(listik[movenum-1, 0])));
+                if (name != "Other" || name != "Scratch") {
+                    Debug.Log(name);
+                    yield return new WaitForSeconds(0.12f);
+                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(name));
+                    yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
                 }
-                else {
+                else if (name == "Scratch") {
+                    if (listik[movenum-1, 1] == card[startPos.x, startPos.y])
+                        yield return null;
                     yield return new WaitForSeconds(0.15f);
                 }
+                else 
+                    yield return new WaitForSeconds(0);;
             }
             // else if (!isActive && repeat) {
             //     i = -1;
