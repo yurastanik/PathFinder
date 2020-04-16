@@ -9,7 +9,7 @@ public class GameColors {
             return Color.blue;
         else if (col == 2)
             return Color.green;
-        return Color.black;
+        return Color.yellow;
     }
 
 }

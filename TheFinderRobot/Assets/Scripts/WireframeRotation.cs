@@ -7,8 +7,8 @@ public class WireframeRotation : MonoBehaviour {
     float HSV = 0f;
 
     private void Update() {
-        transform.Rotate(new Vector3(-0.5f, 0, 0), Space.World);
-        transform.Rotate(new Vector3(0, 1f, 0), Space.Self);
+        transform.Rotate(new Vector3(-0.5f, 0, 0));
+        transform.Rotate(new Vector3(0, 1f, 0));
 
         GetComponentsInChildren<MeshRenderer>()[1].material.color
             = Color.HSVToRGB(HSV, 1, 1);
