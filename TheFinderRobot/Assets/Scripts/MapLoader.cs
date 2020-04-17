@@ -11,8 +11,8 @@ public class MapLoader : MonoBehaviour {
     private string path;
     private Map loadedMap;
 
-    private void Start() {        
-        MapNext(1);        
+    private void Start() {
+        MapNext(1);
     }
 
     public void MapNext(int mapNumb) {
@@ -31,11 +31,11 @@ public class MapLoader : MonoBehaviour {
         RenderMap(loadedMap.map, loadedMap.mapWidth);
     }
 
-    private void RenderMap(int[] map, int width) {        
+    private void RenderMap(int[] map, int width) {
         int rows = map.Length / width;
         int col = 0;
         foreach (Transform child in transform) 
-            GameObject.Destroy(child.gameObject);        
+            GameObject.Destroy(child.gameObject);
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < width; x++) {
                 col = map[(y * width) + x];
