@@ -12,6 +12,7 @@ public class MapLoader : MonoBehaviour {
     private string path;
     private Map loadedMap;
 
+
     private void Awake() {
         MapNext(1);
     }

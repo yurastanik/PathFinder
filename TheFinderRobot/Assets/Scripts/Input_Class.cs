@@ -6,6 +6,9 @@ public class Input_Class
 {
     public int color = 0;
     public int direct = 0;
+
+
+
     public enum Colors {
         White,
         Blue,
@@ -13,6 +16,7 @@ public class Input_Class
         Green
     }
     public enum Directs {
+        stay,
         forward,
         left,
         right,

@@ -48,27 +48,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files (x86)\Editor\2019.3.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
+      <HintPath>E:\Programs\UnityHubEditor\2019.3.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files (x86)\Editor\2019.3.7f1\Editor\Data\Managed/UnityEditor.dll</HintPath>
+      <HintPath>E:\Programs\UnityHubEditor\2019.3.7f1\Editor\Data\Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Btn_move.cs" />
      <Compile Include="Assets\Scripts\Button_play.cs" />
-     <Compile Include="Assets\Scripts\For_input.cs" />
+     <Compile Include="Assets\Scripts\Choosebutton.cs" />
+     <Compile Include="Assets\Scripts\Functionclass.cs" />
      <Compile Include="Assets\Scripts\GameColors.cs" />
      <Compile Include="Assets\Scripts\Input_Class.cs" />
+     <Compile Include="Assets\Scripts\Inputbuttons.cs" />
      <Compile Include="Assets\Scripts\MapLoader.cs" />
      <Compile Include="Assets\Scripts\Rainbow.cs" />
      <Compile Include="Assets\Scripts\Robot_move.cs" />
      <Compile Include="Assets\Scripts\SetActive.cs" />
-     <Compile Include="Assets\Scripts\Start_button.cs" />
-     <Compile Include="Assets\Scripts\TouchOne1.cs" />
-     <Compile Include="Assets\Scripts\Touchfour.cs" />
-     <Compile Include="Assets\Scripts\Touchone.cs" />
-     <Compile Include="Assets\Scripts\Touchthree.cs" />
-     <Compile Include="Assets\Scripts\Touchtwo.cs" />
      <Compile Include="Assets\Scripts\WireframeRotation.cs" />
      <None Include="Assets\Shaders\Glow.shader" />
  <Reference Include="Unity.Timeline.Editor">
