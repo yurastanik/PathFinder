@@ -92,7 +92,12 @@ public class MapLoader : MonoBehaviour {
 public class Map {
     public int[] map;
     public int mapWidth;
-    public int[] moves;
+    public int[] movesf1;
+    public int[] movesf2;
+    public int[] movesf3;
+    public int[] movesf4;
+    public int[] movesf5;
+    public int[] movesf6;
     public int[] targets;
     public Vector2Int startPos;
     public string direction;
