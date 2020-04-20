@@ -10,9 +10,8 @@ public class Button_play : MonoBehaviour
     public List <Functionclass> func = new List<Functionclass>();
 
 
-    void Start()
-    {
-         for (int i = 0; i < func_arr.Length; i++) {
+    void Start() {
+        for (int i = 0; i < func_arr.Length; i++) {
              func.Add(new Functionclass(func_arr[i]));
         }
 

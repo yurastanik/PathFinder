@@ -1,5 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,15 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] private Image Content;
     [SerializeField] private GameObject Scrol;
 
-
+    private int[,] movesf1;
+    private int[,] movesf2;
+    private int[,] movesf3;
+    private int[,] movesf4;
+    private int[,] movesf5;
+    private int[,] movesf6;
+    private int[] colors;
+    private int[] moves = new int[] {1, 2, 3, 7}; 
+    private MapLoader loader;
     private int btn;
     private int fun;
     [SerializeField] private Sprite[] s1;
@@ -19,7 +28,30 @@ public class Choosebutton : MonoBehaviour
 
 
     private void Awake() {
-        for (int i = 0; i < 15; i++) {
+        loader = GameObject.Find("Map").GetComponent<MapLoader>();
+        Map loadedMap = loader.GetMap();
+        colors = loadedMap.colors;
+        foreach (int i in colors)
+            AddAction(ref moves, i);
+        movesf1 = MapLoader.OneDToTwoDArray(loadedMap.movesf1, 2);
+        ChooseAction(ref movesf1);
+        if (loadedMap.movesf2 != null) 
+            movesf2 = MapLoader.OneDToTwoDArray(loadedMap.movesf2, 2);
+            ChooseAction(ref movesf2);
+        if (loadedMap.movesf3 != null) 
+            movesf3 = MapLoader.OneDToTwoDArray(loadedMap.movesf3, 2);
+            ChooseAction(ref movesf3);
+        if (loadedMap.movesf4 != null) 
+            movesf4 = MapLoader.OneDToTwoDArray(loadedMap.movesf4, 2);
+            ChooseAction(ref movesf4);
+        if (loadedMap.movesf5 != null) 
+            movesf5 = MapLoader.OneDToTwoDArray(loadedMap.movesf5, 2);
+            ChooseAction(ref movesf5);
+        if (loadedMap.movesf6 != null)
+            movesf6 = MapLoader.OneDToTwoDArray(loadedMap.movesf6, 2);
+            ChooseAction(ref movesf6);
+        Array.Sort(moves);
+        foreach (int i in moves) {
             button_list[i].gameObject.SetActive(true);
         }
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
@@ -27,6 +59,21 @@ public class Choosebutton : MonoBehaviour
         // Debug.Log(Content.transform.position.x);
         // Debug.Log(Content.transform.position.y);
         // Debug.Log(Content.transform.position.z);
+    }
+
+    private void AddAction(ref int[] arr, int action) {
+        int[] newArr = new int[arr.GetLength(0)+1];
+        newArr[arr.GetLength(0)] = action;
+        for (int a = 0; a < arr.GetLength(0); a++) 
+            newArr[a] = arr[a];
+        arr = newArr;
+    }
+
+    private void ChooseAction(ref int[,] arr) {
+        for (int a = 0; a < arr.GetLength(0); a++) {
+            if (arr[a, 0] > 3 && arr[a, 0] != 7) 
+                AddAction(ref moves, arr[a, 0]);
+        }
     }
 
     public void Red_button() {

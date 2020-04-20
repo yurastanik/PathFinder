@@ -93,6 +93,7 @@ public class MapLoader : MonoBehaviour {
 public class Map {
     public int[] map;
     public int mapWidth;
+    public int[] colors;
     public int[] movesf1;
     public int[] movesf2;
     public int[] movesf3;

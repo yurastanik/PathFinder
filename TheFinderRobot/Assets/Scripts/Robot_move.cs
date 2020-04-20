@@ -40,6 +40,7 @@ public class Robot_move : MonoBehaviour {
     private void LoadMap() {
         loader = GameObject.Find("Map").GetComponent<MapLoader>();
         Map loadedMap = loader.GetMap();
+        
         card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
         movesf1 = MapLoader.OneDToTwoDArray(loadedMap.movesf1, 2);
         if (loadedMap.movesf2 != null) 
@@ -123,7 +124,7 @@ public class Robot_move : MonoBehaviour {
         arr = newArray;        
     }
 
-    private static void ResizeArray(ref int[,] arr, int newM) {
+    public static void ResizeArray(ref int[,] arr, int newM) {
         int[,] newArray = new int[arr.GetLength(0)+newM,2];
         for (int m = 0; m < arr.GetLength(0); m++) {
             for (int n = 0; n < arr.GetLength(1); n++) {

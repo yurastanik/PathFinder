@@ -12,14 +12,14 @@ public class Input_Class
     public enum Colors {
         White,
         Blue,
-        Red,
-        Green
+        Green,
+        Red
     }
     public enum Directs {
         stay,
         forward,
-        left,
         right,
+        left
     }
 
    public Input_Class(int color, int direct){
