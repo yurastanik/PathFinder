@@ -24,12 +24,12 @@ public class Choosebutton : MonoBehaviour
     private MapLoader loader;
     private int btn;
     private int fun;
-    [SerializeField] private Sprite[] s1;
+    public Sprite[] s1;
 
     public List<int> func_num = new List<int>();
 
 
-    private void Awake() {
+    public void Awake() {
         loader = GameObject.Find("Map").GetComponent<MapLoader>();
         Map loadedMap = loader.GetMap();
         colors = loadedMap.colors;
@@ -68,7 +68,7 @@ public class Choosebutton : MonoBehaviour
             button_list[i].gameObject.SetActive(true);
         }
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
-        Content.transform.position = new Vector3(Scrol.transform.position.x*2, Content.transform.position.y, Content.transform.position.z);
+        Content.transform.position = new Vector3(Scrol.transform.position.x*2F, Content.transform.position.y, Content.transform.position.z);
         // Debug.Log(Content.transform.position.x);
         // Debug.Log(Content.transform.position.y);
         // Debug.Log(Content.transform.position.z);

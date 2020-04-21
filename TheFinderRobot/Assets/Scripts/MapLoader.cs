@@ -14,7 +14,7 @@ public class MapLoader : MonoBehaviour {
 
 
     private void Awake() {
-        MapNext(7);
+        MapNext(6);
     }
 
     public void MapNext(int mapNum) {
