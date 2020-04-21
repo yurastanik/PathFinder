@@ -40,7 +40,6 @@ public class Robot_move : MonoBehaviour {
     private void LoadMap() {
         loader = GameObject.Find("Map").GetComponent<MapLoader>();
         Map loadedMap = loader.GetMap();
-        
         card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
         movesf1 = MapLoader.OneDToTwoDArray(loadedMap.movesf1, 2);
         if (loadedMap.movesf2 != null) 
@@ -69,7 +68,7 @@ public class Robot_move : MonoBehaviour {
     }
 
     private void Start() {
-        anim = GetComponent<Animator>();        
+        anim = GetComponent<Animator>();
         Level();
     }
 

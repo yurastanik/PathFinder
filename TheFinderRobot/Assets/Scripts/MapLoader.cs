@@ -14,7 +14,7 @@ public class MapLoader : MonoBehaviour {
 
 
     private void Awake() {
-        MapNext(1);
+        MapNext(7);
     }
 
     public void MapNext(int mapNum) {
@@ -43,7 +43,7 @@ public class MapLoader : MonoBehaviour {
             for (int x = 0; x < width; x++) {
                 col = map[(y * width) + x];
                 if (col != 0)
-                    CreateColumn(new Vector3Int(x * 2, 0, -(y * 2)), col);
+                    CreateColumn(new Vector3Int(x * 2, 0, y * -2), col);
             }
         }
     }

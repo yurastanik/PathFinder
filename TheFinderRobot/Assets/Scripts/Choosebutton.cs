@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ public class Choosebutton : MonoBehaviour
     private int fun;
     [SerializeField] private Sprite[] s1;
 
+    public List<int> func_num = new List<int>();
 
 
     private void Awake() {
@@ -35,21 +37,32 @@ public class Choosebutton : MonoBehaviour
             AddAction(ref moves, i);
         movesf1 = MapLoader.OneDToTwoDArray(loadedMap.movesf1, 2);
         ChooseAction(ref movesf1);
-        if (loadedMap.movesf2 != null) 
+        func_num.Add(movesf1.GetLength(0));
+        if (loadedMap.movesf2 != null) {
             movesf2 = MapLoader.OneDToTwoDArray(loadedMap.movesf2, 2);
             ChooseAction(ref movesf2);
-        if (loadedMap.movesf3 != null) 
+            func_num.Add(movesf2.GetLength(0));
+        }
+        if (loadedMap.movesf3 != null) {
             movesf3 = MapLoader.OneDToTwoDArray(loadedMap.movesf3, 2);
             ChooseAction(ref movesf3);
-        if (loadedMap.movesf4 != null) 
+            func_num.Add(movesf3.GetLength(0));
+        }
+        if (loadedMap.movesf4 != null) {
             movesf4 = MapLoader.OneDToTwoDArray(loadedMap.movesf4, 2);
             ChooseAction(ref movesf4);
-        if (loadedMap.movesf5 != null) 
+            func_num.Add(movesf4.GetLength(0));
+        }
+        if (loadedMap.movesf5 != null) {
             movesf5 = MapLoader.OneDToTwoDArray(loadedMap.movesf5, 2);
             ChooseAction(ref movesf5);
-        if (loadedMap.movesf6 != null)
+            func_num.Add(movesf5.GetLength(0));
+        }
+        if (loadedMap.movesf6 != null) {
             movesf6 = MapLoader.OneDToTwoDArray(loadedMap.movesf6, 2);
             ChooseAction(ref movesf6);
+            func_num.Add(movesf6.GetLength(0));
+        }
         Array.Sort(moves);
         foreach (int i in moves) {
             button_list[i].gameObject.SetActive(true);
@@ -77,51 +90,39 @@ public class Choosebutton : MonoBehaviour
     }
 
     public void Red_button() {
-        if (InputField.GetComponent<Inputbuttons>().touch == true) {
             btn = InputField.GetComponent<Inputbuttons>().button;
             fun = InputField.GetComponent<Inputbuttons>().func;
             InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
             Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = (int) Input_Class.Colors.Red;
-        }
     }
     public void Blue_button() {
-        if (InputField.GetComponent<Inputbuttons>().touch == true) {
             btn = InputField.GetComponent<Inputbuttons>().button;
             fun = InputField.GetComponent<Inputbuttons>().func;
             InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = new Color(0.2763439F, 0.6294675F, 0.8490566F, 1F);
             Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = (int) Input_Class.Colors.Blue;
-        }
     }
     public void Green_button() {
-        if (InputField.GetComponent<Inputbuttons>().touch == true) {
             btn = InputField.GetComponent<Inputbuttons>().button;
             fun = InputField.GetComponent<Inputbuttons>().func;
             InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = new Color(0.3551086F, 0.7169812F,0.3980731F, 1F);
             Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = (int) Input_Class.Colors.Green;
-        }
     }
     public void Top_button() {
-        if (InputField.GetComponent<Inputbuttons>().touch == true) {
             btn = InputField.GetComponent<Inputbuttons>().button;
             fun = InputField.GetComponent<Inputbuttons>().func;
             InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[2];
             Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.forward;
-        }
     }
     public void Left_button() {
-        if (InputField.GetComponent<Inputbuttons>().touch == true) {
             btn = InputField.GetComponent<Inputbuttons>().button;
             fun = InputField.GetComponent<Inputbuttons>().func;
             InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[1];
             Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.left;
-        }
     }
     public void Right_button() {
-        if (InputField.GetComponent<Inputbuttons>().touch == true) {
             btn = InputField.GetComponent<Inputbuttons>().button;
             InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[3];
             fun = InputField.GetComponent<Inputbuttons>().func;
             Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.right;
-        }
     }
 }
