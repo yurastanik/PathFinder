@@ -121,12 +121,13 @@ public class Inputbuttons : MonoBehaviour
     private void func_six() {
         FuncButton(ref func, 5);
     }
+
     private void FuncButton(ref int func_num, int but) {
         if (func_num != but) {
             func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)/1.2F, func_list[func_num].GetComponent<RectTransform>().rect.height/1.2F);
             func_num = but;
             move_func = true;
-            func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)*1.1F, func_list[func_num].GetComponent<RectTransform>().rect.height*1.2F);
+            func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)*1.2F, func_list[func_num].GetComponent<RectTransform>().rect.height*1.2F);
             delta_transofrm_x = firs_pos;
             button_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(width_frame, height_frame);
             for (int i = 0; i < buton_num; i++) {
@@ -153,7 +154,10 @@ public class Inputbuttons : MonoBehaviour
                 seven_activate();
             else if (buton_num == 8)
                 eight_activate();
-            Buttonact(ref button, 0, false);
+            if (buton_num >= 7)
+                Buttonact(ref button, 0, false);
+            else 
+                Buttonact(ref button, 0, true);
             for (int i = 0; i < buton_num; i++) {
                 if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].color == (int) Input_Class.Colors.Red)
                     button_list[i].image.color = new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
