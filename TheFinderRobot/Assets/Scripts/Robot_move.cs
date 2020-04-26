@@ -576,7 +576,6 @@ public class Robot_move : MonoBehaviour {
         yield return new WaitWhile(() => switchLst);
         button.DestroyPrefab(true, isDel);
         for (int a = 0; a < movesf1.GetLength(0); a++) {
-            button.LeftCenter();
             StartCoroutine(button.CreatePrefab(movesf1[a, 1], movesf1[a, 0]));
         }
         for (int a = 0; a < quene.GetLength(0); a++) {

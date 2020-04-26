@@ -34,16 +34,6 @@ public class Choosebutton : MonoBehaviour
     private int btn;
     private int fun;
     public Sprite[] s1;
-    private Dictionary<int,int> movenums = new Dictionary<int,int> {
-        {1, 7},
-        {2, 8},
-        {3, 6},
-        {7, 1},
-        {8, 2},
-        {9, 3},
-        {10, 4},
-        {11, 5}
-    };
     public List<int> func_num = new List<int>();
 
 
@@ -111,11 +101,9 @@ public class Choosebutton : MonoBehaviour
             ChooseAction(ref movesf6);
             func_num.Add(movesf6.GetLength(0));
         }
-        //Array.Sort(moves);
         foreach (int i in moves) {
             button_list[i].gameObject.SetActive(true);
         }
-        Content.transform.position = new Vector3(Scrol.transform.position.x*2F, Content.transform.position.y, Content.transform.position.z);
     }
 
     private void AddAction(ref int[] arr, int action) {
@@ -143,36 +131,27 @@ public class Choosebutton : MonoBehaviour
         scroll.content = pict;
     }
 
-    public void LeftCenter() {
-        // Debug.Log("f");
-        // RectTransform PrefabPos = ContentPrefab.GetComponent<RectTransform>();
-        // Debug.Log("x");
-        // PrefabPos.localPosition = new Vector3(94.46823f, PrefabPos.localPosition.y, 0);
-        //ContentPrefab.transform.position = new Vector3(Scrol.transform.position.x*-2F, ContentPrefab.transform.position.y, ContentPrefab.transform.position.z);
-
-    
-
-   
-    }
-
     public void DestroyPrefab(bool all, bool func) {
-        int k = 0;
-        foreach (Transform child in ContentPrefab.transform) {
-            if (func) {
-                if (k == 0) {
-                    k += 1;
-                    continue;
-                }
-                else
-                    GameObject.Destroy(child.gameObject);
-            }
-            else
-                GameObject.Destroy(child.gameObject);
-            if (all) 
-                continue;
-            else
-                break;
+        if (func) {
+            Transform child = ContentPrefab.transform.GetChild(0);
+            StartCoroutine(UnvisiblePrefab(child));
         }
+        // foreach (Transform child in ContentPrefab.transform) {
+        //     if (func) {
+        //         if (k == 0) {
+        //             k += 1;
+        //             continue;
+        //         }
+        //         else
+                    
+        //     }
+        //     else
+        //         StartCoroutine(UnvisiblePrefab(child));
+        //     if (all) 
+        //         continue;
+        //     else
+        //         break;
+        // }
     }
 
     public void ReturnAll() {
@@ -185,6 +164,19 @@ public class Choosebutton : MonoBehaviour
         panelka.localPosition = new Vector3(-29, -477.525f, 0);
         panelka.sizeDelta = new Vector2(0, -24.35027f);
         scroll.content = pict;
+    }
+
+    public IEnumerator UnvisiblePrefab(Transform child) {
+        Image background;
+        background = child.GetComponent<Image>();
+        Color color = background.color;
+        for (float f = 0.95f; f >= 0; f -= 0.05f) {
+            color.a = f;
+            background.color = color;
+            yield return new WaitForSeconds(0.05f);
+        }
+        GameObject.Destroy(child.gameObject);
+        yield break;
     }
 
     public static Color ColorGetting(int color) {
@@ -225,19 +217,15 @@ public class Choosebutton : MonoBehaviour
         newChild.transform.parent = ContentPrefab.transform;
         newChild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
         Image background;
-        Transform[] childs = newChild.GetComponentsInChildren<Transform>();
-        for (int i = 0; i < childs.Length; i++) {
-            if (childs[i].name == "not_empty 1") {
-                background = childs[i].GetComponent<Image>();
-                Color color = ColorGetting(col);
-                for (float f = 0.05f; f <= 1; f += 0.05f) {
-                    color.a = f;
-                    background.color = color;
-                    yield return new WaitForSeconds(0.05f);
-                }
-                yield break;
-            }
+        background = newChild.GetComponent<Image>();
+        Color color = ColorGetting(col);
+        for (float f = 0.05f; f <= 1; f += 0.05f) {
+            color.a = f;
+            background.color = color;
+            yield return new WaitForSeconds(0.05f);
         }
+        yield break;
+        
     }
 
     public void Red_button() {
