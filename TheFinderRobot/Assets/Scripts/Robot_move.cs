@@ -16,8 +16,8 @@ public class Robot_move : MonoBehaviour {
     private int[,] targets;
     private Vector2Int startPos;
     private string currentDirection;
-    private Animator anim;    
-    private MapLoader loader;    
+    private Animator anim;
+    private MapLoader loader;
     private Vector3 positionToRun;
     private Quaternion currentPosLR;
     private Vector3 firstPos;
@@ -497,6 +497,7 @@ public class Robot_move : MonoBehaviour {
         yield return new WaitWhile(() => switchLst);
         for (i = 0; i <= quene.GetLength(0); i++) {
             if (isActive) {
+                Debug.Log("quene");
                 movename = "Other";
                 Vector3 currentPosRun = anim.transform.position;
                 if (quene[movenum, 1] == card[startPos.x, startPos.y] || quene[movenum, 1] == 0 || quene[movenum, 0] == 4) {
@@ -529,7 +530,8 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else
-                    button.DestroyPrefab();
+                    StartCoroutine(button.DestroyPrefab());
+                    yield return new WaitWhile(() => button.fade);
             }
             else {
                 if (winner) {
@@ -580,9 +582,10 @@ public class Robot_move : MonoBehaviour {
         }
         for (i = 0; i < movesf1.GetLength(0); i++) {
             if (isActive) {
+                Debug.Log("chosi");
                 if (isDel) {
                     yield return new WaitForSeconds(0.5f);
-                    button.DestroyPrefab();
+                    StartCoroutine(button.DestroyPrefab());
                     isDel = false;
                 }
                 movename = "Other";
@@ -616,8 +619,14 @@ public class Robot_move : MonoBehaviour {
                 }
                 if (switchLst)
                     isDel = true;
-                else
-                    button.DestroyPrefab();
+                else {
+                    Debug.Log("stat");
+                   // Image background;
+                   // background = child.GetComponent<Image>();
+                    StartCoroutine(button.DestroyPrefab());
+                    yield return new WaitWhile(() => button.fade);
+                   // GameObject.Destroy(child.gameObject);
+                }
             }
             else {
                 if (winner) {

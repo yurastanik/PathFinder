@@ -34,6 +34,7 @@ public class Choosebutton : MonoBehaviour
     private int btn;
     private int fun;
     public Sprite[] s1;
+    public bool fade = false;
     public List<int> func_num = new List<int>();
 
 
@@ -131,9 +132,13 @@ public class Choosebutton : MonoBehaviour
         scroll.content = pict;
     }
 
-    public void DestroyPrefab(int num = 0) {
+    public IEnumerator DestroyPrefab(int num = 0) {
         Transform child = ContentPrefab.transform.GetChild(num);
         StartCoroutine(UnvisiblePrefab(child));
+        // yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
+        // yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
+        // GameObject.Destroy(child.gameObject);
+        yield break;
     }
 
     public void ReturnAll() {
@@ -149,20 +154,20 @@ public class Choosebutton : MonoBehaviour
     }
 
     public IEnumerator UnvisiblePrefab(Transform child) {
+        fade = true;
+        Debug.Log("start " + child.name);
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
         for (float f = 0.95f; f >= 0; f -= 0.05f) {
             color.a = f;
-            try {
-                background.color = color;
-            }
-            catch(MissingReferenceException) {
-                Debug.Log(child.name);
-            }
+            background.color = color;
             yield return new WaitForSeconds(0.05f);
         }
+        Debug.Log("end " + child.name);
         GameObject.Destroy(child.gameObject);
+        fade = false;
+        yield break;
     }
 
     public static Color ColorGetting(int color) {
@@ -212,7 +217,7 @@ public class Choosebutton : MonoBehaviour
             background.color = color;
             yield return new WaitForSeconds(0.05f);
         }
-        yield break;        
+        yield break;
     }
 
     public void ForFunc(int que) {
