@@ -77,10 +77,15 @@ public class Robot_move : MonoBehaviour {
     }
 
     public void Start() {
+        ForTest();
+        ForTest(15);
         anim = GetComponent<Animator>();
         Level();
     }
 
+    public void ForTest(int i = 12) {
+        Debug.Log(i);
+    }
 
     private void Update() {
         if (Input.GetKeyUp(KeyCode.Alpha6))
@@ -490,10 +495,6 @@ public class Robot_move : MonoBehaviour {
 
     private IEnumerator MovesHandlerQuene() {
         yield return new WaitWhile(() => switchLst);
-        //button.DestroyPrefab(true);
-        for (int a = 0; a < quene.GetLength(0); a++) {
-            button.CreatePrefab(quene[a, 1], quene[a, 0]); 
-        }
         for (i = 0; i <= quene.GetLength(0); i++) {
             if (isActive) {
                 movename = "Other";
@@ -528,7 +529,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else
-                    button.DestroyPrefab(false, isDel);
+                    button.DestroyPrefab();
             }
             else {
                 if (winner) {
@@ -574,18 +575,14 @@ public class Robot_move : MonoBehaviour {
 
     private IEnumerator MovesHandlerF1() {
         yield return new WaitWhile(() => switchLst);
-        button.DestroyPrefab(true, isDel);
         for (int a = 0; a < movesf1.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(movesf1[a, 1], movesf1[a, 0]));
-        }
-        for (int a = 0; a < quene.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(quene[a, 1], quene[a, 0])); 
+            StartCoroutine(button.CreatePrefab(movesf1[a, 1], movesf1[a, 0], quene.GetLength(0), a+1));
         }
         for (i = 0; i < movesf1.GetLength(0); i++) {
             if (isActive) {
                 if (isDel) {
                     yield return new WaitForSeconds(0.5f);
-                    button.DestroyPrefab(false, false);
+                    button.DestroyPrefab();
                     isDel = false;
                 }
                 movename = "Other";
@@ -620,7 +617,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else
-                    button.DestroyPrefab(false, isDel);
+                    button.DestroyPrefab();
             }
             else {
                 if (winner) {
@@ -673,18 +670,14 @@ public class Robot_move : MonoBehaviour {
 
     private IEnumerator MovesHandlerF2() {
         yield return new WaitWhile(() => switchLst);
-        button.DestroyPrefab(true, isDel);
         for (int a = 0; a < movesf2.GetLength(0); a++) {
-            button.CreatePrefab(movesf2[a, 1], movesf2[a, 0]); 
-        }
-        for (int a = 0; a < quene.GetLength(0); a++) {
-            button.CreatePrefab(quene[a, 1], quene[a, 0]); 
+            StartCoroutine(button.CreatePrefab(movesf2[a, 1], movesf2[a, 0], quene.GetLength(0), a));
         }
         for (i = 0; i < movesf2.GetLength(0); i++) {
             if (isActive) {
                 if (isDel) {
-                    yield return new WaitForSeconds(0.5f);
-                    button.DestroyPrefab(false, false);
+                    yield return new WaitForSeconds(0.3f);
+                    button.DestroyPrefab();
                     isDel = false;
                 }
                 movename = "Other";
@@ -719,7 +712,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else
-                    button.DestroyPrefab(false, isDel);
+                    button.DestroyPrefab();
             }
             else {
                 if (winner) {
@@ -772,18 +765,14 @@ public class Robot_move : MonoBehaviour {
 
     private IEnumerator MovesHandlerF3() {
         yield return new WaitWhile(() => switchLst);
-        button.DestroyPrefab(true, isDel);
         for (int a = 0; a < movesf3.GetLength(0); a++) {
-            button.CreatePrefab(movesf3[a, 1], movesf3[a, 0]); 
-        }
-        for (int a = 0; a < quene.GetLength(0); a++) {
-            button.CreatePrefab(quene[a, 1], quene[a, 0]); 
-        }
+            StartCoroutine(button.CreatePrefab(movesf3[a, 1], movesf3[a, 0], quene.GetLength(0), a+1));
+        }        
         for (i = 0; i < movesf3.GetLength(0); i++) {
             if (isActive) {
                 if (isDel) {
-                    yield return new WaitForSeconds(0.5f);
-                    button.DestroyPrefab(false, false);
+                    yield return new WaitForSeconds(1f);
+                    button.DestroyPrefab();
                     isDel = false;
                 }
                 movename = "Other";
@@ -818,7 +807,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else
-                    button.DestroyPrefab(false, isDel);
+                    button.DestroyPrefab();
             }
             else {
                 if (winner) {
@@ -871,19 +860,15 @@ public class Robot_move : MonoBehaviour {
 
     private IEnumerator MovesHandlerF4() {
         yield return new WaitWhile(() => switchLst);
-        button.DestroyPrefab(true, isDel);
         for (int a = 0; a < movesf4.GetLength(0); a++) {
-            button.CreatePrefab(movesf4[a, 1], movesf4[a, 0]); 
-        }
-        for (int a = 0; a < quene.GetLength(0); a++) {
-            button.CreatePrefab(quene[a, 1], quene[a, 0]); 
+            StartCoroutine(button.CreatePrefab(movesf4[a, 1], movesf4[a, 0], quene.GetLength(0), a));
         }
         yield return new WaitWhile(() => switchLst);
         for (i = 0; i < movesf4.GetLength(0); i++) {
             if (isActive) {
                 if (isDel) {
-                    yield return new WaitForSeconds(0.5f);
-                    button.DestroyPrefab(false, false);
+                    yield return new WaitForSeconds(0.3f);
+                    button.DestroyPrefab();
                     isDel = false;
                 }
                 movename = "Other";
@@ -918,7 +903,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else
-                    button.DestroyPrefab(false, isDel);
+                    button.DestroyPrefab();
             }
             else {
                 if (winner) {
@@ -971,18 +956,14 @@ public class Robot_move : MonoBehaviour {
 
     private IEnumerator MovesHandlerF5() {
         yield return new WaitWhile(() => switchLst);
-        button.DestroyPrefab(true, isDel);
         for (int a = 0; a < movesf5.GetLength(0); a++) {
-            button.CreatePrefab(movesf5[a, 1], movesf5[a, 0]); 
-        }
-        for (int a = 0; a < quene.GetLength(0); a++) {
-            button.CreatePrefab(quene[a, 1], quene[a, 0]); 
+            StartCoroutine(button.CreatePrefab(movesf5[a, 1], movesf5[a, 0], quene.GetLength(0), a));
         }
         for (i = 0; i < movesf5.GetLength(0); i++) {
             if (isActive) {
                 if (isDel) {
-                    yield return new WaitForSeconds(0.5f);
-                    button.DestroyPrefab(false, false);
+                    yield return new WaitForSeconds(0.3f);
+                    button.DestroyPrefab();
                     isDel = false;
                 }
                 movename = "Other";
@@ -1017,7 +998,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else
-                    button.DestroyPrefab(false, isDel);
+                    button.DestroyPrefab();
             }
             else {
                 if (winner) {

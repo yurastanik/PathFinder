@@ -131,27 +131,9 @@ public class Choosebutton : MonoBehaviour
         scroll.content = pict;
     }
 
-    public void DestroyPrefab(bool all, bool func) {
-        if (func) {
-            Transform child = ContentPrefab.transform.GetChild(0);
-            StartCoroutine(UnvisiblePrefab(child));
-        }
-        // foreach (Transform child in ContentPrefab.transform) {
-        //     if (func) {
-        //         if (k == 0) {
-        //             k += 1;
-        //             continue;
-        //         }
-        //         else
-                    
-        //     }
-        //     else
-        //         StartCoroutine(UnvisiblePrefab(child));
-        //     if (all) 
-        //         continue;
-        //     else
-        //         break;
-        // }
+    public void DestroyPrefab(int num = 0) {
+        Transform child = ContentPrefab.transform.GetChild(num);
+        StartCoroutine(UnvisiblePrefab(child));
     }
 
     public void ReturnAll() {
@@ -172,11 +154,15 @@ public class Choosebutton : MonoBehaviour
         Color color = background.color;
         for (float f = 0.95f; f >= 0; f -= 0.05f) {
             color.a = f;
-            background.color = color;
+            try {
+                background.color = color;
+            }
+            catch(MissingReferenceException) {
+                Debug.Log(child.name);
+            }
             yield return new WaitForSeconds(0.05f);
         }
         GameObject.Destroy(child.gameObject);
-        yield break;
     }
 
     public static Color ColorGetting(int color) {
@@ -211,7 +197,7 @@ public class Choosebutton : MonoBehaviour
                 return f5;
     }
 
-    public IEnumerator CreatePrefab(int col, int moven) {
+    public IEnumerator CreatePrefab(int col, int moven, int check, int num) {
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
         newChild.transform.parent = ContentPrefab.transform;
@@ -219,13 +205,20 @@ public class Choosebutton : MonoBehaviour
         Image background;
         background = newChild.GetComponent<Image>();
         Color color = ColorGetting(col);
+        if (check >= 1)
+            ForFunc(num);
         for (float f = 0.05f; f <= 1; f += 0.05f) {
             color.a = f;
             background.color = color;
             yield return new WaitForSeconds(0.05f);
         }
-        yield break;
-        
+        yield break;        
+    }
+
+    public void ForFunc(int que) {
+        Transform fath = ContentPrefab.transform;
+        int childs = fath.childCount;
+        fath.GetChild(childs-1).GetComponent<RectTransform>().SetSiblingIndex(que);
     }
 
     public void Red_button() {
