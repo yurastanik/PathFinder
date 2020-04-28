@@ -24,6 +24,7 @@ public class Robot_move : MonoBehaviour {
     bool isPause = false;
     string movename;
 
+    public float fade_speed = 0.03f;
     public bool readyToStart = true;
     bool isActive = false;
     bool isDel = false;
@@ -34,6 +35,7 @@ public class Robot_move : MonoBehaviour {
     int movenum = 0;
     int winnum = 0;
     int currentMap = 1;
+    private int[,] allarrays;
     private int[,] movesf2;
     private int[,] movesf3;
     private int[,] movesf4;
@@ -71,20 +73,15 @@ public class Robot_move : MonoBehaviour {
             movesf5 = moves5;
             isActive = true;
             readyToStart = false;
-            StopCoroutine(MovesHandlerF1());
-            StartCoroutine(MovesHandlerF1());
+            allarrays = movesf1;
+            StopCoroutine(MovesHandler());
+            StartCoroutine(MovesHandler());
         }
     }
 
     public void Start() {
-        ForTest();
-        ForTest(15);
         anim = GetComponent<Animator>();
         Level();
-    }
-
-    public void ForTest(int i = 12) {
-        Debug.Log(i);
     }
 
     private void Update() {
@@ -100,22 +97,18 @@ public class Robot_move : MonoBehaviour {
                 isPause = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha7))
-            anim.speed = 7;
-        if (Input.GetKeyUp(KeyCode.Alpha8))
-            anim.speed = 8;
-        if (Input.GetKeyUp(KeyCode.Alpha9))
-            anim.speed = 9;
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-            anim.speed = 1;
-        if (Input.GetKeyUp(KeyCode.Alpha4))
-            anim.speed = 4;
-        if (Input.GetKeyUp(KeyCode.Alpha5))
-            anim.speed = 5;
-        if (Input.GetKeyUp(KeyCode.Alpha2))
-            anim.speed = 2;        
-        if (Input.GetKeyUp(KeyCode.Alpha3)) 
-            anim.speed = 3;
+        if (Input.GetKeyUp(KeyCode.Alpha2)) {
+            Time.timeScale = 4;
+            fade_speed = 0.02f;
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha3)) {
+            Time.timeScale = 6;
+            fade_speed = 0.015f;
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha1)) {
+            Time.timeScale = 2;
+            fade_speed = 0.03f;
+        }
     }
 
     private static void SizeReArray(ref int[,] arr, int num) {
@@ -231,7 +224,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF1());                
+                allarrays = movesf1;            
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
@@ -242,7 +235,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF1());
+                allarrays = movesf1;
             }
         }
         else if (arr[movenum, 0] == 8) {
@@ -252,7 +245,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF2());
+                allarrays = movesf2; 
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
@@ -263,7 +256,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF2());
+                allarrays = movesf2; 
             }
         }
         else if (arr[movenum, 0] == 9) {
@@ -273,7 +266,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF3());
+                allarrays = movesf3;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
@@ -284,7 +277,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF3());
+                allarrays = movesf3; 
             }
         }
         else if (arr[movenum, 0] == 10) {
@@ -294,7 +287,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF4());
+                allarrays = movesf4;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
@@ -305,7 +298,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF4());
+                allarrays = movesf4;
             }
         }
         else if (arr[movenum, 0] == 11) {
@@ -315,7 +308,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF5());
+                allarrays = movesf5; 
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
@@ -326,7 +319,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                StartCoroutine(MovesHandlerF5());               
+                allarrays = movesf5;
             }
         }
     }
@@ -497,7 +490,6 @@ public class Robot_move : MonoBehaviour {
         yield return new WaitWhile(() => switchLst);
         for (i = 0; i <= quene.GetLength(0); i++) {
             if (isActive) {
-                Debug.Log("quene");
                 movename = "Other";
                 Vector3 currentPosRun = anim.transform.position;
                 if (quene[movenum, 1] == card[startPos.x, startPos.y] || quene[movenum, 1] == 0 || quene[movenum, 0] == 4) {
@@ -506,7 +498,7 @@ public class Robot_move : MonoBehaviour {
                         currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
                     else {
                         var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, currentPosRun.y, currentPosRun.z + newpos.y);
+                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + newpos.y);
                     }
                 } 
                 CheckMoveType(ref quene);
@@ -518,20 +510,18 @@ public class Robot_move : MonoBehaviour {
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
                     else if (movename == "Right") 
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
-                    else
-                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 2);
+                    else {
+                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);
+                    }
                 }
-                if (movename == "Scratch") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (movename == "Other") {
-                    yield return new WaitForSeconds(0.5f);
-                }
+                else if (movename == "Scratch") 
+                    yield return new WaitForSeconds(0.1f);
                 if (switchLst)
                     isDel = true;
-                else
-                    StartCoroutine(button.DestroyPrefab());
+                else {
+                    button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
+                }
             }
             else {
                 if (winner) {
@@ -560,10 +550,10 @@ public class Robot_move : MonoBehaviour {
                     func.gameObject.SetActive(true);
                     yield break;
                 }
-            }
+            }            
             if (switchLst) {
-                yield return new WaitForSeconds(0.5f);
                 switchLst = false;
+                StartCoroutine(MovesHandler());
                 yield break;
             }
         }
@@ -573,59 +563,53 @@ public class Robot_move : MonoBehaviour {
         button.ReturnAll();
         func.gameObject.SetActive(true);
         yield break;
-    }
+    }   
 
-    private IEnumerator MovesHandlerF1() {
+    private IEnumerator MovesHandler() {
         yield return new WaitWhile(() => switchLst);
-        for (int a = 0; a < movesf1.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(movesf1[a, 1], movesf1[a, 0], quene.GetLength(0), a+1));
+        for (int a = 0; a < allarrays.GetLength(0); a++) {
+            StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], quene.GetLength(0), a+1));
         }
-        for (i = 0; i < movesf1.GetLength(0); i++) {
+        for (i = 0; i < allarrays.GetLength(0); i++) {
             if (isActive) {
-                Debug.Log("chosi");
                 if (isDel) {
-                    yield return new WaitForSeconds(0.5f);
-                    StartCoroutine(button.DestroyPrefab());
+                    button.DestroyPrefab();
+                    yield return new WaitWhile(() => button.fade);
                     isDel = false;
                 }
                 movename = "Other";
                 Vector3 currentPosRun = anim.transform.position;
-                if (movesf1[movenum, 1] == card[startPos.x, startPos.y] || movesf1[movenum, 1] == 0 || movesf1[movenum, 0] == 4) {
-                    movename = IntToMove(movesf1[movenum, 0], false);
+                if (allarrays[movenum, 1] == card[startPos.x, startPos.y] || allarrays[movenum, 1] == 0 || allarrays[movenum, 0] == 4) {
+                    movename = IntToMove(allarrays[movenum, 0], false);
                     if (movename == "Left" || movename == "Right") 
                         currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
                     else {
                         var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, currentPosRun.y, currentPosRun.z + newpos.y);
+                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + newpos.y);
                     }
                 } 
-                CheckMoveType(ref movesf1);
+                CheckMoveType(ref allarrays);
                 movenum += 1;
                 if (movename != "Other" && movename != "Scratch") {
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    if (movename == "Left") 
+                    Vector3 Pos = anim.transform.position;
+                    if (movename == "Left") {            
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
-                    else if (movename == "Right") 
+                    }
+                    else if (movename == "Right") {
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
+                    }
                     else
-                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 2);
+                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);
                 }
-                if (movename == "Scratch") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (movename == "Other") {
-                    yield return new WaitForSeconds(0.5f);
-                }
+                else if (movename == "Scratch") 
+                    yield return new WaitForSeconds(0.1f);
                 if (switchLst)
                     isDel = true;
                 else {
-                    Debug.Log("stat");
-                   // Image background;
-                   // background = child.GetComponent<Image>();
-                    StartCoroutine(button.DestroyPrefab());
+                    button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
-                   // GameObject.Destroy(child.gameObject);
                 }
             }
             else {
@@ -657,8 +641,8 @@ public class Robot_move : MonoBehaviour {
                 }
             }
             if (switchLst) {
-                yield return new WaitForSeconds(0.5f);
                 switchLst = false;
+                StartCoroutine(MovesHandler());
                 yield break;
             }
         }
@@ -676,385 +660,4 @@ public class Robot_move : MonoBehaviour {
             yield break;
         }
     }
-
-    private IEnumerator MovesHandlerF2() {
-        yield return new WaitWhile(() => switchLst);
-        for (int a = 0; a < movesf2.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(movesf2[a, 1], movesf2[a, 0], quene.GetLength(0), a));
-        }
-        for (i = 0; i < movesf2.GetLength(0); i++) {
-            if (isActive) {
-                if (isDel) {
-                    yield return new WaitForSeconds(0.3f);
-                    button.DestroyPrefab();
-                    isDel = false;
-                }
-                movename = "Other";
-                Vector3 currentPosRun = anim.transform.position;
-                if (movesf2[movenum, 1] == card[startPos.x, startPos.y] || movesf2[movenum, 1] == 0 || movesf2[movenum, 0] == 4) {
-                    movename = IntToMove(movesf2[movenum, 0], false);
-                    if (movename == "Left" || movename == "Right") 
-                        currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
-                    else {
-                        var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, currentPosRun.y, currentPosRun.z + newpos.y);
-                    }
-                } 
-                CheckMoveType(ref movesf2);
-                movenum += 1;
-                if (movename != "Other" && movename != "Scratch") {
-                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    if (movename == "Left") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
-                    else if (movename == "Right") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
-                    else
-                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 2);
-                }
-                if (movename == "Scratch") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (movename == "Other") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (switchLst)
-                    isDel = true;
-                else
-                    button.DestroyPrefab();
-            }
-            else {
-                if (winner) {
-                    yield return new WaitForSeconds(0.5f);
-                    i = 0;
-                    try{
-                        loader.MapNext(currentMap); 
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);
-                        button.ButtonLoad(false);    
-                        func.FuncLoad(false);
-                        input.ReStart();               
-                    }
-                    catch(FileNotFoundException e) {
-                        Debug.Log(e);
-                    }
-                    Level();
-                    yield break;
-                }
-                else if (looser) {
-                        anim.Play("Fall");
-                        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        Level();
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);
-                        yield break;                
-                }
-            }
-            if (switchLst) {
-                yield return new WaitForSeconds(0.5f);
-                switchLst = false;
-                yield break;
-            }
-        }
-        if (quene.GetLength(0) >= 1) {
-            movenum = 0;
-            StartCoroutine(MovesHandlerQuene());
-            yield break;
-        }
-        else {
-            Debug.Log("You Lose!!!");
-            yield return new WaitForSeconds(0.7f);
-            Level();
-            button.ReturnAll();
-            func.gameObject.SetActive(true);
-            yield break;
-        }
-    }
-
-    private IEnumerator MovesHandlerF3() {
-        yield return new WaitWhile(() => switchLst);
-        for (int a = 0; a < movesf3.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(movesf3[a, 1], movesf3[a, 0], quene.GetLength(0), a+1));
-        }        
-        for (i = 0; i < movesf3.GetLength(0); i++) {
-            if (isActive) {
-                if (isDel) {
-                    yield return new WaitForSeconds(1f);
-                    button.DestroyPrefab();
-                    isDel = false;
-                }
-                movename = "Other";
-                Vector3 currentPosRun = anim.transform.position;
-                if (movesf3[movenum, 1] == card[startPos.x, startPos.y] || movesf3[movenum, 1] == 0 || movesf3[movenum, 0] == 4) {
-                    movename = IntToMove(movesf3[movenum, 0], false);
-                    if (movename == "Left" || movename == "Right") 
-                        currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
-                    else {
-                        var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, currentPosRun.y, currentPosRun.z + newpos.y);
-                    }
-                } 
-                CheckMoveType(ref movesf3);
-                movenum += 1;
-                if (movename != "Other" && movename != "Scratch") {
-                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    if (movename == "Left") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
-                    else if (movename == "Right") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
-                    else
-                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 2);
-                }
-                if (movename == "Scratch") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (movename == "Other") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (switchLst)
-                    isDel = true;
-                else
-                    button.DestroyPrefab();
-            }
-            else {
-                if (winner) {
-                    yield return new WaitForSeconds(0.5f);
-                    i = 0;
-                    try{
-                        loader.MapNext(currentMap); 
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);
-                        button.ButtonLoad(false);   
-                        func.FuncLoad(false); 
-                        input.ReStart();                
-                    }
-                    catch(FileNotFoundException e) {
-                        Debug.Log(e);
-                    }
-                    Level();
-                    yield break;
-                }
-                else if (looser) {
-                        anim.Play("Fall");
-                        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        Level();
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);
-                        yield break;                
-                }
-            }
-            if (switchLst) {
-                yield return new WaitForSeconds(0.5f);
-                switchLst = false;
-                yield break;
-            }
-        }
-        if (quene.GetLength(0) >= 1) {
-            movenum = 0;
-            StartCoroutine(MovesHandlerQuene());
-            yield break;
-        }
-        else {
-            Debug.Log("You Lose!!!");
-            yield return new WaitForSeconds(0.7f);
-            Level();
-            button.ReturnAll();
-            func.gameObject.SetActive(true);
-            yield break;
-        }
-    }
-
-    private IEnumerator MovesHandlerF4() {
-        yield return new WaitWhile(() => switchLst);
-        for (int a = 0; a < movesf4.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(movesf4[a, 1], movesf4[a, 0], quene.GetLength(0), a));
-        }
-        yield return new WaitWhile(() => switchLst);
-        for (i = 0; i < movesf4.GetLength(0); i++) {
-            if (isActive) {
-                if (isDel) {
-                    yield return new WaitForSeconds(0.3f);
-                    button.DestroyPrefab();
-                    isDel = false;
-                }
-                movename = "Other";
-                Vector3 currentPosRun = anim.transform.position;
-                if (movesf4[movenum, 1] == card[startPos.x, startPos.y] || movesf4[movenum, 1] == 0 || movesf4[movenum, 0] == 4) {
-                    movename = IntToMove(movesf4[movenum, 0], false);
-                    if (movename == "Left" || movename == "Right") 
-                        currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
-                    else {
-                        var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, currentPosRun.y, currentPosRun.z + newpos.y);
-                    }
-                } 
-                CheckMoveType(ref movesf4);
-                movenum += 1;
-                if (movename != "Other" && movename != "Scratch") {
-                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    if (movename == "Left") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
-                    else if (movename == "Right") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
-                    else
-                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 2);
-                }
-                if (movename == "Scratch") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (movename == "Other") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (switchLst)
-                    isDel = true;
-                else
-                    button.DestroyPrefab();
-            }
-            else {
-                if (winner) {
-                    yield return new WaitForSeconds(0.5f);
-                    i = 0;
-                    try{
-                        loader.MapNext(currentMap);
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);  
-                        button.ButtonLoad(false);    
-                        func.FuncLoad(false);
-                        input.ReStart();               
-                    }
-                    catch(FileNotFoundException e) {
-                        Debug.Log(e);
-                    }
-                    Level();
-                    yield break;
-                }
-                else if (looser) { 
-                        anim.Play("Fall");
-                        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        Level();
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);
-                        yield break;                
-                }
-            }
-            if (switchLst) {
-                yield return new WaitForSeconds(0.5f);
-                switchLst = false;
-                yield break;
-            }
-        }
-        if (quene.GetLength(0) >= 1) {
-            movenum = 0;
-            StartCoroutine(MovesHandlerQuene());
-            yield break;
-        }
-        else {
-            Debug.Log("You Lose!!!");
-            yield return new WaitForSeconds(0.7f);
-            Level();
-            button.ReturnAll();
-            func.gameObject.SetActive(true);
-            yield break;
-        }
-    }
-
-    private IEnumerator MovesHandlerF5() {
-        yield return new WaitWhile(() => switchLst);
-        for (int a = 0; a < movesf5.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(movesf5[a, 1], movesf5[a, 0], quene.GetLength(0), a));
-        }
-        for (i = 0; i < movesf5.GetLength(0); i++) {
-            if (isActive) {
-                if (isDel) {
-                    yield return new WaitForSeconds(0.3f);
-                    button.DestroyPrefab();
-                    isDel = false;
-                }
-                movename = "Other";
-                Vector3 currentPosRun = anim.transform.position;
-                if (movesf5[movenum, 1] == card[startPos.x, startPos.y] || movesf5[movenum, 1] == 0 || movesf5[movenum, 0] == 4) {
-                    movename = IntToMove(movesf5[movenum, 0], false);
-                    if (movename == "Left" || movename == "Right") 
-                        currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
-                    else {
-                        var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, currentPosRun.y, currentPosRun.z + newpos.y);
-                    }
-                } 
-                CheckMoveType(ref movesf5);
-                movenum += 1;
-                if (movename != "Other" && movename != "Scratch") {
-                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    if (movename == "Left") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
-                    else if (movename == "Right") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
-                    else
-                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 2);
-                }
-                if (movename == "Scratch") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (movename == "Other") {
-                    yield return new WaitForSeconds(0.5f);
-                }
-                if (switchLst)
-                    isDel = true;
-                else
-                    button.DestroyPrefab();
-            }
-            else {
-                if (winner) {
-                    yield return new WaitForSeconds(0.5f);
-                    i = 0;
-                    try{
-                        loader.MapNext(currentMap);
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);
-                        button.ButtonLoad(false);
-                        func.FuncLoad(false);
-                        input.ReStart();
-                    }
-                    catch(FileNotFoundException e) {
-                        Debug.Log(e);
-                    }
-                    Level();
-                    yield break;
-                }
-                else if (looser) {
-                        anim.Play("Fall");
-                        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        Level();
-                        button.ReturnAll();
-                        func.gameObject.SetActive(true);
-                        yield break;                
-                }
-            }
-            if (switchLst) {
-                yield return new WaitForSeconds(0.5f);
-                switchLst = false;
-                yield break;
-            }
-        }
-        if (quene.GetLength(0) >= 1) {
-            movenum = 0;
-            StartCoroutine(MovesHandlerQuene());
-            yield break;
-        }
-        else {
-            Debug.Log("You Lose!!!");
-            yield return new WaitForSeconds(0.7f);
-            Level();
-            button.ReturnAll();
-            func.gameObject.SetActive(true);
-            yield break;
-        }
-    }
-}
+} 

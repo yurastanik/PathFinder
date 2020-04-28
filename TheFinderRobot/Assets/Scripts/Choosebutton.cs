@@ -20,8 +20,10 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] private Image Content;
     [SerializeField] private Image ContentPrefab;
     [SerializeField] private GameObject Scrol;
+    [SerializeField] private GameObject Robot;
 
     private int[,] movesf1;
+    float speed;
     private int[,] movesf2;
     private int[,] movesf3;
     private int[,] movesf4;
@@ -29,6 +31,7 @@ public class Choosebutton : MonoBehaviour
     private int[,] movesf6;
     private int[] colors;
     private int[] moves = new int[] {1, 2, 3, 7};
+    private Robot_move robot;
     private GameObject create;
     private MapLoader loader;
     private int btn;
@@ -39,10 +42,11 @@ public class Choosebutton : MonoBehaviour
 
 
     public void Awake() {
+        robot = Robot.GetComponent<Robot_move>();
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
         ButtonLoad(true);
     }
-    
+
     private void UpDatetion() {
         for (int i = 0; i < Btnplay.GetComponent<Button_play>().func.Count; i++){
             int buttons = Btnplay.GetComponent<Button_play>().func[i].input_arr.Count;
@@ -132,13 +136,9 @@ public class Choosebutton : MonoBehaviour
         scroll.content = pict;
     }
 
-    public IEnumerator DestroyPrefab(int num = 0) {
+    public void DestroyPrefab(int num = 0) {
         Transform child = ContentPrefab.transform.GetChild(num);
         StartCoroutine(UnvisiblePrefab(child));
-        // yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-        // yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-        // GameObject.Destroy(child.gameObject);
-        yield break;
     }
 
     public void ReturnAll() {
@@ -155,16 +155,15 @@ public class Choosebutton : MonoBehaviour
 
     public IEnumerator UnvisiblePrefab(Transform child) {
         fade = true;
-        Debug.Log("start " + child.name);
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
-        for (float f = 0.95f; f >= 0; f -= 0.05f) {
+        for (float f = 0.95f; f >= 0; f -= 0.05f) {   
+            speed = robot.fade_speed;         
             color.a = f;
             background.color = color;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(speed);
         }
-        Debug.Log("end " + child.name);
         GameObject.Destroy(child.gameObject);
         fade = false;
         yield break;
@@ -213,9 +212,10 @@ public class Choosebutton : MonoBehaviour
         if (check >= 1)
             ForFunc(num);
         for (float f = 0.05f; f <= 1; f += 0.05f) {
+            speed = robot.fade_speed;
             color.a = f;
             background.color = color;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(speed);
         }
         yield break;
     }
