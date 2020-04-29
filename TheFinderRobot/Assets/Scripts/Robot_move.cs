@@ -85,8 +85,6 @@ public class Robot_move : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyUp(KeyCode.Alpha6))
-            anim.speed = 6;
         if (Input.GetKeyUp(KeyCode.P)) {
             if (!isPause) {
                 Time.timeScale = 0;
@@ -97,16 +95,20 @@ public class Robot_move : MonoBehaviour {
                 isPause = false;
             }
         }
+        if (Input.GetKeyUp(KeyCode.Alpha4)) {
+            anim.speed = 7;
+            fade_speed = 0;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha2)) {
-            Time.timeScale = 4;
+            anim.speed = 4;
             fade_speed = 0.02f;
         }
         if (Input.GetKeyUp(KeyCode.Alpha3)) {
-            Time.timeScale = 10;
+            anim.speed = 6;
             fade_speed = 0.015f;
         }
         if (Input.GetKeyUp(KeyCode.Alpha1)) {
-            Time.timeScale = 2;
+            anim.speed = 2;
             fade_speed = 0.03f;
         }
     }
@@ -507,15 +509,16 @@ public class Robot_move : MonoBehaviour {
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     if (movename == "Left") {
-                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                     }
                     else if (movename == "Right") {
-                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                     }
-                    else
+                    else {
                         anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);
+                    }
                 }
                 else if (movename == "Scratch") 
                     yield return new WaitForSeconds(0.1f);
@@ -576,6 +579,7 @@ public class Robot_move : MonoBehaviour {
         for (i = 0; i < allarrays.GetLength(0); i++) {
             if (isActive) {
                 if (isDel) {
+                    yield return new WaitWhile(() => button.new_speed);
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
                     isDel = false;
@@ -596,14 +600,13 @@ public class Robot_move : MonoBehaviour {
                 if (movename != "Other" && movename != "Scratch") {
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    Vector3 Pos = anim.transform.position;
                     if (movename == "Left") {
-                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);         
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                     }
                     else if (movename == "Right") {
-                        anim.transform.position = new Vector3  (currentPosRun.x, 0, currentPosRun.z);
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                     }
                     else
                         anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);

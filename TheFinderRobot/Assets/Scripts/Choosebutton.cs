@@ -24,7 +24,7 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] public Image button_frame;
 
     private int[,] movesf1;
-    private bool new_speed = false;
+    public bool new_speed = false;
     private bool destroy = true;
     private int[,] movesf2;
     private int[,] movesf3;
@@ -141,28 +141,18 @@ public class Choosebutton : MonoBehaviour
         button_frame.gameObject.SetActive(true);
     }
 
-    public void FrameTranslate(Transform nextchild, Transform currentchild) {        
-            Vector3 currentPos = button_frame.transform.position;
-            Debug.Log(button_frame.GetComponent<RectTransform>().right);
-            // float speed = 76.6741f;
-            //if (new_speed)
-            //    speed = 70.41482f;
-            Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
-            button_frame.transform.position = Vector3.MoveTowards(currentPos, targetPos, Time.deltaTime*25000f);
-            currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
-            nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
-            button_frame.transform.position = Vector3.MoveTowards(currentPos, targetPos, Time.deltaTime*25000f);
+    public void FrameTranslate(Transform nextchild, Transform currentchild) {
+        Vector3 currentPos = button_frame.transform.position;
+        Debug.Log(button_frame.GetComponent<RectTransform>().offsetMax);
+        Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
+        button_frame.transform.position = Vector3.MoveTowards(currentPos, targetPos, Time.deltaTime*25000f);
+        currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
+        nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
     }
     
     public void FrameLeft() {
         Vector3 pos = ContentPrefab.transform.GetChild(0).transform.position;
-        // float speed = -76.6741f;
-        // if (new_speed) {
-        //     speed = -70.41482f;
-        //     new_speed = false;
-        // }
         button_frame.transform.position = pos;
-        Debug.Log("left");   //Translate(speed, 0, 0);        
     }
 
     public void DestroyPrefab(int num = 0) {
@@ -170,7 +160,7 @@ public class Choosebutton : MonoBehaviour
         Transform child = ContentPrefab.transform.GetChild(num);
         if (ContentPrefab.transform.childCount > 1) {
             Transform children = ContentPrefab.transform.GetChild(1);
-            Debug.Log(children.name + " " + children.transform.position.x + " " + children.GetComponent<RectTransform>().localPosition.x);
+            Debug.Log(children.name + " " + children.transform.position.x + " " + children.transform.GetSiblingIndex());
             Debug.Log(child.name + " " + child.transform.position.x);
             FrameTranslate(children, child);
         }
@@ -196,13 +186,23 @@ public class Choosebutton : MonoBehaviour
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
-        for (float f = 0.95f; f >= 0; f -= 0.05f) {   
-            float speed = robot.fade_speed;         
-            color.a = f;
-            background.color = color;
-            yield return new WaitForSeconds(speed);
+        float speed = robot.fade_speed; 
+        if (speed != 0) {
+            for (float f = 0.95f; f >= 0; f -= 0.05f) {   
+                speed = robot.fade_speed;
+                color.a = f;
+                background.color = color;
+                if (speed != 0)
+                    yield return new WaitForSeconds(speed);
+                else {
+                    GameObject.Destroy(child.gameObject);
+                    break;
+                }
+            }
         }
-        GameObject.Destroy(child.gameObject);
+        else {
+            GameObject.Destroy(child.gameObject);
+        }
         if (destroy)
             FrameLeft();
         else 
@@ -244,10 +244,10 @@ public class Choosebutton : MonoBehaviour
     }
 
     public IEnumerator CreatePrefab(int col, int moven, int check, int num, bool del) {
-        if (!new_speed && del)
-            new_speed = true;
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
+        if (newChild.transform.GetSiblingIndex() == 1)
+            new_speed = true;
         newChild.transform.parent = ContentPrefab.transform;
         if (newChild.transform.GetSiblingIndex() == 0)
             newChild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
@@ -258,13 +258,30 @@ public class Choosebutton : MonoBehaviour
         Color color = ColorGetting(col);
         if (check >= 1)
             ForFunc(num);
-        for (float f = 0.05f; f <= 1; f += 0.05f) {
-            float speed = robot.fade_speed;
-            color.a = f;
-            background.color = color;
-            yield return new WaitForSeconds(speed);
+        float speed = robot.fade_speed;
+        if (speed != 0) {
+            for (float f = 0f; f <= 1; f += 0.05f) {
+                if (new_speed && f == 0.05f)
+                    new_speed = false;
+                speed = robot.fade_speed;
+                color.a = f;
+                background.color = color;
+                if (speed != 0)
+                    yield return new WaitForSeconds(speed);
+                else {
+                    color.a = 1;
+                    background.color = color;
+                    yield break;
+                }
+            }
         }
-        yield break;        
+        else {
+            color.a = 1;
+            background.color = color;
+            if (new_speed)
+                new_speed = false;
+        }
+        yield break;
     }
 
     public void ForFunc(int que) {
