@@ -102,7 +102,7 @@ public class Robot_move : MonoBehaviour {
             fade_speed = 0.02f;
         }
         if (Input.GetKeyUp(KeyCode.Alpha3)) {
-            Time.timeScale = 6;
+            Time.timeScale = 10;
             fade_speed = 0.015f;
         }
         if (Input.GetKeyUp(KeyCode.Alpha1)) {
