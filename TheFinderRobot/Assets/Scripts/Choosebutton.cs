@@ -21,9 +21,11 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] private Image ContentPrefab;
     [SerializeField] private GameObject Scrol;
     [SerializeField] private GameObject Robot;
+    [SerializeField] public Image button_frame;
 
     private int[,] movesf1;
-    float speed;
+    private bool new_speed = false;
+    private bool destroy = true;
     private int[,] movesf2;
     private int[,] movesf3;
     private int[,] movesf4;
@@ -64,6 +66,8 @@ public class Choosebutton : MonoBehaviour
         movesf6 = new int[0,0];
         moves = new int[] {1, 2, 3, 7}; 
         func_num = new List<int>();
+        new_speed = false;
+        destroy = true;
     } 
 
     public void ButtonLoad(bool isFirst) {
@@ -134,11 +138,45 @@ public class Choosebutton : MonoBehaviour
         panelka.localPosition = new Vector3(0, -398.6f, 0);
         panelka.sizeDelta = new Vector2(57.5f, 17.1f);
         scroll.content = pict;
+        button_frame.gameObject.SetActive(true);
+    }
+
+    public void FrameTranslate(Transform nextchild, Transform currentchild) {        
+            Vector3 currentPos = button_frame.transform.position;
+            Debug.Log(button_frame.GetComponent<RectTransform>().right);
+            // float speed = 76.6741f;
+            //if (new_speed)
+            //    speed = 70.41482f;
+            Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
+            button_frame.transform.position = Vector3.MoveTowards(currentPos, targetPos, Time.deltaTime*25000f);
+            currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
+            nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
+            button_frame.transform.position = Vector3.MoveTowards(currentPos, targetPos, Time.deltaTime*25000f);
+    }
+    
+    public void FrameLeft() {
+        Vector3 pos = ContentPrefab.transform.GetChild(0).transform.position;
+        // float speed = -76.6741f;
+        // if (new_speed) {
+        //     speed = -70.41482f;
+        //     new_speed = false;
+        // }
+        button_frame.transform.position = pos;
+        Debug.Log("left");   //Translate(speed, 0, 0);        
     }
 
     public void DestroyPrefab(int num = 0) {
+        fade = true;
         Transform child = ContentPrefab.transform.GetChild(num);
-        StartCoroutine(UnvisiblePrefab(child));
+        if (ContentPrefab.transform.childCount > 1) {
+            Transform children = ContentPrefab.transform.GetChild(1);
+            Debug.Log(children.name + " " + children.transform.position.x + " " + children.GetComponent<RectTransform>().localPosition.x);
+            Debug.Log(child.name + " " + child.transform.position.x);
+            FrameTranslate(children, child);
+        }
+        else
+            destroy = false;
+        StartCoroutine(UnvisiblePrefab(child));        
     }
 
     public void ReturnAll() {
@@ -151,20 +189,24 @@ public class Choosebutton : MonoBehaviour
         panelka.localPosition = new Vector3(-29, -477.525f, 0);
         panelka.sizeDelta = new Vector2(0, -24.35027f);
         scroll.content = pict;
+        button_frame.gameObject.SetActive(false);
     }
 
     public IEnumerator UnvisiblePrefab(Transform child) {
-        fade = true;
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
         for (float f = 0.95f; f >= 0; f -= 0.05f) {   
-            speed = robot.fade_speed;         
+            float speed = robot.fade_speed;         
             color.a = f;
             background.color = color;
             yield return new WaitForSeconds(speed);
         }
         GameObject.Destroy(child.gameObject);
+        if (destroy)
+            FrameLeft();
+        else 
+            destroy = true;
         fade = false;
         yield break;
     }
@@ -201,23 +243,28 @@ public class Choosebutton : MonoBehaviour
                 return f5;
     }
 
-    public IEnumerator CreatePrefab(int col, int moven, int check, int num) {
+    public IEnumerator CreatePrefab(int col, int moven, int check, int num, bool del) {
+        if (!new_speed && del)
+            new_speed = true;
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
         newChild.transform.parent = ContentPrefab.transform;
-        newChild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
+        if (newChild.transform.GetSiblingIndex() == 0)
+            newChild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
+        else
+            newChild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
         Image background;
         background = newChild.GetComponent<Image>();
         Color color = ColorGetting(col);
         if (check >= 1)
             ForFunc(num);
         for (float f = 0.05f; f <= 1; f += 0.05f) {
-            speed = robot.fade_speed;
+            float speed = robot.fade_speed;
             color.a = f;
             background.color = color;
             yield return new WaitForSeconds(speed);
         }
-        yield break;
+        yield break;        
     }
 
     public void ForFunc(int que) {
