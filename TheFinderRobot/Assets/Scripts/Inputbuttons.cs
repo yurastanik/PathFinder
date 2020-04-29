@@ -79,12 +79,12 @@ public class Inputbuttons : MonoBehaviour
 
     private void Update() {
         if (move_btn) {
-            button_frame.transform.position = Vector3.MoveTowards (button_frame.transform.position, button_list[button].transform.position, Time.deltaTime*5000f);
+            button_frame.transform.position = Vector3.MoveTowards(button_frame.transform.position, button_list[button].transform.position, Time.deltaTime*5000f);
             if (button_frame.transform.position == button_list[button].transform.position)
                 move_btn = false;
         }
         if (move_func) {
-            func_frame.transform.position = Vector3.MoveTowards (func_frame.transform.position, func_list[func].transform.position, Time.deltaTime*5000f);
+            func_frame.transform.position = Vector3.MoveTowards(func_frame.transform.position, func_list[func].transform.position, Time.deltaTime*5000f);
             if (func_frame.transform.position == func_list[func].transform.position)
                 move_func = false;
         }

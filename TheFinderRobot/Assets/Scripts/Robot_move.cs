@@ -506,13 +506,16 @@ public class Robot_move : MonoBehaviour {
                 if (movename != "Other" && movename != "Scratch") {
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    if (movename == "Left") 
+                    if (movename == "Left") {
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
-                    else if (movename == "Right") 
-                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
-                    else {
-                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);
                     }
+                    else if (movename == "Right") {
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
+                        anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
+                    }
+                    else
+                        anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);
                 }
                 else if (movename == "Scratch") 
                     yield return new WaitForSeconds(0.1f);
@@ -568,7 +571,7 @@ public class Robot_move : MonoBehaviour {
     private IEnumerator MovesHandler() {
         yield return new WaitWhile(() => switchLst);
         for (int a = 0; a < allarrays.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], quene.GetLength(0), a+1));
+            StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], quene.GetLength(0), a+1, isDel));
         }
         for (i = 0; i < allarrays.GetLength(0); i++) {
             if (isActive) {
@@ -594,10 +597,12 @@ public class Robot_move : MonoBehaviour {
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     Vector3 Pos = anim.transform.position;
-                    if (movename == "Left") {            
+                    if (movename == "Left") {
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);         
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
                     }
                     else if (movename == "Right") {
+                        anim.transform.position = new Vector3  (currentPosRun.x, 0, currentPosRun.z);
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
                     }
                     else
