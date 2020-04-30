@@ -372,27 +372,31 @@ public class Robot_move : MonoBehaviour {
     private void FaceDirection(string direction) {
         if (direction == "down") {
             SetPosition(new Vector2Int(0, 1));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
         else if (direction == "up") {
             SetPosition(new Vector2Int(0, -1));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
         else if (direction == "left") {
             SetPosition(new Vector2Int(-1, 0));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
         else {
             SetPosition(new Vector2Int(1, 0));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
     }
 
@@ -613,8 +617,9 @@ public class Robot_move : MonoBehaviour {
                 }
                 else if (movename == "Scratch") 
                     yield return new WaitForSeconds(0.1f);
-                if (switchLst)
+                if (switchLst) {
                     isDel = true;
+                }
                 else {
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);

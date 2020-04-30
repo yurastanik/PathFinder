@@ -143,33 +143,29 @@ public class Choosebutton : MonoBehaviour
 
     public void FrameTranslate(Transform nextchild, Transform currentchild) {
         Vector3 currentPos = button_frame.transform.position;
-        Debug.Log(button_frame.GetComponent<RectTransform>().offsetMax);
         Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
         button_frame.transform.position = Vector3.MoveTowards(currentPos, targetPos, Time.deltaTime*25000f);
-        currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
         nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
+        button_frame.transform.parent = nextchild.transform;
+        currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
     }
     
-    public void FrameLeft() {
-        Vector3 pos = ContentPrefab.transform.GetChild(0).transform.position;
-        button_frame.transform.position = pos;
-    }
-
     public void DestroyPrefab(int num = 0) {
         fade = true;
         Transform child = ContentPrefab.transform.GetChild(num);
         if (ContentPrefab.transform.childCount > 1) {
             Transform children = ContentPrefab.transform.GetChild(1);
-            Debug.Log(children.name + " " + children.transform.position.x + " " + children.transform.GetSiblingIndex());
-            Debug.Log(child.name + " " + child.transform.position.x);
             FrameTranslate(children, child);
         }
         else
+            button_frame.transform.parent = Panel.transform;
             destroy = false;
         StartCoroutine(UnvisiblePrefab(child));        
     }
-
+ 
     public void ReturnAll() {
+        if (button_frame.transform.parent != Panel.transform)
+            button_frame.transform.parent = Panel.transform;
         foreach (Transform child in ContentPrefab.transform)
             GameObject.Destroy(child.gameObject);
         Content.gameObject.SetActive(true);
@@ -195,18 +191,15 @@ public class Choosebutton : MonoBehaviour
                 if (speed != 0)
                     yield return new WaitForSeconds(speed);
                 else {
-                    GameObject.Destroy(child.gameObject);
                     break;
                 }
             }
         }
-        else {
-            GameObject.Destroy(child.gameObject);
-        }
-        if (destroy)
-            FrameLeft();
-        else 
-            destroy = true;
+        GameObject.Destroy(child.gameObject);
+        // if (destroy)
+        //     FrameLeft();
+        // else 
+        //     destroy = true;
         fade = false;
         yield break;
     }
