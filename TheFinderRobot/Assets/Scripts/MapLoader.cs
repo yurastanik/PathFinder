@@ -5,7 +5,6 @@ using System.IO;
 
 public class MapLoader : MonoBehaviour {
 
-    // [SerializeField] private string mapName = null;
     [SerializeField] private GameObject columnPrefab = null;
 
     private StreamReader stream;

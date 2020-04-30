@@ -41,6 +41,7 @@ public class Choosebutton : MonoBehaviour
     public Sprite[] s1;
     public bool fade = false;
     public List<int> func_num = new List<int>();
+    Vector3 start_frame;
 
 
     public void Awake() {
@@ -139,12 +140,17 @@ public class Choosebutton : MonoBehaviour
         panelka.sizeDelta = new Vector2(57.5f, 17.1f);
         scroll.content = pict;
         button_frame.gameObject.SetActive(true);
+        if (start_frame.x != 0 && start_frame.y != 0)
+            button_frame.transform.position = start_frame;
+        else
+            start_frame = button_frame.transform.position;
     }
 
     public void FrameTranslate(Transform nextchild, Transform currentchild) {
         Vector3 currentPos = button_frame.transform.position;
-        Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
-        button_frame.transform.position = Vector3.MoveTowards(currentPos, targetPos, Time.deltaTime*25000f);
+        //Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
+        float speed = robot.fade_speed;
+        button_frame.transform.position = nextchild.transform.position;
         nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
         button_frame.transform.parent = nextchild.transform;
         currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
@@ -164,11 +170,15 @@ public class Choosebutton : MonoBehaviour
     }
  
     public void ReturnAll() {
-        if (button_frame.transform.parent != Panel.transform)
+        StopAllCoroutines();
+        if (button_frame.transform.parent != Panel.transform) {
             button_frame.transform.parent = Panel.transform;
+        }
+        button_frame.transform.parent = Panel.transform;
         foreach (Transform child in ContentPrefab.transform)
             GameObject.Destroy(child.gameObject);
         Content.gameObject.SetActive(true);
+        Btnplay.GetComponent<Button_play>().ReturnBtn();
         RectTransform panelka = Panel.GetComponent<RectTransform>();
         ScrollRect scroll = Panel.GetComponent<ScrollRect>();
         RectTransform pict = Content.GetComponent<RectTransform>();
@@ -196,10 +206,6 @@ public class Choosebutton : MonoBehaviour
             }
         }
         GameObject.Destroy(child.gameObject);
-        // if (destroy)
-        //     FrameLeft();
-        // else 
-        //     destroy = true;
         fade = false;
         yield break;
     }
@@ -242,8 +248,9 @@ public class Choosebutton : MonoBehaviour
         if (newChild.transform.GetSiblingIndex() == 1)
             new_speed = true;
         newChild.transform.parent = ContentPrefab.transform;
-        if (newChild.transform.GetSiblingIndex() == 0)
+        if (newChild.transform.GetSiblingIndex() == 0) {
             newChild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
+        }
         else
             newChild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
         Image background;
