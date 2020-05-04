@@ -17,7 +17,7 @@ public class MapLoader : MonoBehaviour {
         MapNext(1);
     }
 
-    public void MapNext(int mapNum) {        
+    public void MapNext(int mapNum) {
         path = Application.dataPath + "/Maps/Map" + mapNum + ".json";
         stream = new StreamReader(path);
         loadedMap = JsonUtility.FromJson<Map>(stream.ReadToEnd());

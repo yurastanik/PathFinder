@@ -1358,7 +1358,7 @@ PrefabInstance:
     - target: {fileID: 8522959568171426990, guid: d7254cefcd5bc4974a0ecc8a03757587,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8522959568171426991, guid: d7254cefcd5bc4974a0ecc8a03757587,
         type: 3}
@@ -3981,7 +3981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1104366039
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4081,7 +4081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1108682853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5425,7 +5425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1459655554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6119,7 +6119,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.5673828}
-  m_SizeDelta: {x: 0, y: 0.567482}
+  m_SizeDelta: {x: -566.06134, y: 0.567482}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1607609500
 MonoBehaviour:
@@ -6343,7 +6343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1670199802
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6479,7 +6479,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 264.71484, y: 0}
-  m_SizeDelta: {x: 0, y: 0.00030518}
+  m_SizeDelta: {x: -552.06134, y: 0.00030518}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1683356071
 MonoBehaviour:
