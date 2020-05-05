@@ -21,9 +21,11 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] private Image ContentPrefab;
     [SerializeField] private GameObject Scrol;
     [SerializeField] private GameObject Robot;
+    [SerializeField] public Image button_frame;
 
     private int[,] movesf1;
-    float speed;
+    public bool new_speed = false;
+    private bool destroy = true;
     private int[,] movesf2;
     private int[,] movesf3;
     private int[,] movesf4;
@@ -39,6 +41,7 @@ public class Choosebutton : MonoBehaviour
     public Sprite[] s1;
     public bool fade = false;
     public List<int> func_num = new List<int>();
+    Vector3 start_frame;
 
 
     public void Awake() {
@@ -64,6 +67,8 @@ public class Choosebutton : MonoBehaviour
         movesf6 = new int[0,0];
         moves = new int[] {1, 2, 3, 7}; 
         func_num = new List<int>();
+        new_speed = false;
+        destroy = true;
     } 
 
     public void ButtonLoad(bool isFirst) {
@@ -134,35 +139,71 @@ public class Choosebutton : MonoBehaviour
         panelka.localPosition = new Vector3(0, -398.6f, 0);
         panelka.sizeDelta = new Vector2(57.5f, 17.1f);
         scroll.content = pict;
+        button_frame.gameObject.SetActive(true);
+        if (start_frame.x != 0 && start_frame.y != 0)
+            button_frame.transform.position = start_frame;
+        else
+            start_frame = button_frame.transform.position;
     }
 
+    public void FrameTranslate(Transform nextchild, Transform currentchild) {
+        Vector3 currentPos = button_frame.transform.position;
+        //Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
+        float speed = robot.fade_speed;
+        button_frame.transform.position = nextchild.transform.position;
+        nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
+        button_frame.transform.parent = nextchild.transform;
+        currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
+    }
+    
     public void DestroyPrefab(int num = 0) {
+        fade = true;
         Transform child = ContentPrefab.transform.GetChild(num);
-        StartCoroutine(UnvisiblePrefab(child));
+        if (ContentPrefab.transform.childCount > 1) {
+            Transform children = ContentPrefab.transform.GetChild(1);
+            FrameTranslate(children, child);
+        }
+        else
+            button_frame.transform.parent = Panel.transform;
+            destroy = false;
+        StartCoroutine(UnvisiblePrefab(child));        
     }
-
+ 
     public void ReturnAll() {
+        StopAllCoroutines();
+        if (button_frame.transform.parent != Panel.transform) {
+            button_frame.transform.parent = Panel.transform;
+        }
+        button_frame.transform.parent = Panel.transform;
         foreach (Transform child in ContentPrefab.transform)
             GameObject.Destroy(child.gameObject);
         Content.gameObject.SetActive(true);
+        Btnplay.GetComponent<Button_play>().ReturnBtn();
         RectTransform panelka = Panel.GetComponent<RectTransform>();
         ScrollRect scroll = Panel.GetComponent<ScrollRect>();
         RectTransform pict = Content.GetComponent<RectTransform>();
         panelka.localPosition = new Vector3(-29, -477.525f, 0);
         panelka.sizeDelta = new Vector2(0, -24.35027f);
         scroll.content = pict;
+        button_frame.gameObject.SetActive(false);
     }
 
     public IEnumerator UnvisiblePrefab(Transform child) {
-        fade = true;
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
-        for (float f = 0.95f; f >= 0; f -= 0.05f) {   
-            speed = robot.fade_speed;         
-            color.a = f;
-            background.color = color;
-            yield return new WaitForSeconds(speed);
+        float speed = robot.fade_speed; 
+        if (speed != 0) {
+            for (float f = 0.95f; f >= 0; f -= 0.05f) {   
+                speed = robot.fade_speed;
+                color.a = f;
+                background.color = color;
+                if (speed != 0)
+                    yield return new WaitForSeconds(speed);
+                else {
+                    break;
+                }
+            }
         }
         GameObject.Destroy(child.gameObject);
         fade = false;
@@ -201,21 +242,44 @@ public class Choosebutton : MonoBehaviour
                 return f5;
     }
 
-    public IEnumerator CreatePrefab(int col, int moven, int check, int num) {
+    public IEnumerator CreatePrefab(int col, int moven, int check, int num, bool del) {
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
+        if (newChild.transform.GetSiblingIndex() == 1)
+            new_speed = true;
         newChild.transform.parent = ContentPrefab.transform;
-        newChild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
+        if (newChild.transform.GetSiblingIndex() == 0) {
+            newChild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
+        }
+        else
+            newChild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
         Image background;
         background = newChild.GetComponent<Image>();
         Color color = ColorGetting(col);
         if (check >= 1)
             ForFunc(num);
-        for (float f = 0.05f; f <= 1; f += 0.05f) {
-            speed = robot.fade_speed;
-            color.a = f;
+        float speed = robot.fade_speed;
+        if (speed != 0) {
+            for (float f = 0f; f <= 1; f += 0.05f) {
+                if (new_speed && f == 0.05f)
+                    new_speed = false;
+                speed = robot.fade_speed;
+                color.a = f;
+                background.color = color;
+                if (speed != 0)
+                    yield return new WaitForSeconds(speed);
+                else {
+                    color.a = 1;
+                    background.color = color;
+                    yield break;
+                }
+            }
+        }
+        else {
+            color.a = 1;
             background.color = color;
-            yield return new WaitForSeconds(speed);
+            if (new_speed)
+                new_speed = false;
         }
         yield break;
     }

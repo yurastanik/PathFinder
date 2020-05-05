@@ -31,7 +31,9 @@ public class Robot_move : MonoBehaviour {
     bool switchLst = false;
     bool looser = false;
     bool winner = false;
+    bool trans = false;
     int i = 0;
+    int t = 0;
     int movenum = 0;
     int winnum = 0;
     int currentMap = 1;
@@ -57,13 +59,14 @@ public class Robot_move : MonoBehaviour {
 
     private void Level() {
         LoadMap();
-        AtStart();  
-        transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
+        AtStart();
         DirectAtStart();
+        transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
     }
 
     public void MovesInit(int[,] moves1, int[,] moves2, int[,] moves3, int[,] moves4, int[,] moves5) {
         if (readyToStart && !isActive){
+            trans = false;
             button.HideButtons();
             func.gameObject.SetActive(false);
             movesf1 = moves1;
@@ -74,20 +77,22 @@ public class Robot_move : MonoBehaviour {
             isActive = true;
             readyToStart = false;
             allarrays = movesf1;
-            StopCoroutine(MovesHandler());
             StartCoroutine(MovesHandler());
         }
     }
 
-    public void Start() {
-        anim = GetComponent<Animator>();
+    public void StopGame() {
+        Time.timeScale = 1;
+        isPause = false;
+        StopAllCoroutines();
+        button.ReturnAll();
+        func.gameObject.SetActive(true);
         Level();
+        trans = true;
     }
 
-    private void Update() {
-        if (Input.GetKeyUp(KeyCode.Alpha6))
-            anim.speed = 6;
-        if (Input.GetKeyUp(KeyCode.P)) {
+    public void PauseGame() {
+        if (!readyToStart) {
             if (!isPause) {
                 Time.timeScale = 0;
                 isPause = true;
@@ -97,16 +102,41 @@ public class Robot_move : MonoBehaviour {
                 isPause = false;
             }
         }
+    }
+
+    public void Start() {
+        anim = GetComponent<Animator>();
+        Level();
+    }
+
+    private void FixedUpdate() {
+        if (trans) {
+            t += 1;
+            if (t==2)
+                trans = false;
+                t = 0;
+        }
+    }
+
+    private void Update() {
+        if (trans) {
+            transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
+            DirectAtStart();
+        }     
+        if (Input.GetKeyUp(KeyCode.Alpha4)) {
+            anim.speed = 7;
+            fade_speed = 0;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha2)) {
-            Time.timeScale = 4;
+            anim.speed = 4;
             fade_speed = 0.02f;
         }
         if (Input.GetKeyUp(KeyCode.Alpha3)) {
-            Time.timeScale = 6;
+            anim.speed = 6;
             fade_speed = 0.015f;
         }
         if (Input.GetKeyUp(KeyCode.Alpha1)) {
-            Time.timeScale = 2;
+            anim.speed = 2;
             fade_speed = 0.03f;
         }
     }
@@ -117,12 +147,12 @@ public class Robot_move : MonoBehaviour {
         for (int m = 0; m < arr.GetLength(0); m++) {
             for (int n = 0; n < arr.GetLength(1); n++) {
                 if (m == num)
-                    k = 1;              
+                    k = 1;
                 else
                     newArray[m-k, n] = arr[m, n];
             }
         }
-        arr = newArray;        
+        arr = newArray;
     }
 
     public static void ResizeArray(ref int[,] arr, int newM) {
@@ -137,13 +167,13 @@ public class Robot_move : MonoBehaviour {
 
     private void DirectAtStart() {
         if (currentDirection == "up") 
-            anim.transform.rotation = Quaternion.Euler(0, 180, 0);        
+            anim.transform.rotation = Quaternion.Euler(0, 180, 0);
         else if (currentDirection == "right") 
-            anim.transform.rotation = Quaternion.Euler(0, -90, 0);        
+            anim.transform.rotation = Quaternion.Euler(0, -90, 0);
         else if (currentDirection == "left") 
             anim.transform.rotation = Quaternion.Euler(0, 90, 0);
         else 
-            anim.transform.rotation = Quaternion.Euler(0, 0, 0);         
+            anim.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void CheckMoveType(ref int[,] arr) {
@@ -224,14 +254,14 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                allarrays = movesf1;            
+                allarrays = movesf1;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
                 ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {                        
+                for (int j = 0; j < integer; j++) {
                     quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];           
+                    quene[j, 1] = arr[movenum+(j+1), 1];
                 }
                 switchLst = true;
                 movenum = -1;
@@ -370,27 +400,31 @@ public class Robot_move : MonoBehaviour {
     private void FaceDirection(string direction) {
         if (direction == "down") {
             SetPosition(new Vector2Int(0, 1));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
         else if (direction == "up") {
             SetPosition(new Vector2Int(0, -1));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
         else if (direction == "left") {
             SetPosition(new Vector2Int(-1, 0));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
         else {
             SetPosition(new Vector2Int(1, 0));
-            if (card[startPos.x, startPos.y] == 0)
+            if (card[startPos.x, startPos.y] == 0) {
                 isActive = false;
                 looser = true;
+            }
         }
     }
 
@@ -506,10 +540,14 @@ public class Robot_move : MonoBehaviour {
                 if (movename != "Other" && movename != "Scratch") {
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    if (movename == "Left") 
+                    if (movename == "Left") {
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
-                    else if (movename == "Right") 
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
+                    }
+                    else if (movename == "Right") {
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
+                    }
                     else {
                         anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);
                     }
@@ -568,11 +606,12 @@ public class Robot_move : MonoBehaviour {
     private IEnumerator MovesHandler() {
         yield return new WaitWhile(() => switchLst);
         for (int a = 0; a < allarrays.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], quene.GetLength(0), a+1));
+            StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], quene.GetLength(0), a+1, isDel));
         }
         for (i = 0; i < allarrays.GetLength(0); i++) {
             if (isActive) {
                 if (isDel) {
+                    yield return new WaitWhile(() => button.new_speed);
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
                     isDel = false;
@@ -593,12 +632,13 @@ public class Robot_move : MonoBehaviour {
                 if (movename != "Other" && movename != "Scratch") {
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName(movename));
-                    Vector3 Pos = anim.transform.position;
-                    if (movename == "Left") {            
+                    if (movename == "Left") {
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, -90, 0);
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                     }
                     else if (movename == "Right") {
                         anim.transform.rotation = currentPosLR * Quaternion.Euler(0, 90, 0);
+                        anim.transform.position = new Vector3(currentPosRun.x, 0, currentPosRun.z);
                     }
                     else
                         anim.transform.position = Vector3.MoveTowards(currentPosRun, positionToRun, 3);

@@ -5,7 +5,6 @@ using System.IO;
 
 public class MapLoader : MonoBehaviour {
 
-    // [SerializeField] private string mapName = null;
     [SerializeField] private GameObject columnPrefab = null;
 
     private StreamReader stream;
@@ -15,10 +14,11 @@ public class MapLoader : MonoBehaviour {
 
 
     private void Awake() {
-        MapNext(1);
+        Debug.Log( "MAP " + MaplevelChose.map_number);
+        MapNext(MaplevelChose.map_number);
     }
 
-    public void MapNext(int mapNum) {        
+    public void MapNext(int mapNum) {
         path = Application.dataPath + "/Maps/Map" + mapNum + ".json";
         stream = new StreamReader(path);
         loadedMap = JsonUtility.FromJson<Map>(stream.ReadToEnd());
