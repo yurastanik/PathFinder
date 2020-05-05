@@ -53,10 +53,11 @@
      <Compile Include="Assets\Scripts\Input_Class.cs" />
      <Compile Include="Assets\Scripts\Inputbuttons.cs" />
      <Compile Include="Assets\Scripts\LevelAppear.cs" />
+     <Compile Include="Assets\Scripts\Levelbutton.cs" />
      <Compile Include="Assets\Scripts\MapLoader.cs" />
+     <Compile Include="Assets\Scripts\MaplevelChose.cs" />
      <Compile Include="Assets\Scripts\Rainbow.cs" />
      <Compile Include="Assets\Scripts\Robot_move.cs" />
-     <Compile Include="Assets\Scripts\SetActive.cs" />
      <Compile Include="Assets\Scripts\WireframeRotation.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

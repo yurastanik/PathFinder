@@ -147,12 +147,12 @@ public class Robot_move : MonoBehaviour {
         for (int m = 0; m < arr.GetLength(0); m++) {
             for (int n = 0; n < arr.GetLength(1); n++) {
                 if (m == num)
-                    k = 1;              
+                    k = 1;
                 else
                     newArray[m-k, n] = arr[m, n];
             }
         }
-        arr = newArray;        
+        arr = newArray;
     }
 
     public static void ResizeArray(ref int[,] arr, int newM) {
@@ -167,9 +167,9 @@ public class Robot_move : MonoBehaviour {
 
     private void DirectAtStart() {
         if (currentDirection == "up") 
-            anim.transform.rotation = Quaternion.Euler(0, 180, 0);        
+            anim.transform.rotation = Quaternion.Euler(0, 180, 0);
         else if (currentDirection == "right") 
-            anim.transform.rotation = Quaternion.Euler(0, -90, 0);        
+            anim.transform.rotation = Quaternion.Euler(0, -90, 0);
         else if (currentDirection == "left") 
             anim.transform.rotation = Quaternion.Euler(0, 90, 0);
         else 
@@ -254,14 +254,14 @@ public class Robot_move : MonoBehaviour {
                 }
                 switchLst = true;
                 movenum = -1;
-                allarrays = movesf1;            
+                allarrays = movesf1;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
                 ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {                        
+                for (int j = 0; j < integer; j++) {
                     quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];           
+                    quene[j, 1] = arr[movenum+(j+1), 1];
                 }
                 switchLst = true;
                 movenum = -1;

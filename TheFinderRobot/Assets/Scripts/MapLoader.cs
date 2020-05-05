@@ -14,7 +14,8 @@ public class MapLoader : MonoBehaviour {
 
 
     private void Awake() {
-        MapNext(1);
+        Debug.Log( "MAP " + MaplevelChose.map_number);
+        MapNext(MaplevelChose.map_number);
     }
 
     public void MapNext(int mapNum) {
