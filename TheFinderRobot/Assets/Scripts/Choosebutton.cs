@@ -32,7 +32,7 @@ public class Choosebutton : MonoBehaviour
     private int[,] movesf5;
     private int[,] movesf6;
     private int[] colors;
-    private int[] moves = new int[] {1, 2, 3, 7};
+    private int[] moves = new int[0];
     private Robot_move robot;
     private GameObject create;
     private MapLoader loader;
@@ -65,7 +65,7 @@ public class Choosebutton : MonoBehaviour
         movesf4 = new int[0,0]; 
         movesf5 = new int[0,0];
         movesf6 = new int[0,0];
-        moves = new int[] {1, 2, 3, 7}; 
+        moves = new int[0];
         func_num = new List<int>();
         new_speed = false;
         destroy = true;
@@ -81,8 +81,10 @@ public class Choosebutton : MonoBehaviour
         loader = GameObject.Find("Map").GetComponent<MapLoader>();
         Map loadedMap = loader.GetMap();
         colors = loadedMap.colors;
-        foreach (int i in colors)
-            AddAction(ref moves, i);
+        if (colors != null) {
+            foreach (int i in colors)
+                AddAction(ref moves, i);
+        }
         movesf1 = MapLoader.OneDToTwoDArray(loadedMap.movesf1, 2);
         ChooseAction(ref movesf1);
         func_num.Add(movesf1.GetLength(0));
@@ -126,8 +128,7 @@ public class Choosebutton : MonoBehaviour
 
     private void ChooseAction(ref int[,] arr) {
         for (int a = 0; a < arr.GetLength(0); a++) {
-            if (arr[a, 0] > 3 && arr[a, 0] != 7) 
-                AddAction(ref moves, arr[a, 0]);
+            AddAction(ref moves, arr[a, 0]);
         }
     }
 

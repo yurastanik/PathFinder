@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MaplevelChose 
 {
-    public static int map_number = 1;
+    public static int map_number = -1;
     public static bool quit = false;
     public static bool getsave = true;
 }

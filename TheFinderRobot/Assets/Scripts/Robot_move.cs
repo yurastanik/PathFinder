@@ -36,7 +36,7 @@ public class Robot_move : MonoBehaviour {
     int t = 0;
     int movenum = 0;
     int winnum = 0;
-    int currentMap = 1;
+    int currentMap = MaplevelChose.map_number;
     private int[,] allarrays;
     private int[,] movesf2;
     private int[,] movesf3;
@@ -478,6 +478,9 @@ public class Robot_move : MonoBehaviour {
         isActive = false;
         winner = true;
         currentMap += 1;
+        Debug.Log(currentMap);
+        if (currentMap <= 0)
+            currentMap -= 2;
     }
 
     private string IntToMove(int move, bool doit = true) {
@@ -560,8 +563,6 @@ public class Robot_move : MonoBehaviour {
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
                 }
-            }
-            else {
                 if (winner) {
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
@@ -651,12 +652,11 @@ public class Robot_move : MonoBehaviour {
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
                 }
-            }
-            else {
                 if (winner) {
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
                     try{
+                        Debug.Log(currentMap);
                         loader.MapNext(currentMap);
                         button.ReturnAll();
                         func.gameObject.SetActive(true);

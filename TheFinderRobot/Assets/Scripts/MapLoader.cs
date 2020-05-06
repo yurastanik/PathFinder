@@ -27,6 +27,8 @@ public class MapLoader : MonoBehaviour {
         camer = GameObject.Find("Main Camera").GetComponent<Camera>();
         camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
         camer.orthographicSize = loadedMap.cameraSize;
+        //if (mapNum < 0) {
+        //}
     }
 
     public Map GetMap() {
