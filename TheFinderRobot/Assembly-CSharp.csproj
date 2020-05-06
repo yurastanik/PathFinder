@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\MaplevelChose.cs" />
      <Compile Include="Assets\Scripts\Rainbow.cs" />
      <Compile Include="Assets\Scripts\Robot_move.cs" />
+     <Compile Include="Assets\Scripts\Savegame.cs" />
      <Compile Include="Assets\Scripts\WireframeRotation.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
