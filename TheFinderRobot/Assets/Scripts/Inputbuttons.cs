@@ -31,6 +31,7 @@ public class Inputbuttons : MonoBehaviour
     private float height_frame = 0;
 
     private void Awake() {
+        Debug.Log("button " + button);
         FuncLoad(true);
     }
 
@@ -80,12 +81,13 @@ public class Inputbuttons : MonoBehaviour
     private void Update() {
         if (move_btn) {
             button_frame.transform.position = Vector3.MoveTowards(button_frame.transform.position, button_list[button].transform.position, Time.deltaTime*2500f);
-            if (button_frame.transform.position == button_list[button].transform.position)
+            if ((int) button_frame.transform.position.x == (int) button_list[button].transform.position.x) {
                 move_btn = false;
+            }
         }
         if (move_func) {
             func_frame.transform.position = Vector3.MoveTowards(func_frame.transform.position, func_list[func].transform.position, Time.deltaTime*2500f);
-            if (func_frame.transform.position == func_list[func].transform.position)
+            if ((int) func_frame.transform.position.x == (int) func_list[func].transform.position.x)
                 move_func = false;
         }
     }

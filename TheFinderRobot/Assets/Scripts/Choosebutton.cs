@@ -149,7 +149,6 @@ public class Choosebutton : MonoBehaviour
 
     public void FrameTranslate(Transform nextchild, Transform currentchild) {
         Vector3 currentPos = button_frame.transform.position;
-        //Vector3 targetPos = new Vector3(nextchild.transform.position.x, currentPos.y, currentPos.z);
         float speed = robot.fade_speed;
         button_frame.transform.position = nextchild.transform.position;
         nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
@@ -167,7 +166,7 @@ public class Choosebutton : MonoBehaviour
         else
             button_frame.transform.parent = Panel.transform;
             destroy = false;
-        StartCoroutine(UnvisiblePrefab(child));        
+        StartCoroutine(UnvisiblePrefab(child));
     }
  
     public void ReturnAll() {

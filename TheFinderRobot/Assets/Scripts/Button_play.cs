@@ -140,6 +140,7 @@ public class Button_play : MonoBehaviour
         Time.timeScale = 1;
     }
     public void quit() {
+        Time.timeScale = 1;
         MaplevelChose.quit = true;
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }

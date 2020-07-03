@@ -20,13 +20,13 @@ public class Savegame : MonoBehaviour
                 Debug.Log("not first " +  sv.FirstEntry);
             }
         }
-    
+
     }
 
     private void OnApplicationQuit() {
         Debug.Log("SAving");
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-        //PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
     }
 
 
