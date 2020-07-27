@@ -33,7 +33,9 @@ public class Inputbuttons : MonoBehaviour
     private float delata = 1.2F;
 
     private void Awake() {
+#if UNITY_EDITOR
         Debug.Log("button " + button);
+#endif
         FuncLoad(true);
     }
 
@@ -217,7 +219,9 @@ public class Inputbuttons : MonoBehaviour
     }
 
     private void seven_activate() {
+#if UNITY_EDITOR
         Debug.Log("SEVEN");
+#endif
         delta_transofrm_x = firs_pos - 36.2001F;
             for (int i = 0; i < buton_num; i++) {
                 button_list[i].gameObject.SetActive(true);

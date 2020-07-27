@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundObjectHandler : MonoBehaviour {
+public class BackgroundObject : MonoBehaviour {
 
     private Transform objectModel;
 
@@ -13,7 +13,6 @@ public class BackgroundObjectHandler : MonoBehaviour {
     private float maxRotSpd = 0.5f;
 
     private bool isNotHidden = false;
-    // private bool isVisible = false;
 
     // VISIBLE FUNCTIONS
     public bool GetNotHidden() {

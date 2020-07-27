@@ -12,7 +12,9 @@ public class Savegame : MonoBehaviour
         if (MaplevelChose.getsave) {
             DontDestroyOnLoad(this.gameObject);
             if (!PlayerPrefs.HasKey("Save")) {
+#if UNITY_EDITOR
                 Debug.Log("first");
+#endif
                 sv.FirstEntry = true;
                 sv.Education = false;
                 sv.Chapter1 = false;
@@ -21,17 +23,21 @@ public class Savegame : MonoBehaviour
             }
             else {
                 sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("Save"));
+#if UNITY_EDITOR
                 if (sv.movesf1.Length > 0)
-                    Debug.Log(sv.movesf1[0]); 
+                    Debug.Log(sv.movesf1[0]);
+#endif
                 SceneManager.LoadScene("Test_Buttons", LoadSceneMode.Single);
             }
         }
     }
     private void OnApplicationPause(bool pause) {
        // if (pause) {
+#if UNITY_EDITOR
             Debug.Log("SAving");
-            sv.FirstEntry = false;
             Debug.Log(sv.mapNum);
+#endif
+            sv.FirstEntry = false;
             if (sv.moves1 != null) 
                 sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);
             if (sv.moves2 != null)
@@ -47,9 +53,11 @@ public class Savegame : MonoBehaviour
     }
 
     private void OnApplicationQuit() {
+#if UNITY_EDITOR
         Debug.Log("SAving");
-        sv.FirstEntry = false;
         Debug.Log(sv.mapNum);
+#endif
+        sv.FirstEntry = false;
         if (sv.moves1 != null) 
             sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);
         if (sv.moves2 != null)

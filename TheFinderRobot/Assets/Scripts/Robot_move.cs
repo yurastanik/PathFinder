@@ -436,7 +436,9 @@ public class Robot_move : MonoBehaviour {
         for (int target = 0; target <= targets.GetUpperBound(0); target++) {
             if (startPos.x == targets[target, 0] && startPos.y == targets[target, 1]) {
                 Array.Clear(targets, target*2, 2);
+#if UNITY_EDITOR
                 Debug.Log("x - " + startPos.x + "; y - " + startPos.y);
+#endif
                 GameWinner();
             }
         }
@@ -469,7 +471,9 @@ public class Robot_move : MonoBehaviour {
                 winnum += 1;
         }
         if (winnum == targets.Length) {
+#if UNITY_EDITOR
             Debug.Log("You Win!!!");
+#endif
             NextMap();
         }
         else {
@@ -505,7 +509,9 @@ public class Robot_move : MonoBehaviour {
         isActive = false;
         winner = true;
         currentMap += 1;
+#if UNITY_EDITOR
         Debug.Log(currentMap);
+#endif
         if (currentMap <= 0)
             currentMap -= 2;
     }
@@ -603,7 +609,9 @@ public class Robot_move : MonoBehaviour {
                         input.ReStart();
                     }
                     catch(FileNotFoundException e) {
+#if UNITY_EDITOR
                         Debug.Log(e);
+#endif
                     }
                     Level();
                     yield break;
@@ -628,7 +636,9 @@ public class Robot_move : MonoBehaviour {
                 yield break;
             }
         }
+#if UNITY_EDITOR
         Debug.Log("You Lose!!!");
+#endif
         yield return new WaitForSeconds(0.7f);
         Level(true);
         button.ReturnAll(true);
@@ -688,8 +698,10 @@ public class Robot_move : MonoBehaviour {
                     loader.OnMapUpdate(null, PointDes(targets));
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
-                    try{
+                    try {
+#if UNITY_EDITOR
                         Debug.Log(currentMap);
+#endif
                         loader.MapNext(currentMap);
                         button.ReturnAll();
                         func.gameObject.SetActive(true);
@@ -698,7 +710,9 @@ public class Robot_move : MonoBehaviour {
                         input.ReStart();              
                     }
                     catch(FileNotFoundException e) {
+#if UNITY_EDITOR
                         Debug.Log(e);
+#endif
                     }
                     Level();
                     yield break;
@@ -713,7 +727,9 @@ public class Robot_move : MonoBehaviour {
                         yield break;                
                 }
                 else if (isDestroy) {
+#if UNITY_EDITOR
                     Debug.Log("x - " + startPos.x + "; y - " + startPos.y + " end");
+#endif
                     loader.OnMapUpdate(null, PointDes(targets));
                     isDestroy = false;
                 }
@@ -730,7 +746,9 @@ public class Robot_move : MonoBehaviour {
             yield break;
         }
         else {
+#if UNITY_EDITOR
             Debug.Log("You Lose!!!");
+#endif
             yield return new WaitForSeconds(0.7f);
             Level(true);
             button.ReturnAll(true);

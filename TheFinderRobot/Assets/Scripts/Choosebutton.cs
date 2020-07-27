@@ -48,8 +48,10 @@ public class Choosebutton : MonoBehaviour
         robot = Robot.GetComponent<Robot_move>();
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
         ButtonLoad(true);
+#if UNITY_EDITOR
         if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0)
             Debug.Log(Savegame.sv.movesf1[0]);
+#endif
     }
 
     private void UpDatetion() { 
@@ -329,7 +331,7 @@ public class Choosebutton : MonoBehaviour
         float speed = robot.fade_speed;
         button_frame.transform.position = nextchild.transform.position;
         nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
-        button_frame.transform.parent = nextchild.transform;
+        button_frame.transform.SetParent(nextchild.transform);
         currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
     }
     
@@ -461,7 +463,7 @@ public class Choosebutton : MonoBehaviour
             FrameTranslate(children, child);
         }
         else {
-            button_frame.transform.parent = Panel.transform;
+            button_frame.transform.SetParent(Panel.transform);
             destroy = false;
         }
         StartCoroutine(UnvisiblePrefab(child));
@@ -470,8 +472,8 @@ public class Choosebutton : MonoBehaviour
     public void ReturnAll(bool stop = false) {
         StopAllCoroutines();
         if (button_frame.transform.parent != Panel.transform)
-            button_frame.transform.parent = Panel.transform;
-        button_frame.transform.parent = Panel.transform;
+            button_frame.transform.SetParent(Panel.transform);
+        button_frame.transform.SetParent(Panel.transform);
         foreach (Transform child in ContentPrefab.transform)
             GameObject.Destroy(child.gameObject);
         Content.gameObject.SetActive(true);
@@ -571,7 +573,7 @@ public class Choosebutton : MonoBehaviour
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
         if (newChild.transform.GetSiblingIndex() == 1)
             new_speed = true;
-        newChild.transform.parent = ContentPrefab.transform;
+        newChild.transform.SetParent(ContentPrefab.transform);
         if (newChild.transform.GetSiblingIndex() == 0)
             newChild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
         else

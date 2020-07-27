@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundObjectsHandler : MonoBehaviour {
+public class BackgroundHandler : MonoBehaviour {
 
     [SerializeField]
     private GameObject[] prefabs;
@@ -15,7 +15,7 @@ public class BackgroundObjectsHandler : MonoBehaviour {
             int randPrefab = Random.Range(0, prefabs.Length);
             GameObject newObject = GameObject.Instantiate(prefabs[randPrefab]);
 
-            newObject.transform.parent = this.transform;
+            newObject.transform.SetParent(this.transform);
             SetObjectCorrectStartPosition(newObject);
             StartCoroutine(CheckForLost(newObject));
         }
@@ -24,7 +24,7 @@ public class BackgroundObjectsHandler : MonoBehaviour {
     private void Update() {
         for (int i = 0; i < transform.childCount; i++) {
             Transform child = transform.GetChild(i);
-            BackgroundObjectHandler handler = GetHandler(child.gameObject);
+            BackgroundObject handler = GetHandler(child.gameObject);
             Vector3 screenPoint = Camera.main.WorldToViewportPoint(child.position);
 
             bool isVisible = screenPoint.z > 0 && screenPoint.x > -0.1f
@@ -40,7 +40,7 @@ public class BackgroundObjectsHandler : MonoBehaviour {
     }
 
     private void RestartObject(GameObject objectFromList) {
-        BackgroundObjectHandler handler = GetHandler(objectFromList);
+        BackgroundObject handler = GetHandler(objectFromList);
 
         handler.SetRandomParams();
         SetObjectCorrectStartPosition(objectFromList);
@@ -48,7 +48,7 @@ public class BackgroundObjectsHandler : MonoBehaviour {
     }
 
     private void SetObjectCorrectStartPosition(GameObject newObject) {
-        BackgroundObjectHandler handler = GetHandler(newObject);
+        BackgroundObject handler = GetHandler(newObject);
         Vector3 direction = handler.GetMoveDirection();
         int x, z;
 
@@ -87,12 +87,12 @@ public class BackgroundObjectsHandler : MonoBehaviour {
         newObject.transform.position = new Vector3(x, Random.Range(-10, -5), z);
     }
 
-    private BackgroundObjectHandler GetHandler(GameObject forObject) {
-        return forObject.GetComponentInChildren<BackgroundObjectHandler>();
+    private BackgroundObject GetHandler(GameObject forObject) {
+        return forObject.GetComponentInChildren<BackgroundObject>();
     }
 
     private IEnumerator CheckForLost(GameObject objectFromList) {
-        BackgroundObjectHandler handler = GetHandler(objectFromList);
+        BackgroundObject handler = GetHandler(objectFromList);
 
         yield return new WaitForSeconds(5f);
         if (!handler.GetNotHidden())
