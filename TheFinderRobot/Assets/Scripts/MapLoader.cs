@@ -7,6 +7,7 @@ public class MapLoader : MonoBehaviour {
 
     [SerializeField] private GameObject columnPrefab = null;
     [SerializeField] private GameObject pause;
+    [SerializeField] private GameObject starPrefab = null;
 
     private StreamReader stream;
     private string path;
@@ -15,16 +16,22 @@ public class MapLoader : MonoBehaviour {
     private Education education;
 
     private void Awake() {
-        Debug.Log( "MAP " + MaplevelChose.map_number);
-        MapNext(MaplevelChose.map_number);
+        MapNext(Savegame.sv.mapNum);
+        if (Savegame.sv.mapNum != MaplevelChose.map_number)
+            MaplevelChose.map_number = Savegame.sv.mapNum;
         MaplevelChose.getsave = false;
     }
 
     public void MapNext(int mapNum) {
-        path = Application.dataPath + "/Maps/Map" + mapNum + ".json";
-        stream = new StreamReader(path);
-        loadedMap = JsonUtility.FromJson<Map>(stream.ReadToEnd());
-        RenderMap(loadedMap.map, loadedMap.mapWidth);
+        if (Savegame.sv.mapNum != mapNum)
+            Savegame.sv.mapNum = mapNum;
+
+
+        var jsonTextFile = Resources.Load<TextAsset>("Maps/Map" + mapNum);
+        string tileFile = jsonTextFile.text;
+        loadedMap = JsonUtility.FromJson<Map>(tileFile);
+        
+        RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
         camer = GameObject.Find("Main Camera").GetComponent<Camera>();
         camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
         camer.orthographicSize = loadedMap.cameraSize;
@@ -52,13 +59,19 @@ public class MapLoader : MonoBehaviour {
         return loadedMap;
     }
 
-    public void OnMapUpdate(int[,] newMap) {
-        loadedMap.map = TwoDToOneDArray(newMap);
-        RenderMap(loadedMap.map, loadedMap.mapWidth);
+    public void OnMapUpdate(int[,] newMap = null, int[,] newTargs = null) {
+        int[] mapa = loadedMap.map;
+        int[] targs = loadedMap.targets;
+        if (newMap != null)
+            mapa = TwoDToOneDArray(newMap);
+        if (newTargs != null)
+            targs = TwoDToOneDArray(newTargs);
+        RenderMap(mapa, targs, loadedMap.mapWidth);
     }
 
-    private void RenderMap(int[] map, int width) {
+    private void RenderMap(int[] map, int[] targets, int width) {
         int rows = map.Length / width;
+        int rows_star = targets.Length / 2;
         int col = 0;
         foreach (Transform child in transform) 
             GameObject.Destroy(child.gameObject);
@@ -69,6 +82,15 @@ public class MapLoader : MonoBehaviour {
                     CreateColumn(new Vector3Int(x * 2, 0, y * -2), col);
             }
         }
+        for (int x = 0; x < rows_star; x++) {
+            int[,] targeti = OneDToTwoDArray(targets, 2);
+            CreateStar(new Vector3(targeti[x, 1] * 2, (float) 0.2, targeti[x, 0] * -2));
+        }
+    }
+
+    private void CreateStar(Vector3 pos) {
+        GameObject newChild = GameObject.Instantiate(starPrefab, transform);
+        newChild.transform.position = pos;
     }
 
     private void CreateColumn(Vector3Int pos, int col) {
@@ -88,7 +110,6 @@ public class MapLoader : MonoBehaviour {
     public static int[,] OneDToTwoDArray(int[] map, int width) {
         int rows = map.Length / width;
         int[,] res = new int[rows, width];
-
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < width; x++) {
                 res[y, x] = map[(y * width) + x];
@@ -100,7 +121,6 @@ public class MapLoader : MonoBehaviour {
     public static int[] TwoDToOneDArray(int[,] map) {
         int[] res = new int[map.Length];
         int i = 0;
-
         for (int y = 0; y < map.GetLength(0); y++) {
             for (int x = 0; x < map.GetLength(1); x++) {
                 res[i] = map[y, x];
@@ -109,7 +129,6 @@ public class MapLoader : MonoBehaviour {
         }
         return res;
     }
-
 }
 
 public class Map {

@@ -21,20 +21,9 @@ public class LevelAppear : MonoBehaviour
 
     public void Getlevel() {
         if (!Savegame.sv.Education) {
-            if (!Savegame.sv.Chapter1) {
-                Debug.Log(gameObject.name);
-                MaplevelChose.map_number = -1;
-                SceneManager.LoadScene("Test_Buttons", LoadSceneMode.Single);
-            }
-
-            //Savegame.sv.Education = true;
-            Debug.Log("change");
+            MaplevelChose.map_number = Savegame.sv.mapNum;
+            SceneManager.LoadScene("Test_Buttons", LoadSceneMode.Single);
         }
-        else {
-            Debug.Log("already true");
-        }
-        //save = saving.GetComponent<Savegame>();
-        //sv = saving.GetComponent<Save>();
         menu.gameObject.SetActive(false);
         Levelpanel.gameObject.SetActive(true);
     }

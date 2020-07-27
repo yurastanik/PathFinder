@@ -32,11 +32,12 @@ public class Robot_move : MonoBehaviour {
     bool looser = false;
     bool winner = false;
     bool trans = false;
+    bool isDestroy = false;
     int i = 0;
     int t = 0;
     int movenum = 0;
     int winnum = 0;
-    int currentMap = MaplevelChose.map_number;
+    int currentMap = Savegame.sv.mapNum;
     private int[,] allarrays;
     private int[,] movesf2;
     private int[,] movesf3;
@@ -45,7 +46,7 @@ public class Robot_move : MonoBehaviour {
     private int[,] quene = new int[0,0];
 
 
-    private void LoadMap() {
+    private void LoadMap(bool lose = false) {
         func = funcs.GetComponent<Inputbuttons>();
         button = buttons.GetComponent<Choosebutton>();
         input = inputs.GetComponent<Button_play>();
@@ -55,10 +56,12 @@ public class Robot_move : MonoBehaviour {
         targets = MapLoader.OneDToTwoDArray(loadedMap.targets, 2);
         startPos = loadedMap.startPos;
         currentDirection = loadedMap.direction;
+        if (lose)
+            loader.OnMapUpdate(card, targets);
     }
 
-    private void Level() {
-        LoadMap();
+    private void Level(bool loser = false) {
+        LoadMap(loser);
         AtStart();
         DirectAtStart();
         transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
@@ -85,7 +88,7 @@ public class Robot_move : MonoBehaviour {
         Time.timeScale = 1;
         isPause = false;
         StopAllCoroutines();
-        button.ReturnAll();
+        button.ReturnAll(true);
         func.gameObject.SetActive(true);
         Level();
         trans = true;
@@ -112,9 +115,10 @@ public class Robot_move : MonoBehaviour {
     private void FixedUpdate() {
         if (trans) {
             t += 1;
-            if (t==2)
+            if (t==2) {
                 trans = false;
                 t = 0;
+            }
         }
     }
 
@@ -218,7 +222,7 @@ public class Robot_move : MonoBehaviour {
                     SizeReArray(ref quene, movenum);
                     movenum -= 1;
                     i -= 1;
-                }            
+                }
             }
         }
         else if (arr[movenum, 0] == 5){
@@ -280,7 +284,7 @@ public class Robot_move : MonoBehaviour {
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
                 ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {                        
+                for (int j = 0; j < integer; j++) {
                     quene[j, 0] = arr[movenum+(j+1), 0];
                     quene[j, 1] = arr[movenum+(j+1), 1];
                 }
@@ -303,7 +307,7 @@ public class Robot_move : MonoBehaviour {
                 ResizeArray(ref quene, integer);
                 for (int j = 0; j < integer; j++) {
                     quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];           
+                    quene[j, 1] = arr[movenum+(j+1), 1];
                 }
                 switchLst = true;
                 movenum = -1;
@@ -322,9 +326,9 @@ public class Robot_move : MonoBehaviour {
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
                 ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {                        
+                for (int j = 0; j < integer; j++) {
                     quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];           
+                    quene[j, 1] = arr[movenum+(j+1), 1];
                 }
                 switchLst = true;
                 movenum = -1;
@@ -343,9 +347,9 @@ public class Robot_move : MonoBehaviour {
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 int integer = (arr.GetLength(0) - movenum)-1;
                 ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {                        
+                for (int j = 0; j < integer; j++) {
                     quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];           
+                    quene[j, 1] = arr[movenum+(j+1), 1];
                 }
                 switchLst = true;
                 movenum = -1;
@@ -431,11 +435,32 @@ public class Robot_move : MonoBehaviour {
     private void CheckTarget() {
         for (int target = 0; target <= targets.GetUpperBound(0); target++) {
             if (startPos.x == targets[target, 0] && startPos.y == targets[target, 1]) {
-                Debug.Log("Picked star " + (target + 1));
                 Array.Clear(targets, target*2, 2);
+                Debug.Log("x - " + startPos.x + "; y - " + startPos.y);
                 GameWinner();
             }
         }
+    }
+
+    private int[,] PointDes(int[,] points) {
+        int nu = 0;
+        for (int x = 0; x < points.GetLength(0); x++) {
+            if (points[x, 0] == 0 && points[x, 1] == 0) {
+                nu += 1;
+            }
+        }
+        int[,] new_targ = new int[points.GetLength(0)-nu, 2];
+        int n = 0;
+        for (int i = 0; i < points.GetLength(0); i++) {
+            if (points[i, 0] != 0 || points[i, 1] != 0) {
+                new_targ[i-n, 0] = points[i, 0];
+                new_targ[i-n, 1] = points[i, 1];
+            }
+            else {
+                n += 1;
+            }
+        }
+        return new_targ;
     }
  
     private void GameWinner() {
@@ -446,9 +471,11 @@ public class Robot_move : MonoBehaviour {
         if (winnum == targets.Length) {
             Debug.Log("You Win!!!");
             NextMap();
-       }
-        else
+        }
+        else {
             winnum = 0;
+            isDestroy = true;
+        }
     }
 
     private void SetPosition(Vector2Int newPos) {
@@ -474,7 +501,7 @@ public class Robot_move : MonoBehaviour {
         quene = new int[0,0];
     }
 
-    private void NextMap() {   
+    private void NextMap() {
         isActive = false;
         winner = true;
         currentMap += 1;
@@ -495,7 +522,7 @@ public class Robot_move : MonoBehaviour {
             }
             else if (move == 3) {
                 anim.Play("Left", 0);
-                return "Left";            
+                return "Left";
             }
             else if (move == 4) {
                 return "Scratch";
@@ -510,7 +537,7 @@ public class Robot_move : MonoBehaviour {
                 return "Right";
             }
             else if (move == 3) {
-                return "Left";            
+                return "Left";
             }
             else if (move == 4) {
                 return "Scratch";
@@ -537,7 +564,7 @@ public class Robot_move : MonoBehaviour {
                         var newpos = LeftRight(currentDirection);
                         positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + newpos.y);
                     }
-                } 
+                }
                 CheckMoveType(ref quene);
                 movenum += 1;
                 if (movename != "Other" && movename != "Scratch") {
@@ -564,6 +591,7 @@ public class Robot_move : MonoBehaviour {
                     yield return new WaitWhile(() => button.fade);
                 }
                 if (winner) {
+                    loader.OnMapUpdate(null, PointDes(targets));
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
                     try{
@@ -584,10 +612,14 @@ public class Robot_move : MonoBehaviour {
                     anim.Play("Fall");
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));                    
-                    Level();
-                    button.ReturnAll();
+                    Level(true);
+                    button.ReturnAll(true);
                     func.gameObject.SetActive(true);
                     yield break;
+                }
+                else if (isDestroy) {
+                    loader.OnMapUpdate(null, PointDes(targets));
+                    isDestroy = false;
                 }
             }            
             if (switchLst) {
@@ -598,8 +630,8 @@ public class Robot_move : MonoBehaviour {
         }
         Debug.Log("You Lose!!!");
         yield return new WaitForSeconds(0.7f);
-        Level();
-        button.ReturnAll();
+        Level(true);
+        button.ReturnAll(true);
         func.gameObject.SetActive(true);
         yield break;
     }   
@@ -653,6 +685,7 @@ public class Robot_move : MonoBehaviour {
                     yield return new WaitWhile(() => button.fade);
                 }
                 if (winner) {
+                    loader.OnMapUpdate(null, PointDes(targets));
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
                     try{
@@ -674,10 +707,15 @@ public class Robot_move : MonoBehaviour {
                         anim.Play("Fall");
                         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
                         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        Level();
-                        button.ReturnAll();
+                        Level(true);
+                        button.ReturnAll(true);
                         func.gameObject.SetActive(true);
                         yield break;                
+                }
+                else if (isDestroy) {
+                    Debug.Log("x - " + startPos.x + "; y - " + startPos.y + " end");
+                    loader.OnMapUpdate(null, PointDes(targets));
+                    isDestroy = false;
                 }
             }
             if (switchLst) {
@@ -694,8 +732,8 @@ public class Robot_move : MonoBehaviour {
         else {
             Debug.Log("You Lose!!!");
             yield return new WaitForSeconds(0.7f);
-            Level();
-            button.ReturnAll();
+            Level(true);
+            button.ReturnAll(true);
             func.gameObject.SetActive(true);
             yield break;
         }

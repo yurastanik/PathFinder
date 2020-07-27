@@ -30,6 +30,8 @@ public class Inputbuttons : MonoBehaviour
     private float width_frame = 0;
     private float height_frame = 0;
 
+    private float delata = 1.2F;
+
     private void Awake() {
         Debug.Log("button " + button);
         FuncLoad(true);
@@ -42,7 +44,7 @@ public class Inputbuttons : MonoBehaviour
             }
             for (int i = 0; i < 8; i++) {
                 button_list[i].gameObject.SetActive(false);
-            }        
+            }
             ReUpdate();
         }
         firs_pos = button_list[0].GetComponent<RectTransform>().localPosition.x;
@@ -56,9 +58,11 @@ public class Inputbuttons : MonoBehaviour
         buton_num = choosebutton.GetComponent<Choosebutton>().func_num[0];
         if (buton_num == 7) {
             seven_activate();
+            delata = 1.4F;
         }
         else if (buton_num == 8) {
             eight_activate();
+            delata = 1.5F;
         }
         else {
             for (int i = 0; i < buton_num; i++) {
@@ -67,13 +71,13 @@ public class Inputbuttons : MonoBehaviour
         }
         button = 0;
         func = 0;
-        button_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[0].GetComponent<RectTransform>().rect.width)*1.2F, button_list[0].GetComponent<RectTransform>().rect.height*1.2F);
-        func_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[0].GetComponent<RectTransform>().rect.width)*1.2F, func_list[0].GetComponent<RectTransform>().rect.height*1.2F);
+        button_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[0].GetComponent<RectTransform>().rect.width)*delata, button_list[0].GetComponent<RectTransform>().rect.height*delata);
+        func_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[0].GetComponent<RectTransform>().rect.width)*delata, func_list[0].GetComponent<RectTransform>().rect.height*delata);
     }
 
     private void ReUpdate() {
-        func_list[func].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func].GetComponent<RectTransform>().rect.width)/1.2F, func_list[func].GetComponent<RectTransform>().rect.height/1.2F);
-        button_list[button].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button].GetComponent<RectTransform>().rect.width)/1.2F, button_list[button].GetComponent<RectTransform>().rect.height/1.2F);
+        func_list[func].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func].GetComponent<RectTransform>().rect.width)/delata, func_list[func].GetComponent<RectTransform>().rect.height/delata);
+        button_list[button].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button].GetComponent<RectTransform>().rect.width)/delata, button_list[button].GetComponent<RectTransform>().rect.height/delata);
         move_btn = true;
         move_func = true;
     }
@@ -141,10 +145,10 @@ public class Inputbuttons : MonoBehaviour
 
     private void FuncButton(ref int func_num, int but) {
         if (func_num != but) {
-            func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)/1.2F, func_list[func_num].GetComponent<RectTransform>().rect.height/1.2F);
+            func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)/delata, func_list[func_num].GetComponent<RectTransform>().rect.height/delata);
             func_num = but;
             move_func = true;
-            func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)*1.2F, func_list[func_num].GetComponent<RectTransform>().rect.height*1.2F);
+            func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)*delata, func_list[func_num].GetComponent<RectTransform>().rect.height*delata);
             delta_transofrm_x = firs_pos;
             button_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(width_frame, height_frame);
             for (int i = 0; i < buton_num; i++) {
@@ -205,14 +209,15 @@ public class Inputbuttons : MonoBehaviour
     private void Buttonact(ref int button_num, int button, bool flag) {
         if (button_num != button) {
             if (flag)
-                button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)/1.2F, button_list[button_num].GetComponent<RectTransform>().rect.height/1.2F);
+                button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)/delata, button_list[button_num].GetComponent<RectTransform>().rect.height/delata);
             button_num = button;
             move_btn = true;
-            button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)*1.2F, button_list[button_num].GetComponent<RectTransform>().rect.height*1.2F);
+            button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)*delata, button_list[button_num].GetComponent<RectTransform>().rect.height*delata);
         }
     }
 
     private void seven_activate() {
+        Debug.Log("SEVEN");
         delta_transofrm_x = firs_pos - 36.2001F;
             for (int i = 0; i < buton_num; i++) {
                 button_list[i].gameObject.SetActive(true);

@@ -23,10 +23,6 @@ public class Button_play : MonoBehaviour
     [SerializeField] public Sprite pause_btn;
     [SerializeField] public Sprite start_btn;
 
-    public void Awake() {
-        ReStart();
-    }
-
     public void ReStart() {
         func = new List<Functionclass>();
         player = GameObject.Find("Player").GetComponent<Robot_move>();
@@ -82,6 +78,7 @@ public class Button_play : MonoBehaviour
         btn.color = new Color(0.7458385f, 0.754717f, 0.01779993f, 1);
         float x_pos = transform.GetChild(2).transform.position.x;
         transform.GetChild(3).gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(2).transform.position = new Vector3(transform.GetChild(3).transform.position.x, transform.GetChild(2).transform.position.y, transform.GetChild(2).transform.position.z);
         transform.GetChild(3).transform.position = new Vector3(x_pos, transform.GetChild(3).transform.position.y, transform.GetChild(3).transform.position.z);
     }
@@ -90,6 +87,7 @@ public class Button_play : MonoBehaviour
         float stop_pos = transform.GetChild(3).transform.position.x;
         transform.GetChild(3).transform.position = new Vector3(transform.GetChild(2).transform.position.x, transform.GetChild(3).transform.position.y, transform.GetChild(3).transform.position.z);
         transform.GetChild(2).transform.position = new Vector3(stop_pos, transform.GetChild(2).transform.position.y, transform.GetChild(2).transform.position.z);
+        transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(3).gameObject.SetActive(true);
     }
 
@@ -143,6 +141,17 @@ public class Button_play : MonoBehaviour
         Time.timeScale = 1;
         MaplevelChose.quit = true;
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        Savegame.sv.movesf1 = null;
+        Savegame.sv.movesf2 = null;
+        Savegame.sv.movesf3 = null;
+        Savegame.sv.movesf4 = null;
+        Savegame.sv.movesf5 = null;
+        Savegame.sv.moves1 = null;
+        Savegame.sv.moves2 = null;
+        Savegame.sv.moves3 = null;
+        Savegame.sv.moves4 = null;
+        Savegame.sv.moves5 = null;
+        Savegame.sv.mapNum = 0;
     }
 
 }

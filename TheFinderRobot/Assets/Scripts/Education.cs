@@ -14,4 +14,11 @@ public class Education : MonoBehaviour {
             child.gameObject.SetActive(false);
     }
 
+    public void Next() {
+        gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).gameObject.SetActive(true);
+        gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(true);
+    }
+
 }

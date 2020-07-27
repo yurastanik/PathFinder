@@ -32,14 +32,10 @@ public class BackgroundObjectsHandler : MonoBehaviour {
 
             bool isNotHidden = handler.GetNotHidden();
 
-            if (isVisible == false && isNotHidden == true) {
-                Debug.Log("Object restarted!");
+            if (isVisible == false && isNotHidden == true)
                 RestartObject(child.gameObject);
-            }
-            else if (isVisible == true && isNotHidden == false) {
-                Debug.Log("Object was found!");
+            else if (isVisible == true && isNotHidden == false)
                 handler.SetNotHidden(true);
-            }
         }
     }
 
