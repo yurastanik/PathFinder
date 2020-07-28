@@ -6,14 +6,13 @@ using System.IO;
 public class MapLoader : MonoBehaviour {
 
     [SerializeField] private GameObject columnPrefab = null;
-    [SerializeField] private GameObject pause;
     [SerializeField] private GameObject starPrefab = null;
 
     private StreamReader stream;
     private string path;
     private Map loadedMap;
-    private Camera camer;
-    private Education education;
+    [SerializeField] private Camera camer;
+    [SerializeField] private Education education;
 
     private void Awake() {
         MapNext(Savegame.sv.mapNum);
@@ -32,24 +31,19 @@ public class MapLoader : MonoBehaviour {
         loadedMap = JsonUtility.FromJson<Map>(tileFile);
         
         RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
-        camer = GameObject.Find("Main Camera").GetComponent<Camera>();
         camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
         camer.orthographicSize = loadedMap.cameraSize;
         if (mapNum < 0) {
             if (mapNum == -1) {
-                education = pause.GetComponent<Education>();
                 education.FirstChapt(0);
             }
             else if (mapNum == -3) {
-                education = pause.GetComponent<Education>();
                 education.FirstChapt(1);
             }
             else if (mapNum == -5) {
-                education = pause.GetComponent<Education>();
                 education.FirstChapt(2);
             }
             else if (mapNum == -9) {
-                education = pause.GetComponent<Education>();
                 education.FirstChapt(3);
             }
         }

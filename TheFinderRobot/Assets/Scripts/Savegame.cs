@@ -27,7 +27,7 @@ public class Savegame : MonoBehaviour
                 if (sv.movesf1.Length > 0)
                     Debug.Log(sv.movesf1[0]);
 #endif
-                SceneManager.LoadScene("Test_Buttons", LoadSceneMode.Single);
+                SceneManager.LoadScene("Game", LoadSceneMode.Single);
             }
         }
     }
@@ -38,7 +38,7 @@ public class Savegame : MonoBehaviour
             Debug.Log(sv.mapNum);
 #endif
             sv.FirstEntry = false;
-            if (sv.moves1 != null) 
+            if (sv.moves1 != null)
                 sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);
             if (sv.moves2 != null)
                 sv.movesf2 = MapLoader.TwoDToOneDArray(sv.moves2);

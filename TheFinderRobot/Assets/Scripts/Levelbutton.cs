@@ -12,6 +12,6 @@ public class Levelbutton : MonoBehaviour
 #endif
         MaplevelChose.map_number = Int32.Parse(gameObject.name);
         Savegame.sv.mapNum = MaplevelChose.map_number;
-        SceneManager.LoadScene("Test_Buttons", LoadSceneMode.Single);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 }

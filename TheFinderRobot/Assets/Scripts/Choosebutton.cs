@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class Choosebutton : MonoBehaviour
 {
+    [SerializeField] private Button_play Btnplay;
+    [SerializeField] private Inputbuttons InputField;
+    [SerializeField] private MapLoader loader;
+    [SerializeField] private Robot_move robot;
+
+
     [SerializeField] private GameObject top;
     [SerializeField] private GameObject left;
     [SerializeField] private GameObject right;
@@ -13,14 +19,13 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] private GameObject f3;
     [SerializeField] private GameObject f4;
     [SerializeField] private GameObject f5;
-    [SerializeField] private GameObject InputField;
+
     [SerializeField] private GameObject Panel;
-    [SerializeField] private GameObject Btnplay;
+
     [SerializeField] private Button[] button_list = new Button[15];
     [SerializeField] private Image Content;
     [SerializeField] private Image ContentPrefab;
     [SerializeField] private GameObject Scrol;
-    [SerializeField] private GameObject Robot;
     [SerializeField] public Image button_frame;
 
     private int[,] movesf1;
@@ -33,9 +38,7 @@ public class Choosebutton : MonoBehaviour
     private int[,] movesf6;
     private int[] colors;
     private int[] moves = new int[0];
-    private Robot_move robot;
     private GameObject create;
-    private MapLoader loader;
     private int btn;
     private int fun;
     public Sprite[] s1;
@@ -45,7 +48,6 @@ public class Choosebutton : MonoBehaviour
 
 
     public void Awake() {
-        robot = Robot.GetComponent<Robot_move>();
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
         ButtonLoad(true);
 #if UNITY_EDITOR
@@ -55,13 +57,13 @@ public class Choosebutton : MonoBehaviour
     }
 
     private void UpDatetion() { 
-        for (int i = 0; i < Btnplay.GetComponent<Button_play>().func.Count; i++){
-            int buttons = Btnplay.GetComponent<Button_play>().func[i].input_arr.Count;
+        for (int i = 0; i < Btnplay.func.Count; i++){
+            int buttons = Btnplay.func[i].input_arr.Count;
             for (int a = 0; a < buttons; a++){
-                InputField.GetComponent<Inputbuttons>().button_list[a].image.sprite = s1[0];
-                InputField.GetComponent<Inputbuttons>().button_list[a].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
-                Btnplay.GetComponent<Button_play>().func[i].input_arr[a].direct = 0;
-                Btnplay.GetComponent<Button_play>().func[i].input_arr[a].color = 0;
+                InputField.button_list[a].image.sprite = s1[0];
+                InputField.button_list[a].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
+                Btnplay.func[i].input_arr[a].direct = 0;
+                Btnplay.func[i].input_arr[a].color = 0;
             }
         }
         movesf2 = new int[0,0];
@@ -82,7 +84,7 @@ public class Choosebutton : MonoBehaviour
             }
             UpDatetion();
         }
-        loader = GameObject.Find("Map").GetComponent<MapLoader>();
+
         Map loadedMap = loader.GetMap();
         colors = loadedMap.colors;
         if (colors != null) {
@@ -125,13 +127,13 @@ public class Choosebutton : MonoBehaviour
         foreach (int i in moves) {
             button_list[i].gameObject.SetActive(true);
         }
-        Btnplay.GetComponent<Button_play>().ReStart();
+        Btnplay.ReStart();
         if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0) {
             Savegame.sv.moves1 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf1, 2);
             for (int i = 0; i < Savegame.sv.moves1.GetLength(0); i++) {
-                InputField.GetComponent<Inputbuttons>().button_list[i].image.color = ColorIndeed(Savegame.sv.moves1[i, 1]);
-                Btnplay.GetComponent<Button_play>().func[0].input_arr[i].color = Savegame.sv.moves1[i, 1];
-                Btnplay.GetComponent<Button_play>().func[0].input_arr[i].direct = Savegame.sv.moves1[i, 0];
+                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves1[i, 1]);
+                Btnplay.func[0].input_arr[i].color = Savegame.sv.moves1[i, 1];
+                Btnplay.func[0].input_arr[i].direct = Savegame.sv.moves1[i, 0];
                 if (Savegame.sv.moves1[i, 0] != 0) {
                     if (Savegame.sv.moves1[i, 0] < 4) {
                         int n = 6;
@@ -140,7 +142,7 @@ public class Choosebutton : MonoBehaviour
                             if (n == 9)
                                 n -= 3;
                             if (Savegame.sv.moves1[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                     else if (Savegame.sv.moves1[i, 0] > 6) {
@@ -148,7 +150,7 @@ public class Choosebutton : MonoBehaviour
                         for (int a = 7; a < 12; a++) {
                             n += 1;
                             if (Savegame.sv.moves1[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                 }
@@ -157,9 +159,9 @@ public class Choosebutton : MonoBehaviour
         if (Savegame.sv.movesf2 != null && Savegame.sv.movesf2.Length > 0) {
             Savegame.sv.moves2 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf2, 2);
             for (int i = 0; i < Savegame.sv.moves2.GetLength(0); i++) {
-                InputField.GetComponent<Inputbuttons>().button_list[i].image.color = ColorIndeed(Savegame.sv.moves2[i, 1]);
-                Btnplay.GetComponent<Button_play>().func[1].input_arr[i].color = Savegame.sv.moves2[i, 1];
-                Btnplay.GetComponent<Button_play>().func[1].input_arr[i].direct = Savegame.sv.moves2[i, 0];
+                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves2[i, 1]);
+                Btnplay.func[1].input_arr[i].color = Savegame.sv.moves2[i, 1];
+                Btnplay.func[1].input_arr[i].direct = Savegame.sv.moves2[i, 0];
                 if (Savegame.sv.moves2[i, 0] != 0) {
                     if (Savegame.sv.moves2[i, 0] < 4) {
                         int n = 6;
@@ -168,7 +170,7 @@ public class Choosebutton : MonoBehaviour
                             if (n == 9)
                                 n -= 3;;
                             if (Savegame.sv.moves2[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                     else if (Savegame.sv.moves2[i, 0] > 6) {
@@ -176,7 +178,7 @@ public class Choosebutton : MonoBehaviour
                         for (int a = 7; a < 12; a++) {
                             n += 1;
                             if (Savegame.sv.moves2[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                 }
@@ -185,9 +187,9 @@ public class Choosebutton : MonoBehaviour
         if (Savegame.sv.movesf3 != null && Savegame.sv.movesf3.Length > 0) {
             Savegame.sv.moves3 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf3, 2);
             for (int i = 0; i < Savegame.sv.moves3.GetLength(0); i++) {
-                InputField.GetComponent<Inputbuttons>().button_list[i].image.color = ColorIndeed(Savegame.sv.moves3[i, 1]);
-                Btnplay.GetComponent<Button_play>().func[2].input_arr[i].color = Savegame.sv.moves3[i, 1];
-                Btnplay.GetComponent<Button_play>().func[3].input_arr[i].direct = Savegame.sv.moves3[i, 0];
+                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves3[i, 1]);
+                Btnplay.func[2].input_arr[i].color = Savegame.sv.moves3[i, 1];
+                Btnplay.func[3].input_arr[i].direct = Savegame.sv.moves3[i, 0];
                 if (Savegame.sv.moves3[i, 0] != 0) {
                     if (Savegame.sv.moves3[i, 0] < 4) {
                         int n = 6;
@@ -196,7 +198,7 @@ public class Choosebutton : MonoBehaviour
                             if (n == 9)
                                 n -= 3;;
                             if (Savegame.sv.moves3[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                     else if (Savegame.sv.moves3[i, 0] > 6) {
@@ -204,7 +206,7 @@ public class Choosebutton : MonoBehaviour
                         for (int a = 7; a < 12; a++) {
                             n += 1;
                             if (Savegame.sv.moves3[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                 }
@@ -213,9 +215,9 @@ public class Choosebutton : MonoBehaviour
         if (Savegame.sv.movesf4 != null && Savegame.sv.movesf4.Length > 0) {
             Savegame.sv.moves4 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf4, 2);
             for (int i = 0; i < Savegame.sv.moves4.GetLength(0); i++) {
-                InputField.GetComponent<Inputbuttons>().button_list[i].image.color = ColorIndeed(Savegame.sv.moves4[i, 1]);
-                Btnplay.GetComponent<Button_play>().func[3].input_arr[i].color = Savegame.sv.moves4[i, 1];
-                Btnplay.GetComponent<Button_play>().func[3].input_arr[i].direct = Savegame.sv.moves4[i, 0];
+                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves4[i, 1]);
+                Btnplay.func[3].input_arr[i].color = Savegame.sv.moves4[i, 1];
+                Btnplay.func[3].input_arr[i].direct = Savegame.sv.moves4[i, 0];
                 if (Savegame.sv.moves4[i, 0] != 0) {
                     if (Savegame.sv.moves4[i, 0] < 4) {
                         int n = 6;
@@ -224,7 +226,7 @@ public class Choosebutton : MonoBehaviour
                             if (n == 9)
                                 n -= 3;;
                             if (Savegame.sv.moves4[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                     else if (Savegame.sv.moves4[i, 0] > 6) {
@@ -232,7 +234,7 @@ public class Choosebutton : MonoBehaviour
                         for (int a = 7; a < 12; a++) {
                             n += 1;
                             if (Savegame.sv.moves4[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                 }
@@ -241,9 +243,9 @@ public class Choosebutton : MonoBehaviour
         if (Savegame.sv.movesf5 != null && Savegame.sv.movesf5.Length > 0) {
             Savegame.sv.moves5 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf5, 2);
             for (int i = 0; i < Savegame.sv.moves5.GetLength(0); i++) {
-                InputField.GetComponent<Inputbuttons>().button_list[i].image.color = ColorIndeed(Savegame.sv.moves5[i, 1]);
-                Btnplay.GetComponent<Button_play>().func[4].input_arr[i].color = Savegame.sv.moves5[i, 1];
-                Btnplay.GetComponent<Button_play>().func[4].input_arr[i].direct = Savegame.sv.moves5[i, 0];
+                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves5[i, 1]);
+                Btnplay.func[4].input_arr[i].color = Savegame.sv.moves5[i, 1];
+                Btnplay.func[4].input_arr[i].direct = Savegame.sv.moves5[i, 0];
                 if (Savegame.sv.moves5[i, 0] != 0) {
                     if (Savegame.sv.moves5[i, 0] < 4) {
                         int n = 6;
@@ -252,7 +254,7 @@ public class Choosebutton : MonoBehaviour
                             if (n == 9)
                                 n -= 3;;
                             if (Savegame.sv.moves5[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                     else if (Savegame.sv.moves5[i, 0] > 6) {
@@ -260,7 +262,7 @@ public class Choosebutton : MonoBehaviour
                         for (int a = 7; a < 12; a++) {
                             n += 1;
                             if (Savegame.sv.moves5[i, 0] == a)
-                                InputField.GetComponent<Inputbuttons>().button_list[i].image.sprite = s1[n];
+                                InputField.button_list[i].image.sprite = s1[n];
                         }
                     }
                 }
@@ -283,12 +285,12 @@ public class Choosebutton : MonoBehaviour
     }
 
     public void CancelButton() {
-        btn = InputField.GetComponent<Inputbuttons>().button;
-        fun = InputField.GetComponent<Inputbuttons>().func;
-        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[0];
-        Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = 0;
-        InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
-        Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = 0;
+        btn = InputField.button;
+        fun = InputField.func;
+        InputField.button_list[btn].image.sprite = s1[0];
+        Btnplay.func[fun].input_arr[btn].direct = 0;
+        InputField.button_list[btn].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
+        Btnplay.func[fun].input_arr[btn].color = 0;
         if (fun == 0) {
             for (int j = 0; j < 2; j++)
                 Savegame.sv.moves1[btn, j] = 0;
@@ -336,12 +338,12 @@ public class Choosebutton : MonoBehaviour
     }
     
     public void Hint() {
-        btn = InputField.GetComponent<Inputbuttons>().button;
-        fun = InputField.GetComponent<Inputbuttons>().func;
+        btn = InputField.button;
+        fun = InputField.func;
         if (fun == 0) {
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = movesf1[btn, 0];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = movesf1[btn, 1];
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = ColorIndeed(movesf1[btn, 1]);
+            Btnplay.func[fun].input_arr[btn].direct = movesf1[btn, 0];
+            Btnplay.func[fun].input_arr[btn].color = movesf1[btn, 1];
+            InputField.button_list[btn].image.color = ColorIndeed(movesf1[btn, 1]);
             if (movesf1[btn, 0] < 4) {
                 int n = 6;
                 for (int a = 1; a < 4; a++) {
@@ -349,7 +351,7 @@ public class Choosebutton : MonoBehaviour
                     if (n == 9)
                         n -= 3;;
                     if (movesf1[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
             else if (movesf1[btn, 0] > 6) {
@@ -357,14 +359,14 @@ public class Choosebutton : MonoBehaviour
                 for (int a = 7; a < 12; a++) {
                     n += 1;
                     if (movesf1[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
         }
         else if (fun == 1) {
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = movesf2[btn, 0];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = movesf2[btn, 1];
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = ColorIndeed(movesf2[btn, 1]);
+            Btnplay.func[fun].input_arr[btn].direct = movesf2[btn, 0];
+            Btnplay.func[fun].input_arr[btn].color = movesf2[btn, 1];
+            InputField.button_list[btn].image.color = ColorIndeed(movesf2[btn, 1]);
             if (movesf2[btn, 0] < 4) {
                 int n = 6;
                 for (int a = 1; a < 4; a++) {
@@ -372,7 +374,7 @@ public class Choosebutton : MonoBehaviour
                     if (n == 9)
                         n -= 3;;
                     if (movesf2[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
             else if (movesf2[btn, 0] > 6) {
@@ -380,14 +382,14 @@ public class Choosebutton : MonoBehaviour
                 for (int a = 7; a < 12; a++) {
                     n += 1;
                     if (movesf2[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
         }
         else if (fun == 2) {
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = movesf3[btn, 0];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = movesf3[btn, 1];
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = ColorIndeed(movesf3[btn, 1]);
+            Btnplay.func[fun].input_arr[btn].direct = movesf3[btn, 0];
+            Btnplay.func[fun].input_arr[btn].color = movesf3[btn, 1];
+            InputField.button_list[btn].image.color = ColorIndeed(movesf3[btn, 1]);
             if (movesf3[btn, 0] < 4) {
                 int n = 6;
                 for (int a = 1; a < 4; a++) {
@@ -395,7 +397,7 @@ public class Choosebutton : MonoBehaviour
                     if (n == 9)
                         n -= 3;;
                     if (movesf3[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
             else if (movesf3[btn, 0] > 6) {
@@ -403,14 +405,14 @@ public class Choosebutton : MonoBehaviour
                 for (int a = 7; a < 12; a++) {
                     n += 1;
                     if (movesf3[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
         }
         if (fun == 3) {
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = movesf4[btn, 0];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = movesf4[btn, 1];
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = ColorIndeed(movesf4[btn, 1]);
+            Btnplay.func[fun].input_arr[btn].direct = movesf4[btn, 0];
+            Btnplay.func[fun].input_arr[btn].color = movesf4[btn, 1];
+            InputField.button_list[btn].image.color = ColorIndeed(movesf4[btn, 1]);
             if (movesf4[btn, 0] < 4) {
                 int n = 6;
                 for (int a = 1; a < 4; a++) {
@@ -418,7 +420,7 @@ public class Choosebutton : MonoBehaviour
                     if (n == 9)
                         n -= 3;;
                     if (movesf4[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
             else if (movesf4[btn, 0] > 6) {
@@ -426,14 +428,14 @@ public class Choosebutton : MonoBehaviour
                 for (int a = 7; a < 12; a++) {
                     n += 1;
                     if (movesf4[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
         }
         if (fun == 4) {
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = movesf5[btn, 0];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = movesf5[btn, 1];
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = ColorIndeed(movesf5[btn, 1]);
+            Btnplay.func[fun].input_arr[btn].direct = movesf5[btn, 0];
+            Btnplay.func[fun].input_arr[btn].color = movesf5[btn, 1];
+            InputField.button_list[btn].image.color = ColorIndeed(movesf5[btn, 1]);
             if (movesf5[btn, 0] < 4) {
                 int n = 6;
                 for (int a = 1; a < 4; a++) {
@@ -441,7 +443,7 @@ public class Choosebutton : MonoBehaviour
                     if (n == 9)
                         n -= 3;;
                     if (movesf5[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
             else if (movesf5[btn, 0] > 6) {
@@ -449,7 +451,7 @@ public class Choosebutton : MonoBehaviour
                 for (int a = 7; a < 12; a++) {
                     n += 1;
                     if (movesf5[btn, 0] == a)
-                        InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[n];
+                        InputField.button_list[btn].image.sprite = s1[n];
                 }
             }
         }
@@ -477,7 +479,7 @@ public class Choosebutton : MonoBehaviour
         foreach (Transform child in ContentPrefab.transform)
             GameObject.Destroy(child.gameObject);
         Content.gameObject.SetActive(true);
-        Btnplay.GetComponent<Button_play>().ReturnBtn();
+        Btnplay.ReturnBtn();
         RectTransform panelka = Panel.GetComponent<RectTransform>();
         ScrollRect scroll = Panel.GetComponent<ScrollRect>();
         RectTransform pict = Content.GetComponent<RectTransform>();
@@ -616,10 +618,10 @@ public class Choosebutton : MonoBehaviour
     }
 
     public void Red_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = (int) Input_Class.Colors.Red;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.color = new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
+            Btnplay.func[fun].input_arr[btn].color = (int) Input_Class.Colors.Red;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 1] = 3;
             else if (fun == 1)
@@ -632,10 +634,10 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 1] = 3;
     }
     public void Blue_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = new Color(0.2763439F, 0.6294675F, 0.8490566F, 1F);
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = (int) Input_Class.Colors.Blue;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.color = new Color(0.2763439F, 0.6294675F, 0.8490566F, 1F);
+            Btnplay.func[fun].input_arr[btn].color = (int) Input_Class.Colors.Blue;
             if (fun == 0)
                 Savegame.sv.moves1[btn, 1] = 1;
             else if (fun == 1)
@@ -648,10 +650,10 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 1] = 1;
     }
     public void Green_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.color = new Color(0.3551086F, 0.7169812F,0.3980731F, 1F);
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].color = (int) Input_Class.Colors.Green;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.color = new Color(0.3551086F, 0.7169812F,0.3980731F, 1F);
+            Btnplay.func[fun].input_arr[btn].color = (int) Input_Class.Colors.Green;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 1] = 2;
             else if (fun == 1)
@@ -664,10 +666,10 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 1] = 2;
     }
     public void f1_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[1];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f1;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[1];
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f1;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 7;
             else if (fun == 1)
@@ -680,10 +682,12 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 0] = 7;
     }
     public void f2_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[2];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f2;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[2];
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f2;
+
+            
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 8;
             else if (fun == 1)
@@ -696,10 +700,10 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 0] = 8;
     }
     public void f3_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[3];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f3;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[3];
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f3;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 9;
             else if (fun == 1)
@@ -712,10 +716,10 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 0] = 9;
     }
     public void f4_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[4];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f4;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[4];
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f4;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 10;
             else if (fun == 1)
@@ -729,10 +733,10 @@ public class Choosebutton : MonoBehaviour
     }
 
     public void f5_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[5];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f5;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[5];
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f5;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 11;
             else if (fun == 1)
@@ -745,10 +749,12 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 0] = 11;
     }
     public void Top_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[7];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.forward;
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[7];
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.forward;
+
+
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 1;
             else if (fun == 1)
@@ -761,10 +767,10 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 0] = 1;
     }
     public void Left_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[6];
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.left;if (fun == 1) 
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[6];
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.left;if (fun == 1) 
             if (fun == 0)
                 Savegame.sv.moves1[btn, 0] = 3;
             else if (fun == 1)
@@ -777,10 +783,10 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 0] = 3;
     }
     public void Right_button() {
-            btn = InputField.GetComponent<Inputbuttons>().button;
-            InputField.GetComponent<Inputbuttons>().button_list[btn].image.sprite = s1[8];
-            fun = InputField.GetComponent<Inputbuttons>().func;
-            Btnplay.GetComponent<Button_play>().func[fun].input_arr[btn].direct = (int) Input_Class.Directs.right;
+            btn = InputField.button;
+            InputField.button_list[btn].image.sprite = s1[8];
+            fun = InputField.func;
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.right;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 2;
             else if (fun == 1)

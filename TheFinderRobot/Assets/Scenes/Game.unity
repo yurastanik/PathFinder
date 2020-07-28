@@ -1306,9 +1306,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columnPrefab: {fileID: 7287349878236699154, guid: af5250075497b4faf9fc3c0a7b55ed0b,
     type: 3}
-  pause: {fileID: 22286651}
   starPrefab: {fileID: 4147132158246510479, guid: b833cf2404e731f4c8765ad7468581f9,
     type: 3}
+  camer: {fileID: 1131981568}
+  education: {fileID: 22286655}
 --- !u!4 &187101098
 Transform:
   m_ObjectHideFlags: 0
@@ -1866,9 +1867,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2e0eedfd1834721903c7da443a1a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons: {fileID: 1108682852}
-  funcs: {fileID: 1459655553}
-  inputs: {fileID: 1670199801}
+  input: {fileID: 1670199806}
+  func: {fileID: 1459655559}
+  button: {fileID: 1108682857}
+  loader: {fileID: 187101097}
   fade_speed: 0.03
   readyToStart: 1
 --- !u!95 &335267609
@@ -5357,6 +5359,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d7326f97f8c644d8b48ad4b9ddc12e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Btnplay: {fileID: 1670199806}
+  InputField: {fileID: 1459655559}
+  loader: {fileID: 187101097}
+  robot: {fileID: 335267608}
   top: {fileID: 3423835061380079638, guid: d8441fb3126ecdf4aae51e693068f6a1, type: 3}
   left: {fileID: 3423835061380079638, guid: e44a9a87a3fa8154fb73b4d38202af57, type: 3}
   right: {fileID: 3423835061380079638, guid: f7cde21f35c101441a12efeb867aeb16, type: 3}
@@ -5365,9 +5371,7 @@ MonoBehaviour:
   f3: {fileID: 3423835061380079638, guid: 5378aa1db5063784db79f98db52cd896, type: 3}
   f4: {fileID: 3423835061380079638, guid: b20534e61fa4c84458dfe849858d870c, type: 3}
   f5: {fileID: 3423835061380079638, guid: ee496379bce52e442a1458aa7dd3f64a, type: 3}
-  InputField: {fileID: 1459655553}
   Panel: {fileID: 1101634974}
-  Btnplay: {fileID: 1670199801}
   button_list:
   - {fileID: 0}
   - {fileID: 371603733}
@@ -5388,7 +5392,6 @@ MonoBehaviour:
   Content: {fileID: 1607609502}
   ContentPrefab: {fileID: 1683356073}
   Scrol: {fileID: 1108682852}
-  Robot: {fileID: 335267606}
   button_frame: {fileID: 1155828620}
   new_speed: 0
   s1: []
@@ -7273,8 +7276,8 @@ MonoBehaviour:
   button_cancel: {fileID: 1564210284}
   button_frame: {fileID: 1378224988}
   func_frame: {fileID: 1401925827}
-  choosebutton: {fileID: 1108682852}
-  playbutton: {fileID: 1670199801}
+  choosebutton: {fileID: 1108682857}
+  playbutton: {fileID: 1670199806}
 --- !u!1 &1460902032
 GameObject:
   m_ObjectHideFlags: 0
@@ -8522,7 +8525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e096f943f0b8b24e8d0c05832a4e68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 1108682852}
+  choosebutton: {fileID: 1108682857}
+  player: {fileID: 335267608}
   pausepanel: {fileID: 1329581256}
   main_pause_btn: {fileID: 979498771}
   pause_btn: {fileID: 21300000, guid: 2b1d72b07b146ef4f935e7d8a28499c7, type: 3}

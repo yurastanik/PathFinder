@@ -4,20 +4,16 @@ using System.IO;
 using UnityEngine;
 
 public class Robot_move : MonoBehaviour {
-
-    [SerializeField] public GameObject buttons;
-    [SerializeField] public GameObject funcs;
-    [SerializeField] public GameObject inputs;
-    Button_play input;
-    Inputbuttons func;
-    Choosebutton button;
+    [SerializeField] private Button_play input;
+    [SerializeField] private Inputbuttons func;
+    [SerializeField] private Choosebutton button;
     private int[,] card;
     private int[,] movesf1;
     private int[,] targets;
     private Vector2Int startPos;
     private string currentDirection;
     private Animator anim;
-    private MapLoader loader;
+    [SerializeField] private MapLoader loader;
     private Vector3 positionToRun;
     private Quaternion currentPosLR;
     private Vector3 firstPos;
@@ -47,10 +43,6 @@ public class Robot_move : MonoBehaviour {
 
 
     private void LoadMap(bool lose = false) {
-        func = funcs.GetComponent<Inputbuttons>();
-        button = buttons.GetComponent<Choosebutton>();
-        input = inputs.GetComponent<Button_play>();
-        loader = GameObject.Find("Map").GetComponent<MapLoader>();
         Map loadedMap = loader.GetMap();
         card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
         targets = MapLoader.OneDToTwoDArray(loadedMap.targets, 2);

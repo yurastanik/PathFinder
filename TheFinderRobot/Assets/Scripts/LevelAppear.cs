@@ -22,7 +22,7 @@ public class LevelAppear : MonoBehaviour
     public void Getlevel() {
         if (!Savegame.sv.Education) {
             MaplevelChose.map_number = Savegame.sv.mapNum;
-            SceneManager.LoadScene("Test_Buttons", LoadSceneMode.Single);
+            SceneManager.LoadScene("Game", LoadSceneMode.Single);
         }
         menu.gameObject.SetActive(false);
         Levelpanel.gameObject.SetActive(true);

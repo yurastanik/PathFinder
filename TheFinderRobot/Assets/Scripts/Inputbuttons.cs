@@ -6,13 +6,14 @@ public class Inputbuttons : MonoBehaviour
 
     public Button[] button_list = new Button[8];
     [SerializeField] private Button[] func_list = new Button[6];
+
     public int button = 0;
     public int func = 0;
     [SerializeField] private Image button_cancel;
     [SerializeField] private Image button_frame;
     [SerializeField] private Image func_frame;
-    [SerializeField] private GameObject choosebutton;
-    [SerializeField] private GameObject playbutton;
+    [SerializeField] private Choosebutton choosebutton;
+    [SerializeField] private Button_play playbutton;
     private int func_num = 1;
 
     private bool move_btn;
@@ -54,10 +55,10 @@ public class Inputbuttons : MonoBehaviour
         height =  button_list[0].GetComponent<RectTransform>().rect.height;
         width_frame = button_frame.GetComponent<RectTransform>().rect.width;
         height_frame = button_frame.GetComponent<RectTransform>().rect.height;
-        func_num = choosebutton.GetComponent<Choosebutton>().func_num.Count;
+        func_num = choosebutton.func_num.Count;
         for (int i = 0; i < func_num; i++)
             func_list[i].gameObject.SetActive(true);
-        buton_num = choosebutton.GetComponent<Choosebutton>().func_num[0];
+        buton_num = choosebutton.func_num[0];
         if (buton_num == 7) {
             seven_activate();
             delata = 1.4F;
@@ -154,7 +155,7 @@ public class Inputbuttons : MonoBehaviour
             delta_transofrm_x = firs_pos;
             button_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(width_frame, height_frame);
             for (int i = 0; i < buton_num; i++) {
-                button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[0];
+                button_list[i].image.sprite = choosebutton.s1[0];
                 button_list[i].image.color = new Color(0.7333333F, 0.7843138F, 0.8784314F, 1F);
                 if (buton_num == 7 || buton_num == 8) {
                     button_list[i].GetComponent<RectTransform>().sizeDelta = new Vector2 (width, height);
@@ -162,7 +163,7 @@ public class Inputbuttons : MonoBehaviour
                     delta_transofrm_x += 296F;
                 }               
             }
-            next_buton_num = choosebutton.GetComponent<Choosebutton>().func_num[func];
+            next_buton_num = choosebutton.func_num[func];
             if (next_buton_num > buton_num) {
                 for (int i = buton_num; i < next_buton_num; i++)
                     button_list[i].gameObject.SetActive(true);
@@ -181,28 +182,28 @@ public class Inputbuttons : MonoBehaviour
             else 
                 Buttonact(ref button, 0, true);
             for (int i = 0; i < buton_num; i++) {
-                if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].color == (int) Input_Class.Colors.Red)
+                if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Red)
                     button_list[i].image.color = new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].color == (int) Input_Class.Colors.Blue)
+                else if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Blue)
                     button_list[i].image.color = new Color(0.2763439F, 0.6294675F, 0.8490566F, 1F);
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].color == (int) Input_Class.Colors.Green)
+                else if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Green)
                     button_list[i].image.color = new Color(0.3551086F, 0.7169812F,0.3980731F, 1F);
-                if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.left)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[6];
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.right)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[8];
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.forward)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[7];
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f1)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[1];
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f2)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[2];
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f3)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[3];
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f4)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[4];
-                else if (playbutton.GetComponent<Button_play>().func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f5)
-                    button_list[i].image.sprite = choosebutton.GetComponent<Choosebutton>().s1[5];
+                if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.left)
+                    button_list[i].image.sprite = choosebutton.s1[6];
+                else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.right)
+                    button_list[i].image.sprite = choosebutton.s1[8];
+                else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.forward)
+                    button_list[i].image.sprite = choosebutton.s1[7];
+                else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f1)
+                    button_list[i].image.sprite = choosebutton.s1[1];
+                else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f2)
+                    button_list[i].image.sprite = choosebutton.s1[2];
+                else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f3)
+                    button_list[i].image.sprite = choosebutton.s1[3];
+                else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f4)
+                    button_list[i].image.sprite = choosebutton.s1[4];
+                else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f5)
+                    button_list[i].image.sprite = choosebutton.s1[5];
             }
         }
 

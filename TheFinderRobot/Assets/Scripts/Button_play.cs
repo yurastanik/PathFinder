@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 public class Button_play : MonoBehaviour
 {
     private int func_count;
-    [SerializeField] GameObject button;
+    [SerializeField] private Choosebutton choosebutton;
+    [SerializeField] private Robot_move player;
+
+
     [SerializeField] private GameObject pausepanel;
     [SerializeField] private Button main_pause_btn;
 
@@ -17,16 +20,14 @@ public class Button_play : MonoBehaviour
     int[,] moves3 = new int[0,0];
     int[,] moves4 = new int[0,0];
     int[,] moves5 = new int[0,0];
-    Choosebutton choosebutton;
-    Robot_move player;
+
+
     public List <Functionclass> func = new List<Functionclass>();
     [SerializeField] public Sprite pause_btn;
     [SerializeField] public Sprite start_btn;
 
     public void ReStart() {
         func = new List<Functionclass>();
-        player = GameObject.Find("Player").GetComponent<Robot_move>();
-        choosebutton = button.GetComponent<Choosebutton>();
         func_count = choosebutton.func_num.Count;
         for (int i = 0; i < func_count; i++) {
             func.Add(new Functionclass(choosebutton.func_num[i]));
