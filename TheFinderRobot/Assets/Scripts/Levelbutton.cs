@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 public class Levelbutton : MonoBehaviour
 {
     public void choose_level() {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
+        Debug.Log("CHOOse lvl");
         Debug.Log(gameObject.name);
-#endif
+//#endif
         MaplevelChose.map_number = Int32.Parse(gameObject.name);
         Savegame.sv.mapNum = MaplevelChose.map_number;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
