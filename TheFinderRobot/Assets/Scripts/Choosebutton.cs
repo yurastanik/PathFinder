@@ -48,12 +48,15 @@ public class Choosebutton : MonoBehaviour
 
 
     public void Awake() {
+        Debug.Log("DEBAG TEST ");
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
         ButtonLoad(true);
-#if UNITY_EDITOR
-        if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0)
+//#if UNITY_EDITOR
+        if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0) {
+            Debug.Log("SSSSSSTART GAME");
             Debug.Log(Savegame.sv.movesf1[0]);
-#endif
+        }
+//#endif
     }
 
     private void UpDatetion() { 

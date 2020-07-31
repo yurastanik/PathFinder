@@ -17,5 +17,4 @@ public class WireframeRotation : MonoBehaviour {
         if (HSV > 1)
             HSV = 0;
     }
-
 }

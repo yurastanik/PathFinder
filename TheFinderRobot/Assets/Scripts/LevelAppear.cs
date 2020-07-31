@@ -21,6 +21,7 @@ public class LevelAppear : MonoBehaviour
 
     public void Getlevel() {
         if (!Savegame.sv.Education) {
+            Debug.Log("NOT EDUCATE");
             MaplevelChose.map_number = Savegame.sv.mapNum;
             SceneManager.LoadScene("Game", LoadSceneMode.Single);
         }

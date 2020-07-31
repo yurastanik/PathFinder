@@ -10,6 +10,7 @@ public class Rainbow : MonoBehaviour {
     private float HSV;
 
     private void Start() {
+        Debug.Log("RAIN");
         int x = (int)transform.position.x;
 
         meshRenderer = GetComponent<MeshRenderer>();
