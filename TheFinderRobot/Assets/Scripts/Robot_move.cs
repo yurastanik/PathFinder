@@ -82,6 +82,7 @@ public class Robot_move : MonoBehaviour {
         StopAllCoroutines();
         button.ReturnAll(true);
         func.gameObject.SetActive(true);
+        anim.Play("Stay", 0); // Animations stop
         Level();
         trans = true;
     }
