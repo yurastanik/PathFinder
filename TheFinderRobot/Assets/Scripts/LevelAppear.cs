@@ -7,7 +7,7 @@ public class LevelAppear : MonoBehaviour
 {
     [SerializeField] private GameObject Levelpanel;
     [SerializeField] private GameObject Educatepanel;
-    [SerializeField] private GameObject menu;
+    [SerializeField] public GameObject menu;
     private GameObject saving;
     private Savegame save;
     private Save sv;
@@ -20,11 +20,11 @@ public class LevelAppear : MonoBehaviour
     }
 
     public void Getlevel() {
-        if (!Savegame.sv.Education) {
-            Debug.Log("NOT EDUCATE");
-            MaplevelChose.map_number = Savegame.sv.mapNum;
-            SceneManager.LoadScene("Game", LoadSceneMode.Single);
-        }
+        // if (!Savegame.sv.Education) {
+        //     Debug.Log("NOT EDUCATE");
+        //     MaplevelChose.map_number = Savegame.sv.mapNum;
+        //     SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        // }
         menu.gameObject.SetActive(false);
         Levelpanel.gameObject.SetActive(true);
     }
