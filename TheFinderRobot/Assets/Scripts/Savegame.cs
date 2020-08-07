@@ -34,7 +34,7 @@ public class Savegame : MonoBehaviour
         }
     }
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_IOS
     void OnApplicationPause(bool pause) {
        if (pause) {
             Debug.Log("SAving Pause");
@@ -73,27 +73,27 @@ public class Savegame : MonoBehaviour
         if (sv.moves5 != null)
             sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
     }
 
-//     void OnApplicationFocus(bool hasFocus) {
+    void OnApplicationFocus(bool hasFocus) {
 
-//         Debug.Log("SAving Focus");
-//         Debug.Log(sv.mapNum);
+        Debug.Log("SAving Focus");
+        Debug.Log(sv.mapNum);
 
-//         sv.FirstEntry = false;
-//         if (sv.moves1 != null) 
-//             sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);
-//         if (sv.moves2 != null)
-//             sv.movesf2 = MapLoader.TwoDToOneDArray(sv.moves2);
-//         if (sv.moves3 != null)
-//             sv.movesf3 = MapLoader.TwoDToOneDArray(sv.moves3);
-//         if (sv.moves4 != null)
-//             sv.movesf4 = MapLoader.TwoDToOneDArray(sv.moves4);
-//         if (sv.moves5 != null)
-//             sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
-//         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-//     }
+        sv.FirstEntry = false;
+        if (sv.moves1 != null) 
+            sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);
+        if (sv.moves2 != null)
+            sv.movesf2 = MapLoader.TwoDToOneDArray(sv.moves2);
+        if (sv.moves3 != null)
+            sv.movesf3 = MapLoader.TwoDToOneDArray(sv.moves3);
+        if (sv.moves4 != null)
+            sv.movesf4 = MapLoader.TwoDToOneDArray(sv.moves4);
+        if (sv.moves5 != null)
+            sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
+        PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
+    }
 }
 
 
