@@ -752,11 +752,11 @@ public class Choosebutton : MonoBehaviour
                 Savegame.sv.moves5[btn, 0] = 11;
     }
     public void Top_button() {
+            Debug.Log("TOP");
             btn = InputField.button;
             fun = InputField.func;
             InputField.button_list[btn].image.sprite = s1[7];
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.forward;
-
 
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 1;

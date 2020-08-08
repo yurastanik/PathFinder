@@ -14,17 +14,17 @@ public class LevelAppear : MonoBehaviour
 
     private void Awake() {
         if (MaplevelChose.quit == true) {
-                menu.gameObject.SetActive(false);
-                Levelpanel.gameObject.SetActive(true);
+            menu.gameObject.SetActive(false);
+            Levelpanel.gameObject.SetActive(true);
         }
     }
 
     public void Getlevel() {
-        if (!Savegame.sv.Education) {
-            Debug.Log("NOT EDUCATE");
-            MaplevelChose.map_number = Savegame.sv.mapNum;
-            SceneManager.LoadScene("Game", LoadSceneMode.Single);
-        }
+        // if (!Savegame.sv.Education) {
+        //     Debug.Log("NOT EDUCATE");
+        //     MaplevelChose.map_number = Savegame.sv.mapNum;
+        //     SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        // }
         menu.gameObject.SetActive(false);
         Levelpanel.gameObject.SetActive(true);
     }
