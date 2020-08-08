@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Btn_move.cs" />
      <Compile Include="Assets\Scripts\Button_play.cs" />
      <Compile Include="Assets\Scripts\Choosebutton.cs" />
+     <Compile Include="Assets\Scripts\Creating.cs" />
      <Compile Include="Assets\Scripts\Education.cs" />
      <Compile Include="Assets\Scripts\Functionclass.cs" />
      <Compile Include="Assets\Scripts\GameColors.cs" />
@@ -59,6 +60,7 @@
      <Compile Include="Assets\Scripts\Levelbutton.cs" />
      <Compile Include="Assets\Scripts\MapLoader.cs" />
      <Compile Include="Assets\Scripts\MaplevelChose.cs" />
+     <Compile Include="Assets\Scripts\Panel_button.cs" />
      <Compile Include="Assets\Scripts\Rainbow.cs" />
      <Compile Include="Assets\Scripts\Robot_move.cs" />
      <Compile Include="Assets\Scripts\Savegame.cs" />
