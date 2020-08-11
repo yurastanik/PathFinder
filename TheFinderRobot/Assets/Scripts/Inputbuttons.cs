@@ -65,7 +65,7 @@ public class Inputbuttons : MonoBehaviour
         }
         else if (buton_num == 8) {
             eight_activate();
-            delata = 1.5F;
+            delata = 1.1F;
         }
         else {
             for (int i = 0; i < buton_num; i++) {

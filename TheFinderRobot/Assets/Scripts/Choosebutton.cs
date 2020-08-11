@@ -62,11 +62,16 @@ public class Choosebutton : MonoBehaviour
     private void UpDatetion() { 
         for (int i = 0; i < Btnplay.func.Count; i++){
             int buttons = Btnplay.func[i].input_arr.Count;
+            int j = 0;
             for (int a = 0; a < buttons; a++){
-                InputField.button_list[a].image.sprite = s1[0];
+                InputField.button_list[a].image.sprite = s1[j];
                 InputField.button_list[a].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
                 Btnplay.func[i].input_arr[a].direct = 0;
                 Btnplay.func[i].input_arr[a].color = 0;
+                if (j == 0)
+                    j = 12;
+                else
+                    j = 0;
             }
         }
         movesf2 = new int[0,0];
