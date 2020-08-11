@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +12,7 @@ public class Levelbutton : MonoBehaviour
         Debug.Log("CHOOse lvl");
         Debug.Log(gameObject.name);
 //#endif
-        MaplevelChose.map_number = Int32.Parse(gameObject.name);
+        MaplevelChose.map_number = Int32.Parse(gameObject.transform.GetChild(0).GetComponent<Text>().text);
         Savegame.sv.mapNum = MaplevelChose.map_number;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }

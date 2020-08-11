@@ -154,5 +154,4 @@ public class Button_play : MonoBehaviour
         Savegame.sv.moves5 = null;
         Savegame.sv.mapNum = 0;
     }
-
 }
