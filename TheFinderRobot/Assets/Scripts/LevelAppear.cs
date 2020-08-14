@@ -9,9 +9,9 @@ public class LevelAppear : MonoBehaviour
 {
     [SerializeField] private GameObject Levelpanel;
     [SerializeField] private GameObject Educatepanel;
-    [SerializeField] private GameObject menu;
     public GameObject nxt;
     public GameObject prv;
+    [SerializeField] public GameObject menu;
     private GameObject saving;
     private Savegame save;
     private Save sv;
