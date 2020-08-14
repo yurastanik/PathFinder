@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Panel_button : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class Panel_button : MonoBehaviour
 
     public void next(){
         bool next = false;
+        Transform old = null;
         foreach (Transform child in transform) {
             if (next) {
-                child.gameObject.SetActive(true);
+                StartCoroutine(move_left(old, child));
                 if (child.gameObject.name == "1")
                     prv.SetActive(false);
                 else if (child.gameObject.name == "97")
@@ -23,7 +25,7 @@ public class Panel_button : MonoBehaviour
                 break;
             }
             if (child.gameObject.activeSelf) {
-                child.gameObject.SetActive(false);
+                old = child;
                 next = true;
             }
         }
@@ -33,8 +35,7 @@ public class Panel_button : MonoBehaviour
         Transform buff = null;
         foreach (Transform child in transform) {
             if (child.gameObject.activeSelf) {
-                child.gameObject.SetActive(false);
-                buff.gameObject.SetActive(true);
+                StartCoroutine(move_right(child, buff));
                 if (buff.gameObject.name == "1")
                     prv.SetActive(false);
                 else if (buff.gameObject.name == "97")
@@ -46,6 +47,53 @@ public class Panel_button : MonoBehaviour
                 break;
             }
             buff = child;
+        }
+    }
+
+    public IEnumerator move_left(Transform old_obj, Transform new_obj) {
+        new_obj.gameObject.SetActive(true);
+        for (float i = 0; i >= -1800; i-=300) {
+            new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i+1800, 0, 0);
+            old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
+            visibiling(old_obj, new_obj);
+            yield return new WaitForSeconds(0.01f);
+        }
+        old_obj.gameObject.SetActive(false);
+        old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+    }
+
+    public IEnumerator move_right(Transform old_obj, Transform new_obj) {
+        new_obj.gameObject.SetActive(true);
+        for (float i = 0; i <= 1800; i+=300) {
+            new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i-1800, 0, 0);
+            old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
+            visibiling(old_obj, new_obj);
+            yield return new WaitForSeconds(0.01f);
+        }
+        old_obj.gameObject.SetActive(false);
+        old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+    }
+
+    public void visibiling(Transform old, Transform newo) {
+        foreach (Transform chill in old) {
+            Color col = chill.GetComponent<Image>().color;
+            col.a -= 0.16666f;
+            chill.GetComponent<Image>().color = col;
+            if (chill.GetChild(0).gameObject.activeSelf) {
+                Color color = chill.GetChild(0).GetComponent<Text>().color;
+                color.a -= 0.16666f;
+                chill.GetChild(0).GetComponent<Text>().color = color;
+            }
+        }
+        foreach (Transform chill in newo) {
+            Color col = chill.GetComponent<Image>().color;
+            col.a += 0.16666f;
+            chill.GetComponent<Image>().color = col;
+            if (chill.GetChild(0).gameObject.activeSelf) {
+                Color color = chill.GetChild(0).GetComponent<Text>().color;
+                color.a += 0.16666f;
+                chill.GetChild(0).GetComponent<Text>().color = color;
+            }
         }
     }
 }
