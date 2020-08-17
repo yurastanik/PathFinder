@@ -14,6 +14,10 @@ public class MapLoader : MonoBehaviour {
     [SerializeField] private Camera camer;
     [SerializeField] private Education education;
 
+    [SerializeField] private Material redMaterial;
+    [SerializeField] private Material greenMaterial;
+    [SerializeField] private Material blueMaterial;
+
     private void Awake() {
         MapNext(Savegame.sv.mapNum);
         if (Savegame.sv.mapNum != MaplevelChose.map_number)
@@ -56,6 +60,7 @@ public class MapLoader : MonoBehaviour {
     public void OnMapUpdate(int[,] newMap = null, int[,] newTargs = null) {
         int[] mapa = loadedMap.map;
         int[] targs = loadedMap.targets;
+
         if (newMap != null)
             mapa = TwoDToOneDArray(newMap);
         if (newTargs != null)
@@ -67,6 +72,7 @@ public class MapLoader : MonoBehaviour {
         int rows = map.Length / width;
         int rows_star = targets.Length / 2;
         int col = 0;
+
         foreach (Transform child in transform) 
             GameObject.Destroy(child.gameObject);
         for (int y = 0; y < rows; y++) {
@@ -92,10 +98,16 @@ public class MapLoader : MonoBehaviour {
         MeshRenderer topRend;
         newChild.transform.position = pos;
         Transform[] childs = newChild.GetComponentsInChildren<Transform>();
+
         for (int i = 0; i < childs.Length; i++) {
-            if (childs[i].name == "Top") {
+            if (childs[i].name == "Platform") {
                 topRend = childs[i].GetComponent<MeshRenderer>();
-                topRend.material.color = GameColors.GetColor(col);
+                if (col == 1)
+                    topRend.material = blueMaterial;
+                else if (col == 2)
+                    topRend.material = greenMaterial;
+                else
+                    topRend.material = redMaterial;
                 break;
             }
         }
