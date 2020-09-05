@@ -10,16 +10,13 @@ public class Rainbow : MonoBehaviour {
     private float HSV;
 
     private void Start() {
-        Debug.Log("RAIN");
         int x = (int)transform.position.x;
-
         meshRenderer = GetComponent<MeshRenderer>();
         HSV = (x / 2) * 0.1f;
     }
 
     private void Update() {
         meshRenderer.material.color = Color.HSVToRGB(HSV, 1, 1);
-
         HSV -= speed;
         if (HSV < 0)
             HSV = 1;

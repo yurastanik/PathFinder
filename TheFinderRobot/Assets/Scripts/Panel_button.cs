@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 
 public class Panel_button : MonoBehaviour
 {
     public GameObject nxt;
     public GameObject prv;
+    public Sprite[] emptis;
+
+    public void Awake() {
+        Debug.Log(Savegame.sv.mapNum + " pan_butt");
+        unlock_to(Savegame.sv.lastNum);
+    }
 
     public void next(){
         bool next = false;
@@ -47,6 +54,25 @@ public class Panel_button : MonoBehaviour
                 break;
             }
             buff = child;
+        }
+    }
+
+    public void unlock_to(int last_card) {
+        for (int card = 1; card <= last_card; card++)
+        foreach (Transform child in transform) {
+            if (card >= Int16.Parse(child.name)) {
+                foreach (Transform childe in child) {
+                    if (Int16.Parse(childe.GetChild(0).GetComponent<Text>().text) == card) {
+                        childe.GetComponent<Image>().sprite = emptis[new System.Random().Next(0, emptis.Length)];
+                        childe.GetChild(0).gameObject.SetActive(true);
+                        Color buff = childe.GetChild(0).GetComponent<Text>().color;
+                        buff.a = 1;
+                        childe.GetChild(0).GetComponent<Text>().color = buff;
+                        break;
+                    }
+                }
+                break;
+            }
         }
     }
 

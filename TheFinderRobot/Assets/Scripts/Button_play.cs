@@ -12,7 +12,9 @@ public class Button_play : MonoBehaviour
 
 
     [SerializeField] private GameObject pausepanel;
-    [SerializeField] private Button main_pause_btn;
+    //[SerializeField] private Button main_pause_btn;
+    [SerializeField] private GameObject hintmenu;
+    [SerializeField] private Image hint_count;
 
     bool isPause = false;
     int[,] moves1 = new int[0,0];
@@ -153,5 +155,16 @@ public class Button_play : MonoBehaviour
         Savegame.sv.moves4 = null;
         Savegame.sv.moves5 = null;
         Savegame.sv.mapNum = 0;
+    }
+
+    public void hint_menu() {
+        Time.timeScale = 0;
+        hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
+        hintmenu.gameObject.SetActive(true);
+    }
+
+    public void hintresume() {
+        Time.timeScale = 1;
+        hintmenu.gameObject.SetActive(false);
     }
 }

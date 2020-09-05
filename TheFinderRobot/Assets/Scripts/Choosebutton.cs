@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class Choosebutton : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] private Image ContentPrefab;
     [SerializeField] private GameObject Scrol;
     [SerializeField] public Image button_frame;
+    [SerializeField] private GameObject hintmenu;
+    [SerializeField] private Image hint_count;
 
     private int[,] movesf1;
     public bool new_speed = false;
@@ -51,12 +54,23 @@ public class Choosebutton : MonoBehaviour
         Debug.Log("DEBAG TEST ");
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
         ButtonLoad(true);
-//#if UNITY_EDITOR
-        if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0) {
-            Debug.Log("SSSSSSTART GAME");
-            Debug.Log(Savegame.sv.movesf1[0]);
+
+
+        if (Advertisement.isSupported) {
+#if UNITY_ANDROID
+            Advertisement.Initialize("3803433");
+#endif
+#if UNITY_IOS
+            Advertisement.Initialize("3803432");
+#endif
         }
-//#endif
+
+// #if UNITY_EDITOR
+//         if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0) {
+//             Debug.Log("SSSSSSTART GAME");
+//             Debug.Log(Savegame.sv.movesf1[0]);
+//         }
+// #endif
     }
 
     private void UpDatetion() { 
@@ -345,121 +359,135 @@ public class Choosebutton : MonoBehaviour
         currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
     }
     
+
+    public void GetMoreHint() {
+        if (Advertisement.IsReady()) {
+            Advertisement.Show("rewardedVideo");
+            Savegame.sv.hint++;
+            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
+        }
+    }
+
     public void Hint() {
-        btn = InputField.button;
-        fun = InputField.func;
-        if (fun == 0) {
-            Btnplay.func[fun].input_arr[btn].direct = movesf1[btn, 0];
-            Btnplay.func[fun].input_arr[btn].color = movesf1[btn, 1];
-            InputField.button_list[btn].image.color = ColorIndeed(movesf1[btn, 1]);
-            if (movesf1[btn, 0] < 4) {
-                int n = 6;
-                for (int a = 1; a < 4; a++) {
-                    n += 1;
-                    if (n == 9)
-                        n -= 3;;
-                    if (movesf1[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
+        if (Savegame.sv.hint != 0) {
+            Savegame.sv.hint--;
+            Time.timeScale = 1;
+            hintmenu.gameObject.SetActive(false);
+            btn = InputField.button;
+            fun = InputField.func;
+            if (fun == 0) {
+                Btnplay.func[fun].input_arr[btn].direct = movesf1[btn, 0];
+                Btnplay.func[fun].input_arr[btn].color = movesf1[btn, 1];
+                InputField.button_list[btn].image.color = ColorIndeed(movesf1[btn, 1]);
+                if (movesf1[btn, 0] < 4) {
+                    int n = 6;
+                    for (int a = 1; a < 4; a++) {
+                        n += 1;
+                        if (n == 9)
+                            n -= 3;;
+                        if (movesf1[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
+                }
+                else if (movesf1[btn, 0] > 6) {
+                    int n = 0;
+                    for (int a = 7; a < 12; a++) {
+                        n += 1;
+                        if (movesf1[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
                 }
             }
-            else if (movesf1[btn, 0] > 6) {
-                int n = 0;
-                for (int a = 7; a < 12; a++) {
-                    n += 1;
-                    if (movesf1[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
+            else if (fun == 1) {
+                Btnplay.func[fun].input_arr[btn].direct = movesf2[btn, 0];
+                Btnplay.func[fun].input_arr[btn].color = movesf2[btn, 1];
+                InputField.button_list[btn].image.color = ColorIndeed(movesf2[btn, 1]);
+                if (movesf2[btn, 0] < 4) {
+                    int n = 6;
+                    for (int a = 1; a < 4; a++) {
+                        n += 1;
+                        if (n == 9)
+                            n -= 3;;
+                        if (movesf2[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
+                }
+                else if (movesf2[btn, 0] > 6) {
+                    int n = 0;
+                    for (int a = 7; a < 12; a++) {
+                        n += 1;
+                        if (movesf2[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
                 }
             }
-        }
-        else if (fun == 1) {
-            Btnplay.func[fun].input_arr[btn].direct = movesf2[btn, 0];
-            Btnplay.func[fun].input_arr[btn].color = movesf2[btn, 1];
-            InputField.button_list[btn].image.color = ColorIndeed(movesf2[btn, 1]);
-            if (movesf2[btn, 0] < 4) {
-                int n = 6;
-                for (int a = 1; a < 4; a++) {
-                    n += 1;
-                    if (n == 9)
-                        n -= 3;;
-                    if (movesf2[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
+            else if (fun == 2) {
+                Btnplay.func[fun].input_arr[btn].direct = movesf3[btn, 0];
+                Btnplay.func[fun].input_arr[btn].color = movesf3[btn, 1];
+                InputField.button_list[btn].image.color = ColorIndeed(movesf3[btn, 1]);
+                if (movesf3[btn, 0] < 4) {
+                    int n = 6;
+                    for (int a = 1; a < 4; a++) {
+                        n += 1;
+                        if (n == 9)
+                            n -= 3;;
+                        if (movesf3[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
+                }
+                else if (movesf3[btn, 0] > 6) {
+                    int n = 0;
+                    for (int a = 7; a < 12; a++) {
+                        n += 1;
+                        if (movesf3[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
                 }
             }
-            else if (movesf2[btn, 0] > 6) {
-                int n = 0;
-                for (int a = 7; a < 12; a++) {
-                    n += 1;
-                    if (movesf2[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
+            if (fun == 3) {
+                Btnplay.func[fun].input_arr[btn].direct = movesf4[btn, 0];
+                Btnplay.func[fun].input_arr[btn].color = movesf4[btn, 1];
+                InputField.button_list[btn].image.color = ColorIndeed(movesf4[btn, 1]);
+                if (movesf4[btn, 0] < 4) {
+                    int n = 6;
+                    for (int a = 1; a < 4; a++) {
+                        n += 1;
+                        if (n == 9)
+                            n -= 3;;
+                        if (movesf4[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
+                }
+                else if (movesf4[btn, 0] > 6) {
+                    int n = 0;
+                    for (int a = 7; a < 12; a++) {
+                        n += 1;
+                        if (movesf4[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
                 }
             }
-        }
-        else if (fun == 2) {
-            Btnplay.func[fun].input_arr[btn].direct = movesf3[btn, 0];
-            Btnplay.func[fun].input_arr[btn].color = movesf3[btn, 1];
-            InputField.button_list[btn].image.color = ColorIndeed(movesf3[btn, 1]);
-            if (movesf3[btn, 0] < 4) {
-                int n = 6;
-                for (int a = 1; a < 4; a++) {
-                    n += 1;
-                    if (n == 9)
-                        n -= 3;;
-                    if (movesf3[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
+            if (fun == 4) {
+                Btnplay.func[fun].input_arr[btn].direct = movesf5[btn, 0];
+                Btnplay.func[fun].input_arr[btn].color = movesf5[btn, 1];
+                InputField.button_list[btn].image.color = ColorIndeed(movesf5[btn, 1]);
+                if (movesf5[btn, 0] < 4) {
+                    int n = 6;
+                    for (int a = 1; a < 4; a++) {
+                        n += 1;
+                        if (n == 9)
+                            n -= 3;;
+                        if (movesf5[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
                 }
-            }
-            else if (movesf3[btn, 0] > 6) {
-                int n = 0;
-                for (int a = 7; a < 12; a++) {
-                    n += 1;
-                    if (movesf3[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
-                }
-            }
-        }
-        if (fun == 3) {
-            Btnplay.func[fun].input_arr[btn].direct = movesf4[btn, 0];
-            Btnplay.func[fun].input_arr[btn].color = movesf4[btn, 1];
-            InputField.button_list[btn].image.color = ColorIndeed(movesf4[btn, 1]);
-            if (movesf4[btn, 0] < 4) {
-                int n = 6;
-                for (int a = 1; a < 4; a++) {
-                    n += 1;
-                    if (n == 9)
-                        n -= 3;;
-                    if (movesf4[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
-                }
-            }
-            else if (movesf4[btn, 0] > 6) {
-                int n = 0;
-                for (int a = 7; a < 12; a++) {
-                    n += 1;
-                    if (movesf4[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
-                }
-            }
-        }
-        if (fun == 4) {
-            Btnplay.func[fun].input_arr[btn].direct = movesf5[btn, 0];
-            Btnplay.func[fun].input_arr[btn].color = movesf5[btn, 1];
-            InputField.button_list[btn].image.color = ColorIndeed(movesf5[btn, 1]);
-            if (movesf5[btn, 0] < 4) {
-                int n = 6;
-                for (int a = 1; a < 4; a++) {
-                    n += 1;
-                    if (n == 9)
-                        n -= 3;;
-                    if (movesf5[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
-                }
-            }
-            else if (movesf5[btn, 0] > 6) {
-                int n = 0;
-                for (int a = 7; a < 12; a++) {
-                    n += 1;
-                    if (movesf5[btn, 0] == a)
-                        InputField.button_list[btn].image.sprite = s1[n];
+                else if (movesf5[btn, 0] > 6) {
+                    int n = 0;
+                    for (int a = 7; a < 12; a++) {
+                        n += 1;
+                        if (movesf5[btn, 0] == a)
+                            InputField.button_list[btn].image.sprite = s1[n];
+                    }
                 }
             }
         }

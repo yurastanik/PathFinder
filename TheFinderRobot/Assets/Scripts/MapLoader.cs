@@ -11,6 +11,7 @@ public class MapLoader : MonoBehaviour {
     private StreamReader stream;
     private string path;
     private Map loadedMap;
+    public Panel_button panel;
     [SerializeField] private Camera camer;
     [SerializeField] private Education education;
 
@@ -20,20 +21,23 @@ public class MapLoader : MonoBehaviour {
 
     private void Awake() {
         MapNext(Savegame.sv.mapNum);
-        if (Savegame.sv.mapNum != MaplevelChose.map_number)
+        if (Savegame.sv.mapNum != MaplevelChose.map_number) {
             MaplevelChose.map_number = Savegame.sv.mapNum;
+            if (Savegame.sv.lastNum < Savegame.sv.mapNum)
+                Savegame.sv.lastNum = Savegame.sv.mapNum;
+        }
         MaplevelChose.getsave = false;
     }
 
     public void MapNext(int mapNum) {
-        if (Savegame.sv.mapNum != mapNum)
+        if (Savegame.sv.mapNum != mapNum) {
             Savegame.sv.mapNum = mapNum;
-
-
+            if (Savegame.sv.lastNum < Savegame.sv.mapNum)
+                Savegame.sv.lastNum = Savegame.sv.mapNum;
+        }
         var jsonTextFile = Resources.Load<TextAsset>("Maps/Map" + mapNum);
         string tileFile = jsonTextFile.text;
         loadedMap = JsonUtility.FromJson<Map>(tileFile);
-        
         RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
         camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
         camer.orthographicSize = loadedMap.cameraSize;
