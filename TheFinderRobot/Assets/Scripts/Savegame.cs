@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,10 @@ public class Savegame : MonoBehaviour
                 sv.Chapter1 = false;
                 sv.Chapter2 = false;
                 sv.Chapter3 = false;
+                System.DateTime time = System.DateTime.Now;
+                System.DateTime time2 = System.DateTime.UtcNow;
+                Debug.Log("Time " + time);
+                Debug.Log("Time 2 " + time);
             }
             else {
                 Debug.Log("NOT FIRST");
@@ -106,6 +111,7 @@ public class Save {
     public bool Chapter2;
     public bool Chapter3;
     public int mapNum = -1;
+    public int lastNum = 1;
     public int[,] moves1;
     public int[,] moves2;
     public int[,] moves3;
@@ -116,6 +122,6 @@ public class Save {
     public int[] movesf3;
     public int[] movesf4;
     public int[] movesf5;
-
+    public int hint = 3;
 }
 

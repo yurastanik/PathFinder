@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: TheFinderRobot
+  companyName: Trinity Games
+  productName: PathFinder
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -765,10 +765,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: ddef0ad4-182e-4797-ad61-35e262a8753b
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: PathFinder
+  organizationId: trinity-game-cddcb58f-4ed0-4b90-a54f-2ae9d8dbf7ba
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
