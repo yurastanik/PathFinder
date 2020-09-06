@@ -10,33 +10,45 @@ public class Savegame : MonoBehaviour
     public static Save sv = new Save();
 
     private void Awake() {
-        Debug.Log("first game 1 line ");
         if (MaplevelChose.getsave) {
             DontDestroyOnLoad(this.gameObject);
             if (!PlayerPrefs.HasKey("Save")) {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
                 Debug.Log("first game");
-//#endif
+#endif
                 sv.FirstEntry = true;
                 sv.Education = false;
                 sv.Chapter1 = false;
                 sv.Chapter2 = false;
                 sv.Chapter3 = false;
-                System.DateTime time = System.DateTime.Now;
-                System.DateTime time2 = System.DateTime.UtcNow;
-                Debug.Log("Time " + time);
-                Debug.Log("Time 2 " + time);
+                sv.time = System.DateTime.Now.ToString();
             }
             else {
-                Debug.Log("NOT FIRST");
+                //Debug.Log("NOT FIRST");
                 sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("Save"));
-//#if UNITY_EDITOR
-                if (sv.movesf1.Length > 0)
-                    Debug.Log(sv.movesf1[0]);
-//#endif
+                DateTime realtime = System.DateTime.Parse(sv.time);
+
+
+        if (realtime.AddDays(1) < System.DateTime.UtcNow) {
+#if UNITY_EDITOR
+            Debug.Log(Savegame.sv.time);
+            Debug.Log("After add " + realtime.AddDays(1));
+#endif
+            Savegame.sv.hint = Savegame.sv.hint + 3;
+            Savegame.sv.time = System.DateTime.Now.ToString();
+        }
+        else
+            Debug.Log("TIME LESS");
+
+// #if UNITY_EDITOR
+//                 if (sv.movesf1.Length > 0)
+//                     Debug.Log(sv.movesf1[0]);
+// #endif
+
                 SceneManager.LoadScene("Game", LoadSceneMode.Single);
             }
         }
+
     }
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -62,10 +74,10 @@ public class Savegame : MonoBehaviour
 #endif
 
     void OnApplicationQuit() {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
         Debug.Log("SAving Quit");
         Debug.Log(sv.mapNum);
-//#endif
+#endif
         sv.FirstEntry = false;
         if (sv.moves1 != null) 
             sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);
@@ -77,8 +89,9 @@ public class Savegame : MonoBehaviour
             sv.movesf4 = MapLoader.TwoDToOneDArray(sv.moves4);
         if (sv.moves5 != null)
             sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
+        Debug.Log("Time in quit " + sv.time);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
     }
 
     void OnApplicationFocus(bool hasFocus) {
@@ -123,5 +136,6 @@ public class Save {
     public int[] movesf4;
     public int[] movesf5;
     public int hint = 3;
+    public string time;
 }
 
