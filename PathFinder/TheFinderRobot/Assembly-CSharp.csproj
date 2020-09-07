@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Levelbutton.cs" />
      <Compile Include="Assets\Scripts\MapLoader.cs" />
      <Compile Include="Assets\Scripts\MaplevelChose.cs" />
+     <Compile Include="Assets\Scripts\Option.cs" />
      <Compile Include="Assets\Scripts\Panel_button.cs" />
      <Compile Include="Assets\Scripts\Rainbow.cs" />
      <Compile Include="Assets\Scripts\Robot_move.cs" />

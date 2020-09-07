@@ -91,7 +91,7 @@ public class Savegame : MonoBehaviour
             sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
         Debug.Log("Time in quit " + sv.time);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
     }
 
     void OnApplicationFocus(bool hasFocus) {
@@ -114,7 +114,10 @@ public class Savegame : MonoBehaviour
     }
 }
 
-
+public enum Languages {
+    English,
+    Russion
+}
 
 [SerializeField]
 public class Save {
@@ -137,5 +140,7 @@ public class Save {
     public int[] movesf5;
     public int hint = 3;
     public string time;
+    public int Languages = -1;
+    public bool music = true;
 }
 
