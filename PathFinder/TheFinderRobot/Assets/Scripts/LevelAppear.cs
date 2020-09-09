@@ -64,22 +64,25 @@ public class LevelAppear : MonoBehaviour
         }
         foreach (Transform child in Levelpanel.transform) {
             if (Convert.ToInt32(child.gameObject.name) > sm) {
-                need.SetActive(true);
-                if (need.name == "1")
-                    prv.SetActive(false);
-                else if (need.name == "97")
-                    nxt.SetActive(false);
-                foreach (Transform chill in need.transform) {
-                    Color color = chill.GetComponent<Image>().color;
-                    color.a = 1;
-                    chill.GetComponent<Image>().color = color;
-                    if (chill.GetChild(0).gameObject.activeSelf) {
-                        Color colora = chill.GetChild(0).GetComponent<Text>().color;
-                        colora.a = 1;
-                        chill.GetChild(0).GetComponent<Text>().color = colora;
+                if (need != null) {
+                    need.SetActive(true);
+                    if (need.name == "1")
+                        prv.SetActive(false);
+                    else if (need.name == "97")
+                        nxt.SetActive(false);
+                    
+                    foreach (Transform chill in need.transform) {
+                        Color color = chill.GetComponent<Image>().color;
+                        color.a = 1;
+                        chill.GetComponent<Image>().color = color;
+                        if (chill.GetChild(0).gameObject.activeSelf) {
+                            Color colora = chill.GetChild(0).GetComponent<Text>().color;
+                            colora.a = 1;
+                            chill.GetChild(0).GetComponent<Text>().color = colora;
+                        }
                     }
+                    break;
                 }
-                break;
             }
             need = child.gameObject;
         }
@@ -91,7 +94,7 @@ public class LevelAppear : MonoBehaviour
             Levelpanel.gameObject.SetActive(false);
         if (Educatepanel.activeInHierarchy)
             Educatepanel.gameObject.SetActive(false);
-        //menu.gameObject.SetActive(true);
+        menu.gameObject.SetActive(true);
     }
 
     public void inEducate() {

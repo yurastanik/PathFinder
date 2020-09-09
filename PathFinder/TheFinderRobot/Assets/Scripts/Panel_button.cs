@@ -58,20 +58,23 @@ public class Panel_button : MonoBehaviour
     }
 
     public void unlock_to(int last_card) {
-        for (int card = 1; card <= last_card; card++)
-        foreach (Transform child in transform) {
-            if (card >= Int16.Parse(child.name)) {
-                foreach (Transform childe in child) {
-                    if (Int16.Parse(childe.GetChild(0).GetComponent<Text>().text) == card) {
-                        childe.GetComponent<Image>().sprite = emptis[new System.Random().Next(0, emptis.Length)];
-                        childe.GetChild(0).gameObject.SetActive(true);
-                        Color buff = childe.GetChild(0).GetComponent<Text>().color;
-                        buff.a = 1;
-                        childe.GetChild(0).GetComponent<Text>().color = buff;
-                        break;
+        Debug.Log(last_card + "lst_cardS1");
+        for (int card = 1; card <= last_card; card++) {
+            Debug.Log(last_card + "lst_cardS");
+            foreach (Transform child in transform) {
+                if (card >= Int16.Parse(child.name)) {
+                    foreach (Transform childe in child) {
+                        if (Int16.Parse(childe.GetChild(0).GetComponent<Text>().text) == card) {
+                            childe.GetComponent<Image>().sprite = emptis[new System.Random().Next(0, emptis.Length)];
+                            childe.GetChild(0).gameObject.SetActive(true);
+                            Color buff = childe.GetChild(0).GetComponent<Text>().color;
+                            buff.a = 1;
+                            childe.GetChild(0).GetComponent<Text>().color = buff;
+                            break;
+                        }
                     }
+                    break;
                 }
-                break;
             }
         }
     }

@@ -8,9 +8,11 @@ public class Savegame : MonoBehaviour
 {
 
     public static Save sv = new Save();
+    public LevelAppear la;
 
     private void Awake() {
         if (MaplevelChose.getsave) {
+            
             DontDestroyOnLoad(this.gameObject);
             if (!PlayerPrefs.HasKey("Save")) {
 #if UNITY_EDITOR
@@ -26,26 +28,25 @@ public class Savegame : MonoBehaviour
             else {
                 //Debug.Log("NOT FIRST");
                 sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("Save"));
+
                 DateTime realtime = System.DateTime.Parse(sv.time);
 
 
-        if (realtime.AddDays(1) < System.DateTime.UtcNow) {
-#if UNITY_EDITOR
-            Debug.Log(Savegame.sv.time);
-            Debug.Log("After add " + realtime.AddDays(1));
-#endif
-            Savegame.sv.hint = Savegame.sv.hint + 3;
-            Savegame.sv.time = System.DateTime.Now.ToString();
-        }
-        else
-            Debug.Log("TIME LESS");
-
-// #if UNITY_EDITOR
-//                 if (sv.movesf1.Length > 0)
-//                     Debug.Log(sv.movesf1[0]);
-// #endif
-
-                SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                if (realtime.AddDays(1) < System.DateTime.UtcNow) {
+        #if UNITY_EDITOR
+                    Debug.Log(Savegame.sv.time);
+                    Debug.Log("After add " + realtime.AddDays(1));
+        #endif
+                    Savegame.sv.hint = Savegame.sv.hint + 3;
+                    Savegame.sv.time = System.DateTime.Now.ToString();
+                }
+                else
+                    Debug.Log("TIME LESS");
+                if (sv.mapNum == 0)
+                    la.Getlevel();
+                else {
+                    SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                }
             }
         }
 
@@ -56,7 +57,6 @@ public class Savegame : MonoBehaviour
        if (pause) {
             Debug.Log("SAving Pause");
             Debug.Log(sv.mapNum);
-
             sv.FirstEntry = false;
             if (sv.moves1 != null)
                 sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);
@@ -91,7 +91,7 @@ public class Savegame : MonoBehaviour
             sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
         Debug.Log("Time in quit " + sv.time);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
     }
 
     void OnApplicationFocus(bool hasFocus) {
@@ -126,7 +126,7 @@ public class Save {
     public bool Chapter1;
     public bool Chapter2;
     public bool Chapter3;
-    public int mapNum = -1;
+    public int mapNum = 0;
     public int lastNum = 1;
     public int[,] moves1;
     public int[,] moves2;

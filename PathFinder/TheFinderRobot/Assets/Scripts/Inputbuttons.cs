@@ -40,9 +40,9 @@ public class Inputbuttons : MonoBehaviour
     private float delata_func = 1.2F;
 
     private void Awake() {
-#if UNITY_EDITOR
-        Debug.Log("button " + button);
-#endif
+// #if UNITY_EDITOR
+//         Debug.Log("button " + button);
+// #endif
         FuncLoad(true);
     }
 
@@ -196,7 +196,7 @@ public class Inputbuttons : MonoBehaviour
     }
 
     private void FuncButton(ref int func_num, int but) {
-        if (func_num != but) {
+        if (func_num != but && move_btn != false) {
             func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)/delata_func, func_list[func_num].GetComponent<RectTransform>().rect.height/delata_func);
             func_list[func_num].GetComponent<RectTransform>().localPosition = new Vector3 (func_list[func_num].GetComponent<RectTransform>().localPosition.x, func_list[func_num].GetComponent<RectTransform>().localPosition.y - 20.5301F, func_list[func_num].GetComponent<RectTransform>().localPosition.z);
             func_list[func_num].GetComponent<Image>().color = new Color(0.7333333F, 0.7843137F, 0.8784314F, 1F);
@@ -284,6 +284,7 @@ public class Inputbuttons : MonoBehaviour
     
     }
     private void Buttonact(ref int button_num, int button, bool flag) {
+        Debug.Log("Buttonact");
         if ((button_num != button || flag == false) && move_btn == true) {
             if (flag)
                 button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)/delata, button_list[button_num].GetComponent<RectTransform>().rect.height/delata);
@@ -306,7 +307,7 @@ public class Inputbuttons : MonoBehaviour
                 button_list[i].gameObject.SetActive(true);
                 button_list[i].GetComponent<RectTransform>().sizeDelta = new Vector2 ((width)/1.2606F, height/1.255955F);
                 button_list[i].GetComponent<RectTransform>().localPosition = new Vector3(delta_transofrm_x, button_list[i].GetComponent<RectTransform>().localPosition.y, 0);
-                delta_transofrm_x += 260.1001F;                
+                delta_transofrm_x += 260.1001F;
                 if (i > 2 && spac > 100) {
                     spac -= 270;
                 }
@@ -319,7 +320,7 @@ public class Inputbuttons : MonoBehaviour
                 button_list[i].gameObject.SetActive(true);
                 button_list[i].GetComponent<RectTransform>().sizeDelta = new Vector2 (width/1.1382F, height/1.326F);
                 button_list[i].GetComponent<RectTransform>().localPosition = new Vector3(delta_transofrm_x, button_list[i].GetComponent<RectTransform>().localPosition.y, 0);
-                delta_transofrm_x += 232;                
+                delta_transofrm_x += 232;
                 if (i > 2 && spac > 100) {
                     spac -= 270;
                 }

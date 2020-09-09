@@ -36,7 +36,9 @@ public class MapLoader : MonoBehaviour {
                 Savegame.sv.lastNum = Savegame.sv.mapNum;
         }
         var jsonTextFile = Resources.Load<TextAsset>("Maps/Map" + mapNum);
+        Debug.Log(jsonTextFile);
         string tileFile = jsonTextFile.text;
+        Debug.Log(tileFile);
         loadedMap = JsonUtility.FromJson<Map>(tileFile);
         RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
         camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
