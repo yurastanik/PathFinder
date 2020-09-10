@@ -20,7 +20,7 @@ public class Inputbuttons : MonoBehaviour
     [SerializeField] private Image Panel_input;
     private int func_num = 1;
 
-    private bool move_btn = true;
+    public static bool move_btn = true;
     //private bool move_func;
 
     private int buton_num = 0;
@@ -110,23 +110,21 @@ public class Inputbuttons : MonoBehaviour
     }
 
 
-    public void Move(Transform from, Transform to, float overTime)
-{
-    StartCoroutine(_Move(from, to, overTime));
-}
-    IEnumerator _Move(Transform from, Transform to, float overTime)
-{
-    Vector2 original = from.position;
-    float timer = 0.0f;
-    while (timer < overTime)
-    {
-        float step = Vector2.Distance(original, to.position) * (Time.deltaTime / overTime);
-        from.position = Vector2.MoveTowards(from.position, to.position, step);
-        timer += Time.deltaTime;
-        yield return null;
+    private void Move(Transform from, Transform to, float overTime) {
+        StartCoroutine(_Move(from, to, overTime));
     }
-    move_btn = true;
-}
+
+    IEnumerator _Move(Transform from, Transform to, float overTime) {
+        Vector2 original = from.position;
+        float timer = 0.0f;
+        while (timer < overTime) {
+            float step = Vector2.Distance(original, to.position) * (Time.deltaTime / overTime);
+            from.position = Vector2.MoveTowards(from.position, to.position, step);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        move_btn = true;
+    }
 
     // private void Update() {
     //     if (move_btn) {
@@ -148,24 +146,24 @@ public class Inputbuttons : MonoBehaviour
         // }
 //    }
 
-    private void firstbutton() {
+    public void firstbutton() {
         Buttonact(ref button, 0, true);
     }
 
-    private void secondbutton() {
+    public void secondbutton() {
         Buttonact(ref button, 1, true);
     }
-    private void threebutton() {
+    public void threebutton() {
         Buttonact(ref button, 2, true);
     }
 
-    private void fourbutton() {
+    public void fourbutton() {
         Buttonact(ref button, 3, true);
     }
-    private void fivebutton() {
+    public void fivebutton() {
         Buttonact(ref button, 4, true);
     }
-    private void sixbutton() {
+    public void sixbutton() {
         Buttonact(ref button, 5, true);
     }
     public void sevenbutton() {
@@ -283,7 +281,7 @@ public class Inputbuttons : MonoBehaviour
 
     
     }
-    private void Buttonact(ref int button_num, int button, bool flag) {
+    public void Buttonact(ref int button_num, int button, bool flag) {
         Debug.Log("Buttonact");
         if ((button_num != button || flag == false) && move_btn == true) {
             if (flag)

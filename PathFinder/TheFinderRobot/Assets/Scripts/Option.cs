@@ -20,6 +20,10 @@ public class Option : MonoBehaviour {
             langPanel.gameObject.SetActive(true);
         else
             Debug.Log("option , not first");
+        if (Savegame.sv.Languages == (int) Languages.Russion)
+            flag.GetComponent<Image>().sprite = spr3;
+        else
+            flag.GetComponent<Image>().sprite = spr4;
     }
 
     public void lang_button() {
@@ -28,10 +32,12 @@ public class Option : MonoBehaviour {
 
     public void music() {
         if (Savegame.sv.music == true) {
+            Debug.Log("викл");
             music_but.GetComponent<Image>().sprite = spr2;
             Savegame.sv.music = false;
         }
         else {
+            Debug.Log("вкл");
             music_but.GetComponent<Image>().sprite = spr1;
             Savegame.sv.music = true;
         }

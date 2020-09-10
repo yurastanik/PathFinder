@@ -85,7 +85,7 @@ public class Panel_button : MonoBehaviour
             new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i+1800, 0, 0);
             old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
             visibiling(old_obj, new_obj);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
         }
         old_obj.gameObject.SetActive(false);
         old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
@@ -97,7 +97,7 @@ public class Panel_button : MonoBehaviour
             new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i-1800, 0, 0);
             old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
             visibiling(old_obj, new_obj);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
         }
         old_obj.gameObject.SetActive(false);
         old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);

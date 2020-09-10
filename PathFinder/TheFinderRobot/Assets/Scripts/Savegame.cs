@@ -27,9 +27,19 @@ public class Savegame : MonoBehaviour
             }
             else {
                 //Debug.Log("NOT FIRST");
-                sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("Save"));
 
-                DateTime realtime = System.DateTime.Parse(sv.time);
+                sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("Save"));
+                                #if UNITY_EDITOR
+                    Debug.Log("time in awake " + sv.time);
+                #endif
+                 DateTime realtime;
+                if (sv.time.Length > 0)
+                    realtime = System.DateTime.Parse(sv.time);
+                else {
+                    realtime =  System.DateTime.Now;
+                    sv.time = realtime.ToString();
+                    Debug.Log("нету времени єто ошибка ");
+                }
 
 
                 if (realtime.AddDays(1) < System.DateTime.UtcNow) {
@@ -138,7 +148,7 @@ public class Save {
     public int[] movesf3;
     public int[] movesf4;
     public int[] movesf5;
-    public int hint = 3;
+    public int hint = 100;
     public string time;
     public int Languages = -1;
     public bool music = true;

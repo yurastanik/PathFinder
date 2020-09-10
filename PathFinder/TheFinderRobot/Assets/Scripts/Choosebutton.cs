@@ -22,7 +22,7 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] private GameObject f5;
 
     [SerializeField] private GameObject Panel;
-
+    [SerializeField] public Inputbuttons input;
     [SerializeField] private Button[] button_list = new Button[15];
     [SerializeField] private Image Content;
     [SerializeField] private Image ContentPrefab;
@@ -30,8 +30,10 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] public Image button_frame;
     [SerializeField] private GameObject hintmenu;
     [SerializeField] private Image hint_count;
+    [SerializeField] public Image hint;
 
     private int[,] movesf1;
+    private bool neww = true;
     public bool new_speed = false;
     private bool destroy = true;
     private int[,] movesf2;
@@ -368,6 +370,56 @@ public class Choosebutton : MonoBehaviour
         // }
     }
 
+    private void Move(Transform from, Transform to, float overTime, int n, int btn, int[,] lt) {
+        Inputbuttons.move_btn = false;
+        StartCoroutine(_Move(from, to, overTime, n, btn, lt));
+    }
+
+    IEnumerator _Move(Transform from, Transform to, float overTime, int n, int btn, int[,] lt) {
+        //yield return new WaitWhile(() => neww);
+        neww = false;
+        Vector2 original = from.position;
+        from.gameObject.SetActive(true);
+        Image background = hint.GetComponent<Image>();
+        background.sprite = s1[n];
+        background.color =  ColorIndeed(lt[btn, 1]);
+        Color color = background.color;
+        float timer = 0.0f;
+        while (timer < overTime) {
+            float step = Vector2.Distance(original, to.position) * (Time.deltaTime / overTime);
+            from.position = Vector2.MoveTowards(from.position, to.position, step);
+            color.a = timer;
+            background.color = color;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        InputField.button_list[btn].image.sprite = s1[n];
+        InputField.button_list[btn].image.color = ColorIndeed(lt[btn, 1]);
+        from.gameObject.SetActive(false);
+        color.a = 0;
+        background.color = color;
+        from.transform.position = original;
+        if (btn+1 < Btnplay.func.Count)
+            if (btn == 0)
+                input.firstbutton();
+            if (btn == 1)
+                input.secondbutton();
+            if (btn == 2)
+                input.threebutton();
+            if (btn == 3)
+                input.fourbutton();
+            if (btn == 4)
+                input.fivebutton();
+            if (btn == 5)
+                input.sixbutton();
+            if (btn == 6)
+                input.sevenbutton();
+            if (btn == 7)
+                input.eightbutton();
+        neww = true;
+        Inputbuttons.move_btn = true;
+    }
+
     public void Hint() {
         if (Savegame.sv.hint != 0) {
             Savegame.sv.hint--;
@@ -378,23 +430,26 @@ public class Choosebutton : MonoBehaviour
             if (fun == 0) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf1[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf1[btn, 1];
-                InputField.button_list[btn].image.color = ColorIndeed(movesf1[btn, 1]);
                 if (movesf1[btn, 0] < 4) {
                     int n = 6;
                     for (int a = 1; a < 4; a++) {
                         n += 1;
                         if (n == 9)
-                            n -= 3;;
-                        if (movesf1[btn, 0] == a)
-                            InputField.button_list[btn].image.sprite = s1[n];
+                            n -= 3;
+                        if (movesf1[btn, 0] == a) {
+                            Transform orig = hint.transform;
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf1);
+                        }
                     }
                 }
                 else if (movesf1[btn, 0] > 6) {
                     int n = 0;
                     for (int a = 7; a < 12; a++) {
                         n += 1;
-                        if (movesf1[btn, 0] == a)
-                            InputField.button_list[btn].image.sprite = s1[n];
+                        if (movesf1[btn, 0] == a) {
+                            Transform orig = hint.transform;
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf1);
+                        }
                     }
                 }
             }
@@ -407,17 +462,21 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 1; a < 4; a++) {
                         n += 1;
                         if (n == 9)
-                            n -= 3;;
-                        if (movesf2[btn, 0] == a)
+                            n -= 3;
+                        if (movesf2[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf2);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
                 else if (movesf2[btn, 0] > 6) {
                     int n = 0;
                     for (int a = 7; a < 12; a++) {
                         n += 1;
-                        if (movesf2[btn, 0] == a)
+                        if (movesf2[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf2);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
             }
@@ -430,17 +489,21 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 1; a < 4; a++) {
                         n += 1;
                         if (n == 9)
-                            n -= 3;;
-                        if (movesf3[btn, 0] == a)
+                            n -= 3;
+                        if (movesf3[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf3);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
                 else if (movesf3[btn, 0] > 6) {
                     int n = 0;
                     for (int a = 7; a < 12; a++) {
                         n += 1;
-                        if (movesf3[btn, 0] == a)
+                        if (movesf3[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf3);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
             }
@@ -454,16 +517,20 @@ public class Choosebutton : MonoBehaviour
                         n += 1;
                         if (n == 9)
                             n -= 3;;
-                        if (movesf4[btn, 0] == a)
+                        if (movesf4[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf4);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
                 else if (movesf4[btn, 0] > 6) {
                     int n = 0;
                     for (int a = 7; a < 12; a++) {
                         n += 1;
-                        if (movesf4[btn, 0] == a)
+                        if (movesf4[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf4);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
             }
@@ -476,17 +543,21 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 1; a < 4; a++) {
                         n += 1;
                         if (n == 9)
-                            n -= 3;;
-                        if (movesf5[btn, 0] == a)
+                            n -= 3;
+                        if (movesf5[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf5);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
                 else if (movesf5[btn, 0] > 6) {
                     int n = 0;
                     for (int a = 7; a < 12; a++) {
                         n += 1;
-                        if (movesf5[btn, 0] == a)
+                        if (movesf5[btn, 0] == a) {
+                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf5);
                             InputField.button_list[btn].image.sprite = s1[n];
+                        }
                     }
                 }
             }
