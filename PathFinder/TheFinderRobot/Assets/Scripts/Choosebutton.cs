@@ -399,25 +399,25 @@ public class Choosebutton : MonoBehaviour
         color.a = 0;
         background.color = color;
         from.transform.position = original;
-        if (btn+1 < Btnplay.func.Count)
-            if (btn == 0)
-                input.firstbutton();
-            if (btn == 1)
-                input.secondbutton();
-            if (btn == 2)
-                input.threebutton();
-            if (btn == 3)
-                input.fourbutton();
-            if (btn == 4)
-                input.fivebutton();
-            if (btn == 5)
-                input.sixbutton();
-            if (btn == 6)
-                input.sevenbutton();
-            if (btn == 7)
-                input.eightbutton();
-        neww = true;
         Inputbuttons.move_btn = true;
+        Debug.Log(Btnplay.func[fun].input_arr.Count + " + " + btn);
+        if (btn+1 < Btnplay.func[fun].input_arr.Count) {
+            if (btn == 0)
+                input.secondbutton();
+            else if (btn == 1)
+                input.threebutton();
+            else if (btn == 2)
+                input.fourbutton();
+            else if (btn == 3)
+                input.fivebutton();
+            else if (btn == 4)
+                input.sixbutton();
+            else if (btn == 5)
+                input.sevenbutton();
+            else if (btn == 6)
+                input.eightbutton();
+        }
+        neww = true;
     }
 
     public void Hint() {
@@ -437,7 +437,6 @@ public class Choosebutton : MonoBehaviour
                         if (n == 9)
                             n -= 3;
                         if (movesf1[btn, 0] == a) {
-                            Transform orig = hint.transform;
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf1);
                         }
                     }
@@ -447,7 +446,6 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 7; a < 12; a++) {
                         n += 1;
                         if (movesf1[btn, 0] == a) {
-                            Transform orig = hint.transform;
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf1);
                         }
                     }
@@ -456,7 +454,6 @@ public class Choosebutton : MonoBehaviour
             else if (fun == 1) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf2[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf2[btn, 1];
-                InputField.button_list[btn].image.color = ColorIndeed(movesf2[btn, 1]);
                 if (movesf2[btn, 0] < 4) {
                     int n = 6;
                     for (int a = 1; a < 4; a++) {
@@ -465,7 +462,6 @@ public class Choosebutton : MonoBehaviour
                             n -= 3;
                         if (movesf2[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf2);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }
@@ -475,7 +471,6 @@ public class Choosebutton : MonoBehaviour
                         n += 1;
                         if (movesf2[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf2);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }
@@ -483,7 +478,6 @@ public class Choosebutton : MonoBehaviour
             else if (fun == 2) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf3[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf3[btn, 1];
-                InputField.button_list[btn].image.color = ColorIndeed(movesf3[btn, 1]);
                 if (movesf3[btn, 0] < 4) {
                     int n = 6;
                     for (int a = 1; a < 4; a++) {
@@ -492,7 +486,6 @@ public class Choosebutton : MonoBehaviour
                             n -= 3;
                         if (movesf3[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf3);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }
@@ -502,7 +495,6 @@ public class Choosebutton : MonoBehaviour
                         n += 1;
                         if (movesf3[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf3);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }
@@ -510,7 +502,6 @@ public class Choosebutton : MonoBehaviour
             if (fun == 3) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf4[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf4[btn, 1];
-                InputField.button_list[btn].image.color = ColorIndeed(movesf4[btn, 1]);
                 if (movesf4[btn, 0] < 4) {
                     int n = 6;
                     for (int a = 1; a < 4; a++) {
@@ -519,7 +510,6 @@ public class Choosebutton : MonoBehaviour
                             n -= 3;;
                         if (movesf4[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf4);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }
@@ -529,7 +519,6 @@ public class Choosebutton : MonoBehaviour
                         n += 1;
                         if (movesf4[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf4);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }
@@ -537,7 +526,6 @@ public class Choosebutton : MonoBehaviour
             if (fun == 4) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf5[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf5[btn, 1];
-                InputField.button_list[btn].image.color = ColorIndeed(movesf5[btn, 1]);
                 if (movesf5[btn, 0] < 4) {
                     int n = 6;
                     for (int a = 1; a < 4; a++) {
@@ -546,7 +534,6 @@ public class Choosebutton : MonoBehaviour
                             n -= 3;
                         if (movesf5[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf5);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }
@@ -556,7 +543,6 @@ public class Choosebutton : MonoBehaviour
                         n += 1;
                         if (movesf5[btn, 0] == a) {
                             Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf5);
-                            InputField.button_list[btn].image.sprite = s1[n];
                         }
                     }
                 }

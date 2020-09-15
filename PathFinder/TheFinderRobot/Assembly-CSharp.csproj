@@ -47,6 +47,7 @@
      <Compile Include="Assets\Scripts\GameColors.cs" />
      <Compile Include="Assets\Scripts\Input_Class.cs" />
      <Compile Include="Assets\Scripts\Inputbuttons.cs" />
+     <Compile Include="Assets\Scripts\Lang.cs" />
      <Compile Include="Assets\Scripts\LevelAppear.cs" />
      <Compile Include="Assets\Scripts\Levelbutton.cs" />
      <Compile Include="Assets\Scripts\MapLoader.cs" />

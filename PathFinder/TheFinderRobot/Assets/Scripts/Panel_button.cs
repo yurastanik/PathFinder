@@ -9,6 +9,7 @@ public class Panel_button : MonoBehaviour
     public GameObject nxt;
     public GameObject prv;
     public Sprite[] emptis;
+    bool flg = true;
 
     public void Awake() {
         Debug.Log(Savegame.sv.mapNum + " pan_butt");
@@ -16,44 +17,50 @@ public class Panel_button : MonoBehaviour
     }
 
     public void next(){
-        bool next = false;
-        Transform old = null;
-        foreach (Transform child in transform) {
-            if (next) {
-                StartCoroutine(move_left(old, child));
-                if (child.gameObject.name == "1")
-                    prv.SetActive(false);
-                else if (child.gameObject.name == "97")
-                    nxt.SetActive(false);
-                else {
-                    prv.SetActive(true);
-                    nxt.SetActive(true);
+        if (flg) {
+            flg = false;
+            bool next = false;
+            Transform old = null;
+            foreach (Transform child in transform) {
+                if (next) {
+                    StartCoroutine(move_left(old, child));
+                    if (child.gameObject.name == "1")
+                        prv.SetActive(false);
+                    else if (child.gameObject.name == "97")
+                        nxt.SetActive(false);
+                    else {
+                        prv.SetActive(true);
+                        nxt.SetActive(true);
+                    }
+                    break;
                 }
-                break;
-            }
-            if (child.gameObject.activeSelf) {
-                old = child;
-                next = true;
+                if (child.gameObject.activeSelf) {
+                    old = child;
+                    next = true;
+                }
             }
         }
     }
 
     public void prev() {
-        Transform buff = null;
-        foreach (Transform child in transform) {
-            if (child.gameObject.activeSelf) {
-                StartCoroutine(move_right(child, buff));
-                if (buff.gameObject.name == "1")
-                    prv.SetActive(false);
-                else if (buff.gameObject.name == "97")
-                    nxt.SetActive(false);
-                else {
-                    prv.SetActive(true);
-                    nxt.SetActive(true);
+        if (flg) {
+            flg = false;
+            Transform buff = null;
+            foreach (Transform child in transform) {
+                if (child.gameObject.activeSelf) {
+                    StartCoroutine(move_right(child, buff));
+                    if (buff.gameObject.name == "1")
+                        prv.SetActive(false);
+                    else if (buff.gameObject.name == "97")
+                        nxt.SetActive(false);
+                    else {
+                        prv.SetActive(true);
+                        nxt.SetActive(true);
+                    }
+                    break;
                 }
-                break;
+                buff = child;
             }
-            buff = child;
         }
     }
 
@@ -85,10 +92,11 @@ public class Panel_button : MonoBehaviour
             new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i+1800, 0, 0);
             old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
             visibiling(old_obj, new_obj);
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.05f);
         }
         old_obj.gameObject.SetActive(false);
         old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        flg = true;
     }
 
     public IEnumerator move_right(Transform old_obj, Transform new_obj) {
@@ -97,10 +105,11 @@ public class Panel_button : MonoBehaviour
             new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i-1800, 0, 0);
             old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
             visibiling(old_obj, new_obj);
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.05f);
         }
         old_obj.gameObject.SetActive(false);
         old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        flg = true;
     }
 
     public void visibiling(Transform old, Transform newo) {

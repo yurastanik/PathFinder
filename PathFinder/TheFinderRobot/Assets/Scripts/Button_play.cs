@@ -158,9 +158,11 @@ public class Button_play : MonoBehaviour
     }
 
     public void hint_menu() {
-        Time.timeScale = 0;
-        hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
-        hintmenu.gameObject.SetActive(true);
+        if (Inputbuttons.move_btn == true) {
+            Time.timeScale = 0;
+            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
+            hintmenu.gameObject.SetActive(true);
+        }
     }
 
     public void hintresume() {

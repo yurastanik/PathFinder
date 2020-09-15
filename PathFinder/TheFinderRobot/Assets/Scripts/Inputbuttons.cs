@@ -283,14 +283,16 @@ public class Inputbuttons : MonoBehaviour
     }
     public void Buttonact(ref int button_num, int button, bool flag) {
         Debug.Log("Buttonact");
+        Debug.Log(button_num);
+        Debug.Log(button);
         if ((button_num != button || flag == false) && move_btn == true) {
             if (flag)
                 button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)/delata, button_list[button_num].GetComponent<RectTransform>().rect.height/delata);
             button_num = button;
             move_btn = false;
-#if UNITY_EDITOR
-        Debug.Log("make bigger");
-#endif
+            #if UNITY_EDITOR
+                Debug.Log("make bigger");
+            #endif
             button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)*delata, button_list[button_num].GetComponent<RectTransform>().rect.height*delata);
             Move(button_frame.transform, button_list[button].transform, 0.45F);
         }
