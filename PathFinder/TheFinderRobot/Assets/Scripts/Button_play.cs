@@ -12,6 +12,7 @@ public class Button_play : MonoBehaviour
 
 
     [SerializeField] private GameObject pausepanel;
+    [SerializeField] private Text sped;
     //[SerializeField] private Button main_pause_btn;
     [SerializeField] private GameObject hintmenu;
     [SerializeField] private Image hint_count;
@@ -98,6 +99,20 @@ public class Button_play : MonoBehaviour
         player.StopGame();
     }
 
+    public void Speed() {
+        Savegame.sv.speed += 2;
+        sped.text = "Game speed x2";
+        if (Savegame.sv.speed == 6) {
+            Savegame.sv.speed += 1;
+            sped.text = "Game speed x3";
+        }
+        else if (Savegame.sv.speed == 9) {
+            Savegame.sv.speed -= 7;
+            sped.text = "Game speed x1";
+        }
+        player.tot_speed();
+    }
+
     public void Start_btn() {
         if (player.readyToStart) {
             ActivateButton();
@@ -134,6 +149,12 @@ public class Button_play : MonoBehaviour
 
     public void main_pause() {
         Time.timeScale = 0;
+        if (Savegame.sv.speed == 4)
+            sped.text = "Game speed x2";
+        else if (Savegame.sv.speed == 2)
+            sped.text = "Game speed x1";
+        else if (Savegame.sv.speed == 7)
+            sped.text = "Game speed x3";
         pausepanel.gameObject.SetActive(true);
     }
     public void resume() {

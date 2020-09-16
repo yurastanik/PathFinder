@@ -40,16 +40,18 @@ public class Robot_move : MonoBehaviour {
     private int[,] movesf4;
     private int[,] movesf5;
     private int[,] quene = new int[0,0];
+    private int[,] targeti;
 
 
     private void LoadMap(bool lose = false) {
         Map loadedMap = loader.GetMap();
         card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
-        targets = MapLoader.OneDToTwoDArray(loadedMap.targets, 2);
+        targeti = MapLoader.OneDToTwoDArray(loadedMap.targets, 2);
+        targets = targeti;
         startPos = loadedMap.startPos;
         currentDirection = loadedMap.direction;
         if (lose)
-            loader.OnMapUpdate(card, targets);
+            loader.OnMapUpdate(card, targeti);
     }
 
     private void Level(bool loser = false) {
@@ -82,7 +84,7 @@ public class Robot_move : MonoBehaviour {
         StopAllCoroutines();
         button.ReturnAll(true);
         func.gameObject.SetActive(true);
-        anim.Play("Stay", 0); // Animations stop
+        anim.Play("Stay", 0);
         Level();
         trans = true;
     }
@@ -102,7 +104,18 @@ public class Robot_move : MonoBehaviour {
 
     public void Start() {
         anim = GetComponent<Animator>();
+        tot_speed();
         Level();
+    }
+
+    public void tot_speed() {
+        anim.speed = Savegame.sv.speed;
+        if (anim.speed == 2)
+            fade_speed = 0.002f;
+        else if (anim.speed == 4)
+            fade_speed = 0;
+        else
+            fade_speed = 0;
     }
 
     private void FixedUpdate() {
@@ -120,21 +133,13 @@ public class Robot_move : MonoBehaviour {
             transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
             DirectAtStart();
         }     
-        if (Input.GetKeyUp(KeyCode.Alpha4)) {
+        if (Input.GetKeyUp(KeyCode.Alpha3)) {
             anim.speed = 7;
             fade_speed = 0;
         }
         if (Input.GetKeyUp(KeyCode.Alpha2)) {
             anim.speed = 4;
-            fade_speed = 0.02f;
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha3)) {
-            anim.speed = 6;
-            fade_speed = 0.015f;
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha1)) {
-            anim.speed = 2;
-            fade_speed = 0.03f;
+            fade_speed = 0.001f;
         }
     }
 
@@ -731,7 +736,7 @@ public class Robot_move : MonoBehaviour {
                 switchLst = false;
                 StartCoroutine(MovesHandler());
                 yield break;
-            }
+            } 
         }
         if (quene.GetLength(0) >= 1) {
             movenum = 0;

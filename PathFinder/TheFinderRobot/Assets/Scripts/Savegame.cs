@@ -148,6 +148,7 @@ public class Save {
     public int[] movesf3;
     public int[] movesf4;
     public int[] movesf5;
+    public int speed = 2;
     public int hint = 100;
     public string time;
     public int Languages = -1;

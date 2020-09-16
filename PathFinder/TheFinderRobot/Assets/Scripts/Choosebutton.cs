@@ -359,6 +359,8 @@ public class Choosebutton : MonoBehaviour
         nextchild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
         button_frame.transform.SetParent(nextchild.transform);
         currentchild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
+        ContentPrefab.GetComponent<HorizontalLayoutGroup>().spacing = 24;
+        ContentPrefab.GetComponent<HorizontalLayoutGroup>().spacing = 25;
     }
     
 
@@ -600,7 +602,7 @@ public class Choosebutton : MonoBehaviour
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
-        float speed = robot.fade_speed; 
+        float speed = robot.fade_speed;
         if (speed != 0) {
             for (float f = 0.95f; f >= 0; f -= 0.05f) {
                 speed = robot.fade_speed;
