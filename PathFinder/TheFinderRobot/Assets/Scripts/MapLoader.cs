@@ -91,7 +91,7 @@ public class MapLoader : MonoBehaviour {
         }
         for (int x = 0; x < rows_star; x++) {
             int[,] targeti = OneDToTwoDArray(targets, 2);
-            CreateStar(new Vector3(targeti[x, 1] * 2, (float) 0.2, targeti[x, 0] * -2));
+            CreateStar(new Vector3(targeti[x, 1] * 2, 0.2f, targeti[x, 0] * -2));
         }
     }
 

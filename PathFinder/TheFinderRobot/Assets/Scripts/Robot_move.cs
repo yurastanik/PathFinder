@@ -54,6 +54,13 @@ public class Robot_move : MonoBehaviour {
             loader.OnMapUpdate(card, targeti);
     }
 
+    // Check Ground Function For SprayParticles.cs
+    public bool CheckPosition() {
+        if (card[startPos.x, startPos.y] != 0)
+            return true;
+        return false;
+    }
+
     private void Level(bool loser = false) {
         LoadMap(loser);
         AtStart();
