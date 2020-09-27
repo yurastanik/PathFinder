@@ -343,7 +343,7 @@ public class Choosebutton : MonoBehaviour
         ScrollRect scroll = Panel.GetComponent<ScrollRect>();
         RectTransform pict = ContentPrefab.GetComponent<RectTransform>();
         panelka.localPosition = new Vector3(0, -398.6f, 0);
-        panelka.sizeDelta = new Vector2(57.5f, 17.1f);
+        panelka.sizeDelta = new Vector2(57f, 17.1f);
         scroll.content = pict;
         button_frame.gameObject.SetActive(true);
         if (start_frame.x != 0 && start_frame.y != 0)

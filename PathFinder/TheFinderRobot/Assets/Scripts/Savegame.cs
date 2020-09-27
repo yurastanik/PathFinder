@@ -79,6 +79,7 @@ public class Savegame : MonoBehaviour
             if (sv.moves5 != null)
                 sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
             PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
+            //PlayerPrefs.DeleteAll();
         }
     }
 #endif
@@ -101,7 +102,7 @@ public class Savegame : MonoBehaviour
             sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
         Debug.Log("Time in quit " + sv.time);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
     }
 
     void OnApplicationFocus(bool hasFocus) {
