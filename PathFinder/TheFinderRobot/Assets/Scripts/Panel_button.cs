@@ -12,7 +12,6 @@ public class Panel_button : MonoBehaviour
     bool flg = true;
 
     public void Awake() {
-        Debug.Log(Savegame.sv.mapNum + " pan_butt");
         unlock_to(Savegame.sv.lastNum);
     }
 
@@ -65,9 +64,7 @@ public class Panel_button : MonoBehaviour
     }
 
     public void unlock_to(int last_card) {
-        Debug.Log(last_card + "lst_cardS1");
         for (int card = 1; card <= last_card; card++) {
-            Debug.Log(last_card + "lst_cardS");
             foreach (Transform child in transform) {
                 if (card >= Int16.Parse(child.name)) {
                     foreach (Transform childe in child) {

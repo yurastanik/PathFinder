@@ -53,7 +53,6 @@ public class Choosebutton : MonoBehaviour
 
 
     public void Awake() {
-        Debug.Log("DEBAG TEST ");
         s1 = Resources.LoadAll<Sprite>("Sprites/Button/input_button");
         ButtonLoad(true);
 
