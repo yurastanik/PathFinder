@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 //using Newtonsoft.Json;
 
-public class Lang : MonoBehaviour
+public class Langgame : MonoBehaviour
 {
     public static Languagesfill fills;
     private static string Lang_kod = "en";
-    [SerializeField] private Text text1;
+    [SerializeField] List<Text> allgametext;
 
 
     void Awake()
@@ -22,29 +22,27 @@ public class Lang : MonoBehaviour
             Lang_kod = "ru";
         else
             Lang_kod = "en";
-        Lang_kod = "en";
         var jsonTextFile = Resources.Load<TextAsset>("Lang/" + Lang_kod);
         string tileFile = jsonTextFile.text;
-         Debug.Log("string");
-        Debug.Log(tileFile);
         fills = JsonUtility.FromJson<Languagesfill>(tileFile);
-        //var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(tileFile);
         change_text();
     }
 
     public void change_text() {
-        Debug.Log("dict");
-        Dictionary <string,string> dict= new Dictionary<string,string>(5);
+        Debug.Log("dic*******************************t");
+        fills.dict = new Dictionary<string,string>(fills.Languagetab.Count/2);
         for (int i = 0; i < fills.Languagetab.Count; i = i + 2)
-            dict.Add(fills.Languagetab[i], fills.Languagetab[i+1]);
-        // = fills.Languagetab.ToDictionary(k => k, k => k);
-        Debug.Log(dict.Keys);
-        Debug.Log(dict[text1.name]);
+            fills.dict.Add(fills.Languagetab[i], fills.Languagetab[i+1]);
+        foreach(Text item in allgametext) {
+            Debug.Log("itrm name  = " + item.name  + "   in dict = " + fills.dict[item.name]);
+            item.text = fills.dict[item.name];
+        }
         
-        //text1.text = fills.Languagetab[text1.name];
+
     }
 }
 
 public class Languagesfill {
     public List<string> Languagetab;
+    public Dictionary <string,string> dict;
 }

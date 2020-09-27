@@ -109,8 +109,6 @@ public class Savegame : MonoBehaviour
     void OnApplicationFocus(bool hasFocus) {
 
         Debug.Log("SAving Focus");
-        Debug.Log(sv.mapNum);
-
         sv.FirstEntry = false;
         if (sv.moves1 != null) 
             sv.movesf1 = MapLoader.TwoDToOneDArray(sv.moves1);

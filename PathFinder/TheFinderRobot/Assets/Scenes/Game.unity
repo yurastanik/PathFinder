@@ -1000,7 +1000,7 @@ GameObject:
   - component: {fileID: 70195732}
   - component: {fileID: 70195731}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Use hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1667,7 +1667,7 @@ GameObject:
   - component: {fileID: 227119834}
   - component: {fileID: 227119833}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1748,7 +1748,7 @@ GameObject:
   - component: {fileID: 234149632}
   - component: {fileID: 234149631}
   m_Layer: 5
-  m_Name: Text
+  m_Name: educate1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1828,7 +1828,7 @@ GameObject:
   - component: {fileID: 314238676}
   - component: {fileID: 314238675}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Take it
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3077,7 +3077,7 @@ GameObject:
   - component: {fileID: 472093777}
   - component: {fileID: 472093776}
   m_Layer: 5
-  m_Name: Text
+  m_Name: rus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3476,7 +3476,7 @@ GameObject:
   - component: {fileID: 492136309}
   - component: {fileID: 492136308}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4449,8 +4449,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.012474, y: 0.025021}
-  m_SizeDelta: {x: 1552, y: 454.85}
+  m_AnchoredPosition: {x: 0.00013733, y: 0.00016403}
+  m_SizeDelta: {x: 1869.273, y: 682.8833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &805235409
 MonoBehaviour:
@@ -4473,11 +4473,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1775fa65dbc94f04c87779bcfa850585, type: 3}
-    m_FontSize: 190
+    m_FontSize: 220
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 200
+    m_MaxSize: 220
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -5076,7 +5076,7 @@ GameObject:
   - component: {fileID: 894441867}
   - component: {fileID: 894441866}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Take it
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6427,7 +6427,7 @@ GameObject:
   - component: {fileID: 1000602546}
   - component: {fileID: 1000602545}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Game speed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6647,7 +6647,7 @@ GameObject:
   - component: {fileID: 1020719546}
   - component: {fileID: 1020719545}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Circle move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7113,7 +7113,7 @@ GameObject:
   - component: {fileID: 1103110659}
   - component: {fileID: 1103110658}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Get more
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8644,6 +8644,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text1: {fileID: 805235409}
+  allgametext:
+  - {fileID: 805235409}
+  - {fileID: 1020719545}
+  - {fileID: 1969578506}
+  - {fileID: 234149631}
+  - {fileID: 1504909433}
+  - {fileID: 1000602545}
+  - {fileID: 1103110658}
+  - {fileID: 1708346575}
+  - {fileID: 1628830413}
+  - {fileID: 1480524656}
+  - {fileID: 227119833}
+  - {fileID: 1983155532}
+  - {fileID: 492136308}
+  - {fileID: 472093776}
+  - {fileID: 2005154011}
+  - {fileID: 1619083240}
+  - {fileID: 314238675}
+  - {fileID: 894441866}
+  - {fileID: 2109592587}
+  - {fileID: 70195731}
 --- !u!4 &1347991938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: b17a5ffedc099814a91267ddd9097eb5,
@@ -9928,7 +9949,7 @@ GameObject:
   - component: {fileID: 1480524657}
   - component: {fileID: 1480524656}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Move_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10007,7 +10028,7 @@ GameObject:
   - component: {fileID: 1504909434}
   - component: {fileID: 1504909433}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Eng
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10625,7 +10646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -0.5673828}
+  m_AnchoredPosition: {x: 0, y: -0.5673828}
   m_SizeDelta: {x: 0, y: 0.567482}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1607609500
@@ -10793,7 +10814,7 @@ GameObject:
   - component: {fileID: 1619083241}
   - component: {fileID: 1619083240}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Take it
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10871,7 +10892,7 @@ GameObject:
   - component: {fileID: 1628830414}
   - component: {fileID: 1628830413}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Move_color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11817,7 +11838,7 @@ GameObject:
   - component: {fileID: 1708346576}
   - component: {fileID: 1708346575}
   m_Layer: 5
-  m_Name: Text
+  m_Name: hint left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12782,7 +12803,7 @@ GameObject:
   - component: {fileID: 1969578507}
   - component: {fileID: 1969578506}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12860,7 +12881,7 @@ GameObject:
   - component: {fileID: 1983155533}
   - component: {fileID: 1983155532}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12940,7 +12961,7 @@ GameObject:
   - component: {fileID: 2005154012}
   - component: {fileID: 2005154011}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Take it
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

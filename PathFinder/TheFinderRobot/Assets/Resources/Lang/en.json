@@ -1,4 +1,19 @@
 {
     "Languagetab":
-        ["Chooselang1", "Choose your\nlanguage"]
+        ["Chooselang1", "Choose your\nlanguage",
+            "Circle move", "This is circle move",
+            "Continue", "Continue",
+            "educate1", "Take all stars using neccessary moves and action!",
+            "Eng", "English",
+            "Game speed", "Game speed x",
+            "Get more", "Get moree",
+            "hint left", "        left",
+            "Move_color", "move with color",
+            "Move_right", "move right",
+            "Quit", "Quit",
+            "Resume", "Resume",
+            "rus", "Russian",
+            "Take it", "Take it",
+            "Up", "Place the forward arrow on the command line and I will go forward",
+            "Use hint", "Use hint"]
 }

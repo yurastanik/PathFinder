@@ -38,9 +38,7 @@ public class MapLoader : MonoBehaviour {
         var jsonTextFile = Resources.Load<TextAsset>("Maps/Map" + mapNum);
         //Debug.Log(jsonTextFile);
         string tileFile = jsonTextFile.text;
-        Debug.Log(tileFile);
         loadedMap = JsonUtility.FromJson<Map>(tileFile);
-        Debug.Log(loadedMap.startPos);
         RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
         camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
         camer.orthographicSize = loadedMap.cameraSize;

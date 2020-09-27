@@ -48,7 +48,7 @@
      <Compile Include="Assets\Scripts\GameColors.cs" />
      <Compile Include="Assets\Scripts\Input_Class.cs" />
      <Compile Include="Assets\Scripts\Inputbuttons.cs" />
-     <Compile Include="Assets\Scripts\Lang.cs" />
+     <Compile Include="Assets\Scripts\Langgame.cs" />
      <Compile Include="Assets\Scripts\LevelAppear.cs" />
      <Compile Include="Assets\Scripts\Levelbutton.cs" />
      <Compile Include="Assets\Scripts\MapLoader.cs" />
@@ -658,11 +658,17 @@
     <Reference Include="Unity.Recorder.Editor">
         <HintPath>E:/Dev/GameDev/TheFinderRobot/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.Recorder.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Recorder.Editor">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.Recorder.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>E:/Dev/GameDev/TheFinderRobot/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Recorder">
         <HintPath>E:/Dev/GameDev/TheFinderRobot/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.Recorder.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Recorder">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.Recorder.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
         <HintPath>E:/Dev/GameDev/TheFinderRobot/PathFinder/TheFinderRobot/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
@@ -678,6 +684,9 @@
     </Reference>
     <Reference Include="Unity.Recorder.Base">
         <HintPath>E:/Dev/GameDev/TheFinderRobot/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.Recorder.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Recorder.Base">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.Recorder.Base.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>E:/Dev/GameDev/TheFinderRobot/PathFinder/TheFinderRobot/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
