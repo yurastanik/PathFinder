@@ -55,7 +55,8 @@ public class Savegame : MonoBehaviour
                 if (sv.mapNum == 0)
                     la.Getlevel();
                 else {
-                    SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                    // SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                    StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
                 }
             }
         }

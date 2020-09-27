@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.SceneManagement;
 
-public class Levelbutton : MonoBehaviour
-{
+public class Levelbutton : MonoBehaviour {
+
     public void choose_level() {
         // if (gameObject.GetComponent<Image>().sprite.name == "blocked");
         // else {
@@ -16,7 +15,9 @@ public class Levelbutton : MonoBehaviour
     //#endif
             MaplevelChose.map_number = Int32.Parse(gameObject.transform.GetChild(0).GetComponent<Text>().text);
             Savegame.sv.mapNum = MaplevelChose.map_number;
-            SceneManager.LoadScene("Game", LoadSceneMode.Single);
+            // FadeInOut.FadeIn("Game");
+            StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
         // }
     }
+
 }

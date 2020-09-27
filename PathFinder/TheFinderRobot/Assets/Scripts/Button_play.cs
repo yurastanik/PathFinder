@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Button_play : MonoBehaviour
-{
+public class Button_play : MonoBehaviour {
+
     private int func_count;
     [SerializeField] private Choosebutton choosebutton;
     [SerializeField] private Robot_move player;
@@ -164,7 +164,8 @@ public class Button_play : MonoBehaviour
     public void quit() {
         Time.timeScale = 1;
         MaplevelChose.quit = true;
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        // SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Menu"));
         Savegame.sv.movesf1 = null;
         Savegame.sv.movesf2 = null;
         Savegame.sv.movesf3 = null;
