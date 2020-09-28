@@ -9,7 +9,7 @@ public class Langgame : MonoBehaviour
 {
     public static Languagesfill fills;
     private static string Lang_kod = "en";
-    [SerializeField] List<Text> allgametext;
+    [SerializeField] private List<Text> allgametext;
 
 
     void Awake()
@@ -25,6 +25,7 @@ public class Langgame : MonoBehaviour
         var jsonTextFile = Resources.Load<TextAsset>("Lang/" + Lang_kod);
         string tileFile = jsonTextFile.text;
         fills = JsonUtility.FromJson<Languagesfill>(tileFile);
+
         change_text();
     }
 
@@ -34,7 +35,7 @@ public class Langgame : MonoBehaviour
         for (int i = 0; i < fills.Languagetab.Count; i = i + 2)
             fills.dict.Add(fills.Languagetab[i], fills.Languagetab[i+1]);
         foreach(Text item in allgametext) {
-            Debug.Log("itrm name  = " + item.name  + "   in dict = " + fills.dict[item.name]);
+            //Debug.Log("itrm name  = " + item.name  + "   in dict = " + fills.dict[item.name]);
             item.text = fills.dict[item.name];
         }
         

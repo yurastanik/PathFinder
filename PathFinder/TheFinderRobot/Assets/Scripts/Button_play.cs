@@ -149,12 +149,20 @@ public class Button_play : MonoBehaviour {
 
     public void main_pause() {
         Time.timeScale = 0;
-        if (Savegame.sv.speed == 4)
+        Debug.Log("PAuse");
+        sped.text = "Gamlol";
+        if (Savegame.sv.speed == 4) {
             sped.text = "Game speed x" + 2;
-        else if (Savegame.sv.speed == 2)
-            sped.text = "Game speed x" + 1 ;
-        else if (Savegame.sv.speed == 7)
+             Debug.Log("PAuse1");
+        }
+        else if (Savegame.sv.speed == 2) {
+            sped.text = "Game speed x" + 1;
+             Debug.Log("PAuse2");
+        }
+        else if (Savegame.sv.speed == 7) {
             sped.text = "Game speed x" + 3;
+             Debug.Log("PAuse3");
+        }
         pausepanel.gameObject.SetActive(true);
     }
     public void resume() {
@@ -182,7 +190,7 @@ public class Button_play : MonoBehaviour {
     public void hint_menu() {
         if (Inputbuttons.move_btn == true) {
             Time.timeScale = 0;
-            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
+            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "      left";
             hintmenu.gameObject.SetActive(true);
         }
     }

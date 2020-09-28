@@ -15,5 +15,10 @@
             "rus", "Russian",
             "Take it", "Take it",
             "Up", "Place the forward arrow on the command line and I will go forward",
-            "Use hint", "Use hint"]
+            "Use hint", "Use hint",
+            "Play", "Play",
+            "Chapter1", " 1   Chapter\nMoves",
+            "Chapter2", " 2   Chapter\nFunction",
+            "Chapter3", " 3   Chapter\nColors",
+            "lvlselect", "Level Select"]
 }
