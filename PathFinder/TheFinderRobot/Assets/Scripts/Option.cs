@@ -8,6 +8,7 @@ public class Option : MonoBehaviour {
     [SerializeField] private Button music_but;
     private Sprite spr1, spr2, spr3 ,spr4;
     [SerializeField] private Image flag;
+    [SerializeField] private Langgame langclass;
 
 
     private void Start() {
@@ -44,15 +45,20 @@ public class Option : MonoBehaviour {
     }
 
     public void choose_rus() {
-        Savegame.sv.Languages = (int) Languages.Russion;
-        flag.GetComponent<Image>().sprite = spr3;
+        if (Savegame.sv.Languages != (int) Languages.Russion) {
+            Savegame.sv.Languages = (int) Languages.Russion;
+            flag.GetComponent<Image>().sprite = spr3;
+            langclass.load_file();
+        }
         langPanel.gameObject.SetActive(false);
     }
 
     public void choose_english() {
-        Savegame.sv.Languages = (int) Languages.English;
-        flag.GetComponent<Image>().sprite = spr4;
+        if (Savegame.sv.Languages != (int) Languages.English) {
+            Savegame.sv.Languages = (int) Languages.English;
+            flag.GetComponent<Image>().sprite = spr4;
+            langclass.load_file();
+        }
         langPanel.gameObject.SetActive(false);
     }
-    
 }
