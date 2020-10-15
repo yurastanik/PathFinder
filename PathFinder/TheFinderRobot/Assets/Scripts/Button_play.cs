@@ -149,22 +149,15 @@ public class Button_play : MonoBehaviour {
 
     public void main_pause() {
         Time.timeScale = 0;
-        Debug.Log("PAuse");
-        sped.text = "Gamlol";
-        if (Savegame.sv.speed == 4) {
+        if (Savegame.sv.speed == 4)
             sped.text = "Game speed x" + 2;
-             Debug.Log("PAuse1");
-        }
-        else if (Savegame.sv.speed == 2) {
+        else if (Savegame.sv.speed == 2)
             sped.text = "Game speed x" + 1;
-             Debug.Log("PAuse2");
-        }
-        else if (Savegame.sv.speed == 7) {
+        else if (Savegame.sv.speed == 7)
             sped.text = "Game speed x" + 3;
-             Debug.Log("PAuse3");
-        }
         pausepanel.gameObject.SetActive(true);
     }
+    
     public void resume() {
         pausepanel.gameObject.SetActive(false);
         Time.timeScale = 1;
@@ -172,8 +165,8 @@ public class Button_play : MonoBehaviour {
     public void quit() {
         Time.timeScale = 1;
         MaplevelChose.quit = true;
-        // SceneManager.LoadScene("Menu", LoadSceneMode.Single);
-        StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Menu"));
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+//        StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Menu"));
         Savegame.sv.movesf1 = null;
         Savegame.sv.movesf2 = null;
         Savegame.sv.movesf3 = null;

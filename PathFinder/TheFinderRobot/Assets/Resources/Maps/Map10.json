@@ -1,0 +1,27 @@
+{
+    "map": [
+        0, 0, 0, 0,
+        0, 1, 1, 0,
+        0, 1, 1, 0,
+        0, 0, 0, 0
+    ],
+    "mapWidth": 4,
+    "cameraPos": {
+        "x": 3,
+        "y": 20,
+        "z": -21
+    },
+    "cameraSize": 8,
+    "movesf1": [
+        1, 0,
+        3, 0,
+        7, 0
+    ],
+    "startPos": {
+        "x": 1,
+        "y": 1
+    },
+    "targets": [
+    ], 
+    "direction": "down"
+}

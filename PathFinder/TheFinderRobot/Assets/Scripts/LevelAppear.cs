@@ -9,6 +9,7 @@ public class LevelAppear : MonoBehaviour
 {
     [SerializeField] private GameObject Levelpanel;
     [SerializeField] private GameObject Educatepanel;
+    [SerializeField] private GameObject ManualOrTutorial;
     public GameObject nxt;
     public GameObject prv;
     [SerializeField] public GameObject menu;
@@ -88,19 +89,36 @@ public class LevelAppear : MonoBehaviour
             need = child.gameObject;
         }
         Levelpanel.gameObject.SetActive(true);
+        menu.gameObject.SetActive(false);
     }
 
     public void Backinmenu() {
         if (Levelpanel.activeInHierarchy)
             Levelpanel.gameObject.SetActive(false);
-        if (Educatepanel.activeInHierarchy)
+        else if (ManualOrTutorial.activeInHierarchy)
+            ManualOrTutorial.gameObject.SetActive(false);
+        else if (Educatepanel.activeInHierarchy)
             Educatepanel.gameObject.SetActive(false);
         menu.gameObject.SetActive(true);
     }
 
-    public void inEducate() {
-        //menu.gameObject.SetActive(false);
+    public void Back() {
+        Educatepanel.gameObject.SetActive(false);
+        ManualOrTutorial.gameObject.SetActive(true);
+    }
+
+    public void inChoose() {
+        ManualOrTutorial.gameObject.SetActive(true);
+        Levelpanel.gameObject.SetActive(false);
+    }
+
+    public void inManual() {
+    }
+
+
+    public void inTutorial() {
         Educatepanel.gameObject.SetActive(true);
+        ManualOrTutorial.gameObject.SetActive(false);
     }
 
     //public void 

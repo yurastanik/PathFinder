@@ -19,8 +19,6 @@ public class Option : MonoBehaviour {
 
         if (Savegame.sv.Languages == -1)
             langPanel.gameObject.SetActive(true);
-        else
-            Debug.Log("option , not first");
         if (Savegame.sv.Languages == (int) Languages.Russion)
             flag.GetComponent<Image>().sprite = spr3;
         else

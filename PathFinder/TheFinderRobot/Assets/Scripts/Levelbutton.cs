@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
@@ -11,11 +12,16 @@ public class Levelbutton : MonoBehaviour {
         // else {
     //#if UNITY_EDITOR
     //#endif
-            MaplevelChose.map_number = Int32.Parse(gameObject.transform.GetChild(0).GetComponent<Text>().text);
+            if (gameObject.transform.GetChild(0).GetComponent<Text>().text == "Test") {
+                MaplevelChose.map_number = 8;
+            }
+            else
+                MaplevelChose.map_number = Int32.Parse(gameObject.transform.GetChild(0).GetComponent<Text>().text);
             Savegame.sv.mapNum = MaplevelChose.map_number;
-            // FadeInOut.FadeIn("Game");
-            StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
+            //FadeInOut.FadeIn("Game");
+            //StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
         // }
+            SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
 }

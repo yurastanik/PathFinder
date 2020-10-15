@@ -9,9 +9,21 @@ public class Education : MonoBehaviour {
     }
 
     public void Ok() {
-        gameObject.gameObject.SetActive(false);
-        foreach (Transform child in gameObject.transform.GetChild(0).GetChild(0))
-            child.gameObject.SetActive(false);
+        //gameObject.gameObject.SetActive(false);
+        bool smth = false;
+        foreach (Transform child in gameObject.transform.GetChild(0).GetChild(0)) {
+            if (child.gameObject.activeSelf) {
+                child.gameObject.SetActive(false);
+                smth = true;
+            }
+            else if (smth) {
+                child.gameObject.SetActive(true);
+                smth = false;
+            }
+        }
+        if (smth) {
+            gameObject.gameObject.SetActive(false);
+        }
     }
 
     public void Next() {

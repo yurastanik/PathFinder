@@ -31,6 +31,7 @@ public class Savegame : MonoBehaviour
                 sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("Save"));
                                 #if UNITY_EDITOR
                     Debug.Log("time in awake " + sv.time);
+                    Debug.Log("LAng in awake " + sv.Languages);
                 #endif
                  DateTime realtime;
                 if (sv.time.Length > 0)
@@ -102,8 +103,9 @@ public class Savegame : MonoBehaviour
         if (sv.moves5 != null)
             sv.movesf5 = MapLoader.TwoDToOneDArray(sv.moves5);
         Debug.Log("Time in quit " + sv.time);
+        Debug.Log("LAng in quit " + sv.Languages);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(sv));
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
     }
 
     void OnApplicationFocus(bool hasFocus) {

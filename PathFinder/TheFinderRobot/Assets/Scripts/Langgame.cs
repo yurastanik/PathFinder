@@ -18,19 +18,20 @@ public class Langgame : MonoBehaviour
     }
 
     public void load_file() {
-        if (Savegame.sv.Languages == 1)
+        if (Savegame.sv.Languages == 1) {
             Lang_kod = "ru";
-        else
+        }
+        else {
             Lang_kod = "en";
+            Debug.Log("Choose en");
+        }
         var jsonTextFile = Resources.Load<TextAsset>("Lang/" + Lang_kod);
         string tileFile = jsonTextFile.text;
         fills = JsonUtility.FromJson<Languagesfill>(tileFile);
-
         change_text();
     }
 
     public void change_text() {
-        Debug.Log("dic*******************************t");
         fills.dict = new Dictionary<string,string>(fills.Languagetab.Count/2);
         for (int i = 0; i < fills.Languagetab.Count; i = i + 2)
             fills.dict.Add(fills.Languagetab[i], fills.Languagetab[i+1]);

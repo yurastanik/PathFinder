@@ -20,5 +20,8 @@
             "Chapter1", " 1   Chapter\nMoves",
             "Chapter2", " 2   Chapter\nFunction",
             "Chapter3", " 3   Chapter\nColors",
-            "lvlselect", "Level Select"]
+            "lvlselect", "Level Select",
+            "howtoplay", "How to play",
+            "Manual", "Manual",
+            "tutor", "Tutorial"]
 }
