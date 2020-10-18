@@ -1,15 +1,15 @@
 {
     "Languagetab":
         ["Chooselang1", "Choose your\nlanguage",
-            "Circle move", "This is circle move",
+            "Circle move", "Use the \"repeat\" to repeat all the actions of a paticular function.",
             "Continue", "Continue",
             "educate1", "Take all stars using neccessary moves and action!",
             "Eng", "English",
             "Game speed", "Game speed x",
             "Get more", "Get moree",
             "hint left", "        left",
-            "Move_color", "move with color",
-            "Move_right", "move right",
+            "Move_color", "You can combine your actions with colors and perform them on platforms of only the same color.",
+            "Move_right", "Use the blocks left/right to rotate the character.",
             "Quit", "Quit",
             "Resume", "Resume",
             "rus", "Russian",

@@ -16,6 +16,7 @@ public class Button_play : MonoBehaviour {
     //[SerializeField] private Button main_pause_btn;
     [SerializeField] private GameObject hintmenu;
     [SerializeField] private Image hint_count;
+    [SerializeField] private Education education;
 
     bool isPause = false;
     int[,] moves1 = new int[0,0];
@@ -181,7 +182,20 @@ public class Button_play : MonoBehaviour {
     }
 
     public void hint_menu() {
-        if (Inputbuttons.move_btn == true) {
+        Debug.Log(Savegame.sv.mapNum);
+        if (Savegame.sv.mapNum < 0) {
+            if (Savegame.sv.mapNum > -3) {
+                education.FirstChapt(0);
+                education.Next();
+            }
+            else if (Savegame.sv.mapNum > -5)
+                education.FirstChapt(1);
+            else if (Savegame.sv.mapNum > -8)
+                education.FirstChapt(2);
+            else
+                education.FirstChapt(3);
+        }
+        else if (Inputbuttons.move_btn == true) {
             Time.timeScale = 0;
             hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "      left";
             hintmenu.gameObject.SetActive(true);

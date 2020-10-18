@@ -52,7 +52,7 @@ public class MapLoader : MonoBehaviour {
             else if (mapNum == -5) {
                 education.FirstChapt(2);
             }
-            else if (mapNum == -9) {
+            else if (mapNum == -8) {
                 education.FirstChapt(3);
             }
         }
