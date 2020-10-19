@@ -15,6 +15,7 @@ TagManager:
   - left
   - Blue
   - FadeInFadeOut
+  - Music
   layers:
   - Default
   - TransparentFX

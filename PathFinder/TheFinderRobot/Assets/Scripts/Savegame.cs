@@ -57,7 +57,6 @@ public class Savegame : MonoBehaviour
                     la.Getlevel();
                 else {
                     SceneManager.LoadScene("Game", LoadSceneMode.Single);
-                    //StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
                 }
             }
         }

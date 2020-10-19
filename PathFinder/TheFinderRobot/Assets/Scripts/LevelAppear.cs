@@ -56,7 +56,7 @@ public class LevelAppear : MonoBehaviour
         //     Debug.Log("NOT EDUCATE");
         //     MaplevelChose.map_number = Savegame.sv.mapNum;
         // //    SceneManager.LoadScene("Game", LoadSceneMode.Single);
-        //  StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
+        // StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
         // }
         //menu.gameObject.SetActive(false);
         GameObject need = null;

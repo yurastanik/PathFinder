@@ -11,6 +11,8 @@ public class FadeInOut : MonoBehaviour {
     private const float pauseTime = 0.01f;
     private const float alphaDecrement = 0.01f;
 
+    bool inAccess = false;
+
     private void Awake() {
         img = gameObject.GetComponent<Image>();
         StartCoroutine(FadeOut());
@@ -21,16 +23,18 @@ public class FadeInOut : MonoBehaviour {
             img.color = new Color(0, 0, 0, img.color.a - alphaDecrement);
             yield return new WaitForSeconds(pauseTime);
         }
-        //StartCoroutine(FadeIn("Game"));
+        inAccess = true;
     }
 
     public IEnumerator FadeIn(string sceneName) {
-        img.raycastTarget = true;
-        while (img.color.a < 1) {
-            img.color = new Color(0, 0, 0, img.color.a + alphaDecrement);
-            yield return new WaitForSeconds(pauseTime);
+        if (inAccess) {
+            img.raycastTarget = true;
+            while (img.color.a < 1) {
+                img.color = new Color(0, 0, 0, img.color.a + alphaDecrement);
+                yield return new WaitForSeconds(pauseTime);
+            }
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
 }

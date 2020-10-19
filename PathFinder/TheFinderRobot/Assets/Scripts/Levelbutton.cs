@@ -22,9 +22,9 @@ public class Levelbutton : MonoBehaviour {
                 MaplevelChose.map_number = Int32.Parse(gameObject.transform.GetChild(0).GetComponent<Text>().text);
             Savegame.sv.mapNum = MaplevelChose.map_number;
             //FadeInOut.FadeIn("Game");
-            //StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
+            StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
         // }
-            SceneManager.LoadScene("Game", LoadSceneMode.Single);
+            // SceneManager.LoadScene("Game", LoadSceneMode.Single);
         }
     }
 
