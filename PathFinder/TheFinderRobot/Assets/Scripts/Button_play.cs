@@ -115,35 +115,37 @@ public class Button_play : MonoBehaviour {
     }
 
     public void Start_btn() {
-        if (player.readyToStart) {
-            ActivateButton();
-            Image btn = transform.GetChild(1).GetComponent<Image>();
-            btn.sprite = pause_btn;
-            btn.color = new Color(1, 1, 1, 1);
-            UpToDate();
-            for (int i = 0; i < func_count; i++) {
-                int[,] list = ListChoser(i+1);
-                for (int j = 0; j < choosebutton.func_num[i]; j++) {
-                    AddAction(ref list, func[i].input_arr[j].direct, func[i].input_arr[j].color);
-                }
-                ListChoser(i+1) = list;
-            }
-            player.MovesInit(moves1, moves2, moves3, moves4, moves5);
-        }
-        else {
-            if (isPause) {
-                player.PauseGame();
+        if (Inputbuttons.move_btn == true) {
+            if (player.readyToStart) {
+                ActivateButton();
                 Image btn = transform.GetChild(1).GetComponent<Image>();
                 btn.sprite = pause_btn;
                 btn.color = new Color(1, 1, 1, 1);
-                isPause = false;
+                UpToDate();
+                for (int i = 0; i < func_count; i++) {
+                    int[,] list = ListChoser(i+1);
+                    for (int j = 0; j < choosebutton.func_num[i]; j++) {
+                        AddAction(ref list, func[i].input_arr[j].direct, func[i].input_arr[j].color);
+                    }
+                    ListChoser(i+1) = list;
+                }
+                player.MovesInit(moves1, moves2, moves3, moves4, moves5);
             }
             else {
-                player.PauseGame();
-                Image btn = transform.GetChild(1).GetComponent<Image>();
-                btn.sprite = start_btn;
-                btn.color = new Color(0.7458385f, 0.754717f, 0.01779993f, 1);
-                isPause = true;
+                if (isPause) {
+                    player.PauseGame();
+                    Image btn = transform.GetChild(1).GetComponent<Image>();
+                    btn.sprite = pause_btn;
+                    btn.color = new Color(1, 1, 1, 1);
+                    isPause = false;
+                }
+                else {
+                    player.PauseGame();
+                    Image btn = transform.GetChild(1).GetComponent<Image>();
+                    btn.sprite = start_btn;
+                    btn.color = new Color(0.7458385f, 0.754717f, 0.01779993f, 1);
+                    isPause = true;
+                }
             }
         }
     }
@@ -182,7 +184,6 @@ public class Button_play : MonoBehaviour {
     }
 
     public void hint_menu() {
-        Debug.Log(Savegame.sv.mapNum);
         if (Savegame.sv.mapNum < 0) {
             if (Savegame.sv.mapNum > -3) {
                 education.FirstChapt(0);
