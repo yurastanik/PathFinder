@@ -161,11 +161,14 @@ public class Choosebutton : MonoBehaviour
                     if (Savegame.sv.moves1[i, 0] < 4) {
                         int n = 6;
                         for (int a = 1; a < 4; a++) {
+                            Debug.Log("sv - " + Savegame.sv.moves1[i, 0] + " tot - " + a);
                             n += 1;
                             if (n == 9)
                                 n -= 3;
-                            if (Savegame.sv.moves1[i, 0] == a)
+                            if (Savegame.sv.moves1[i, 0] == a) {
                                 InputField.button_list[i].image.sprite = s1[n];
+                                break;
+                            }
                         }
                     }
                     else if (Savegame.sv.moves1[i, 0] > 6) {
@@ -308,31 +311,33 @@ public class Choosebutton : MonoBehaviour
     }
 
     public void CancelButton() {
-        btn = InputField.button;
-        fun = InputField.func;
-        InputField.button_list[btn].image.sprite = s1[0];
-        Btnplay.func[fun].input_arr[btn].direct = 0;
-        InputField.button_list[btn].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
-        Btnplay.func[fun].input_arr[btn].color = 0;
-        if (fun == 0) {
-            for (int j = 0; j < 2; j++)
-                Savegame.sv.moves1[btn, j] = 0;
-        }
-        else if (fun == 1) {
-            for (int j = 0; j < 2; j++)
-                Savegame.sv.moves1[btn, j] = 0;
-        }
-        else if (fun == 2) {
-            for (int j = 0; j < 2; j++)
-                Savegame.sv.moves1[btn, j] = 0;
-        }
-        else if (fun == 3) {
-            for (int j = 0; j < 2; j++)
-                Savegame.sv.moves1[btn, j] = 0;
-        }
-        else if (fun == 4) {
-            for (int j = 0; j < 2; j++)
-                Savegame.sv.moves1[btn, j] = 0;
+        if (Inputbuttons.move_btn == true) {
+            btn = InputField.button;
+            fun = InputField.func;
+            InputField.button_list[btn].image.sprite = s1[0];
+            Btnplay.func[fun].input_arr[btn].direct = 0;
+            InputField.button_list[btn].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
+            Btnplay.func[fun].input_arr[btn].color = 0;
+            if (fun == 0) {
+                for (int j = 0; j < 2; j++)
+                    Savegame.sv.moves1[btn, j] = 0;
+            }
+            else if (fun == 1) {
+                for (int j = 0; j < 2; j++)
+                    Savegame.sv.moves1[btn, j] = 0;
+            }
+            else if (fun == 2) {
+                for (int j = 0; j < 2; j++)
+                    Savegame.sv.moves1[btn, j] = 0;
+            }
+            else if (fun == 3) {
+                for (int j = 0; j < 2; j++)
+                    Savegame.sv.moves1[btn, j] = 0;
+            }
+            else if (fun == 4) {
+                for (int j = 0; j < 2; j++)
+                    Savegame.sv.moves1[btn, j] = 0;
+            }
         }
     }
 
@@ -428,6 +433,7 @@ public class Choosebutton : MonoBehaviour
             hintmenu.gameObject.SetActive(false);
             btn = InputField.button;
             fun = InputField.func;
+            Debug.Log(hint);
             if (fun == 0) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf1[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf1[btn, 1];
@@ -780,8 +786,6 @@ public class Choosebutton : MonoBehaviour
             fun = InputField.func;
             InputField.button_list[btn].image.sprite = s1[2];
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f2;
-
-            
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 8;
             else if (fun == 1)
@@ -864,7 +868,7 @@ public class Choosebutton : MonoBehaviour
             btn = InputField.button;
             fun = InputField.func;
             InputField.button_list[btn].image.sprite = s1[6];
-            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.left;if (fun == 1) 
+            Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.left; 
             if (fun == 0)
                 Savegame.sv.moves1[btn, 0] = 3;
             else if (fun == 1)
