@@ -13648,6 +13648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicArray:
   - {fileID: 8300000, guid: 643bbe3175c292d42b85c5a350ef9b56, type: 3}
+  - {fileID: 8300000, guid: 018cc63da34212e46b1f2be2abbcb6b7, type: 3}
 --- !u!1 &1119655901
 GameObject:
   m_ObjectHideFlags: 0

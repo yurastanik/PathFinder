@@ -28,7 +28,7 @@ public class MusicController : MonoBehaviour {
 
     public void ChangeMusic() {
         source.loop = false;
-        source.clip = musicArray[Random.Range(0, musicArray.Count - 1)];
+        source.clip = musicArray[Random.Range(0, musicArray.Count)];
         source.Play();
     }
 
