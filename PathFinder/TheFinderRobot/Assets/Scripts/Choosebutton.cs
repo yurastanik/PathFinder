@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-//using UnityEngine.Advertisements;
+using UnityEngine.Advertisements;
 
 public class Choosebutton : MonoBehaviour
 {
@@ -57,21 +57,21 @@ public class Choosebutton : MonoBehaviour
         ButtonLoad(true);
 
 
-//         if (Advertisement.isSupported) {
-// #if UNITY_ANDROID
-//             Advertisement.Initialize("3803433");
-// #endif
-// #if UNITY_IOS
-//             Advertisement.Initialize("3803432");
-// #endif
-//         }
+        if (Advertisement.isSupported) {
+#if UNITY_ANDROID
+            Advertisement.Initialize("3803433");
+#endif
+#if UNITY_IOS
+            Advertisement.Initialize("3803432");
+#endif
+        }
 
-// #if UNITY_EDITOR
-//         if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0) {
-//             Debug.Log("SSSSSSTART GAME");
-//             Debug.Log(Savegame.sv.movesf1[0]);
-//         }
-// #endif
+#if UNITY_EDITOR
+        if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0) {
+            Debug.Log("SSSSSSTART GAME");
+            Debug.Log(Savegame.sv.movesf1[0]);
+        }
+#endif
     }
 
     private void UpDatetion() { 
@@ -369,11 +369,11 @@ public class Choosebutton : MonoBehaviour
     
 
     public void GetMoreHint() {
-        // if (Advertisement.IsReady()) {
-        //     Advertisement.Show("rewardedVideo");
-        //     Savegame.sv.hint++;
-        //     hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
-        // }
+        if (Advertisement.IsReady()) {
+            Advertisement.Show("rewardedVideo");
+            Savegame.sv.hint++;
+            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
+        }
     }
 
     private void Move(Transform from, Transform to, float overTime, int n, int btn, int[,] lt) {
