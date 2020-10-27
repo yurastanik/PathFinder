@@ -30,30 +30,35 @@ public class MapLoader : MonoBehaviour {
     }
 
     public void MapNext(int mapNum) {
-        if (Savegame.sv.mapNum != mapNum) {
-            Savegame.sv.mapNum = mapNum;
-            if (Savegame.sv.lastNum < Savegame.sv.mapNum)
-                Savegame.sv.lastNum = Savegame.sv.mapNum;
+        if (mapNum == -10) {
+            education.FirstChapt(4);
         }
-        var jsonTextFile = Resources.Load<TextAsset>("Maps/Map" + mapNum);
-        //Debug.Log(jsonTextFile);
-        string tileFile = jsonTextFile.text;
-        loadedMap = JsonUtility.FromJson<Map>(tileFile);
-        RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
-        camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
-        camer.orthographicSize = loadedMap.cameraSize;
-        if (mapNum < 0) {
-            if (mapNum == -1) {
-                education.FirstChapt(0);
+        else {
+            if (Savegame.sv.mapNum != mapNum) {
+                Savegame.sv.mapNum = mapNum;
+                if (Savegame.sv.lastNum < Savegame.sv.mapNum)
+                    Savegame.sv.lastNum = Savegame.sv.mapNum;
             }
-            else if (mapNum == -3) {
-                education.FirstChapt(1);
-            }
-            else if (mapNum == -5) {
-                education.FirstChapt(2);
-            }
-            else if (mapNum == -8) {
-                education.FirstChapt(3);
+            var jsonTextFile = Resources.Load<TextAsset>("Maps/Map" + mapNum);
+            //Debug.Log(jsonTextFile);
+            string tileFile = jsonTextFile.text;
+            loadedMap = JsonUtility.FromJson<Map>(tileFile);
+            RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
+            camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
+            camer.orthographicSize = loadedMap.cameraSize;
+            if (mapNum < 0) {
+                if (mapNum == -1) {
+                    education.FirstChapt(0);
+                }
+                else if (mapNum == -3) {
+                    education.FirstChapt(1);
+                }
+                else if (mapNum == -5) {
+                    education.FirstChapt(2);
+                }
+                else if (mapNum == -8) {
+                    education.FirstChapt(3);
+                }
             }
         }
     }
