@@ -46,6 +46,7 @@
      <Compile Include="Assets\Scripts\FadeInOut.cs" />
      <Compile Include="Assets\Scripts\Functionclass.cs" />
      <Compile Include="Assets\Scripts\GameColors.cs" />
+     <Compile Include="Assets\Scripts\HSVRotation.cs" />
      <Compile Include="Assets\Scripts\Input_Class.cs" />
      <Compile Include="Assets\Scripts\Inputbuttons.cs" />
      <Compile Include="Assets\Scripts\Langgame.cs" />
@@ -59,8 +60,8 @@
      <Compile Include="Assets\Scripts\Rainbow.cs" />
      <Compile Include="Assets\Scripts\Robot_move.cs" />
      <Compile Include="Assets\Scripts\Savegame.cs" />
+     <Compile Include="Assets\Scripts\SkipIntro.cs" />
      <Compile Include="Assets\Scripts\SprayParticle.cs" />
-     <Compile Include="Assets\Scripts\WireframeRotation.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

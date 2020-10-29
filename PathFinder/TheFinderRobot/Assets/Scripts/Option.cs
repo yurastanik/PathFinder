@@ -31,14 +31,16 @@ public class Option : MonoBehaviour {
 
     public void music() {
         if (Savegame.sv.music == true) {
-            Debug.Log("викл");
+            // Debug.Log("викл");
             music_but.GetComponent<Image>().sprite = spr2;
             Savegame.sv.music = false;
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);
         }
         else {
-            Debug.Log("вкл");
+            // Debug.Log("вкл");
             music_but.GetComponent<Image>().sprite = spr1;
             Savegame.sv.music = true;
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
         }
     }
 
