@@ -23,5 +23,6 @@
             "lvlselect", "Level Select",
             "howtoplay", "How to play",
             "Manual", "Manual",
-            "tutor", "Tutorial"]
+            "tutor", "Tutorial",
+            "Congratulation", "You have successfully completed the tutorial, now you can start passing the levels."]
 }

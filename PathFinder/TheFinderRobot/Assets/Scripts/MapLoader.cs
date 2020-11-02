@@ -24,7 +24,7 @@ public class MapLoader : MonoBehaviour {
     private Sprite spr1;
 
     private void Awake() {
-        spr1 = Resources.Load<Sprite>("Sprites/Button/eyeon");
+        spr1 = Resources.Load<Sprite>("Sprites/Button/eye2");
         MapNext(Savegame.sv.mapNum);
         if (Savegame.sv.mapNum != MaplevelChose.map_number) {
             MaplevelChose.map_number = Savegame.sv.mapNum;
@@ -49,7 +49,7 @@ public class MapLoader : MonoBehaviour {
             string tileFile = jsonTextFile.text;
             loadedMap = JsonUtility.FromJson<Map>(tileFile);
             RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
-            playscript.changview();
+            playscript.changeonfirst();
             camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z);
             cameraimg.GetComponent<Image>().sprite = spr1;
             camer.orthographicSize = loadedMap.cameraSize;

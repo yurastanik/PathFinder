@@ -37,7 +37,12 @@ public class Langgame : MonoBehaviour
             fills.dict.Add(fills.Languagetab[i], fills.Languagetab[i+1]);
         foreach(Text item in allgametext) {
             //Debug.Log("itrm name  = " + item.name  + "   in dict = " + fills.dict[item.name]);
-            item.text = fills.dict[item.name];
+            if (item.name == "Game speed") {
+                item.text = fills.dict[item.name] +  Savegame.sv.speed/2;
+            }
+            else
+                item.text = fills.dict[item.name];
+            
         }
         
 
