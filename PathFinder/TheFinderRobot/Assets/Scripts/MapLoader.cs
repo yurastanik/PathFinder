@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
+
 
 public class MapLoader : MonoBehaviour {
 
@@ -18,8 +19,12 @@ public class MapLoader : MonoBehaviour {
     [SerializeField] private Material redMaterial;
     [SerializeField] private Material greenMaterial;
     [SerializeField] private Material blueMaterial;
+    [SerializeField] private Button_play playscript;
+    [SerializeField] private Button cameraimg;
+    private Sprite spr1;
 
     private void Awake() {
+        spr1 = Resources.Load<Sprite>("Sprites/Button/eyeon");
         MapNext(Savegame.sv.mapNum);
         if (Savegame.sv.mapNum != MaplevelChose.map_number) {
             MaplevelChose.map_number = Savegame.sv.mapNum;
@@ -44,8 +49,12 @@ public class MapLoader : MonoBehaviour {
             string tileFile = jsonTextFile.text;
             loadedMap = JsonUtility.FromJson<Map>(tileFile);
             RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
-            camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z); 
+            playscript.changview();
+            camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z);
+            cameraimg.GetComponent<Image>().sprite = spr1;
             camer.orthographicSize = loadedMap.cameraSize;
+            playscript.cameraFirst = camer.transform.position;
+            Button_play.camsize = loadedMap.cameraSize;
             if (mapNum < 0) {
                 if (mapNum == -1) {
                     education.FirstChapt(0);

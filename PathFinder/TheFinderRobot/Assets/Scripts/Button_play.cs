@@ -13,10 +13,10 @@ public class Button_play : MonoBehaviour {
 
     [SerializeField] private GameObject pausepanel;
     [SerializeField] private Text sped;
-    //[SerializeField] private Button main_pause_btn;
     [SerializeField] private GameObject hintmenu;
     [SerializeField] private Image hint_count;
     [SerializeField] private Education education;
+
 
     bool isPause = false;
     int[,] moves1 = new int[0,0];
@@ -26,9 +26,31 @@ public class Button_play : MonoBehaviour {
     int[,] moves5 = new int[0,0];
 
 
+
+
+
     public List <Functionclass> func = new List<Functionclass>();
     [SerializeField] public Sprite pause_btn;
     [SerializeField] public Sprite start_btn;
+
+    private Sprite spr1, spr2;
+    private bool cameraon = true;
+
+    private Vector3 backs;
+    public Vector3 cameraFirst;
+    [SerializeField] private Button cameraimg;
+    [SerializeField] private GameObject back;
+    [SerializeField] private GameObject playerobj;
+    static public float camsize = 0;
+
+
+    private void Start() {
+        spr1 = Resources.Load<Sprite>("Sprites/Button/eyeon");
+        spr2 = Resources.Load<Sprite>("Sprites/Button/eyeoff");
+        cameraFirst = Camera.main.transform.position;
+        backs = new Vector3(back.transform.position.x, back.transform.position.y, back.transform.position.z);
+        // cameraimg.GetComponent<Image>().sprite = spr1;
+    }
 
     public void ReStart() {
         func = new List<Functionclass>();
@@ -206,5 +228,31 @@ public class Button_play : MonoBehaviour {
     public void hintresume() {
         Time.timeScale = 1;
         hintmenu.gameObject.SetActive(false);
+    }
+
+    private void perspective() {
+        if (cameraon == true) {
+            cameraimg.GetComponent<Image>().sprite = spr2;
+            Camera.main.transform.SetParent(playerobj.transform);
+            Camera.main.transform.localPosition = backs;
+            Camera.main.transform.LookAt(playerobj.transform);
+            Camera.main.orthographicSize = 4;
+            cameraon = false;
+        }
+        else {
+            cameraimg.GetComponent<Image>().sprite = spr1;
+            Camera.main.transform.position = cameraFirst;
+            Camera.main.orthographicSize = camsize;
+            changview();
+        }
+    }
+
+    public void changview() {
+        // cameraimg.GetComponent<Image>().sprite = spr1;
+        Camera.main.transform.rotation = Quaternion.Euler(45, 0, 0);
+        Camera.main.transform.SetParent(null);
+        // Camera.main.transform.position = cameraFirst;
+        // Camera.main.orthographicSize = camsize;
+        cameraon = true;
     }
 }
