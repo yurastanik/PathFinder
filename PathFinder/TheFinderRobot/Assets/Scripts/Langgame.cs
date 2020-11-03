@@ -21,6 +21,8 @@ public class Langgame : MonoBehaviour
         if (Savegame.sv.Languages == 1) {
             Lang_kod = "ru";
         }
+        else if (Savegame.sv.Languages == 2)
+            Lang_kod = "ua";
         else {
             Lang_kod = "en";
             Debug.Log("Choose en");

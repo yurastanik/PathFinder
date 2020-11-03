@@ -7,7 +7,7 @@
             "Eng", "English",
             "Game speed", "Game speed x",
             "Get more", "Get moree",
-            "hint left", "        left",
+            "hint left", "Left:",
             "Move_color", "You can combine your actions with colors and perform them on platforms of only the same color.",
             "Move_right", "Use the blocks left/right to rotate the character.",
             "Quit", "Quit",
@@ -24,5 +24,6 @@
             "howtoplay", "How to play",
             "Manual", "Manual",
             "tutor", "Tutorial",
-            "Congratulation", "You have successfully completed the tutorial, now you can start passing the levels."]
+            "Congratulation", "You have successfully completed the tutorial, now you can start passing the levels.",
+            "Back", "Back"]
 }

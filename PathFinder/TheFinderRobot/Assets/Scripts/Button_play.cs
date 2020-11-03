@@ -222,7 +222,7 @@ public class Button_play : MonoBehaviour {
         }
         else if (Inputbuttons.move_btn == true) {
             Time.timeScale = 0;
-            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + Langgame.fills.dict["hint left"];
+            hint_count.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
             hintmenu.gameObject.SetActive(true);
         }
     }
