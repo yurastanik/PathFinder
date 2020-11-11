@@ -4,54 +4,50 @@ using UnityEngine;
 
 public class BackgroundObject : MonoBehaviour {
 
-    private Transform objectModel;
+    private bool readyToDie = false;
+    private float speed = 0.1f;
 
-    private Vector3 moveDirection;
-    private Quaternion rotation;
+    private int destination;
+    private bool rightDir;
 
-    private float maxMovSpd = 2f;
-    private float maxRotSpd = 0.5f;
-
-    private bool isNotHidden = false;
-
-    // VISIBLE FUNCTIONS
-    public bool GetNotHidden() {
-        return isNotHidden;
-    }
-    public void SetNotHidden(bool hide) {
-        isNotHidden = hide;
-    }
-    // -----------------
-
-    private void Start() {
-        objectModel = GetComponentInChildren<Transform>();
-        SetRandomParams();
+    public void SetupDestination(int destination, bool rightDir) {
+        this.destination = destination;
+        this.rightDir = rightDir;
+        speed = Random.Range(0.5f, 1.5f);
+        StartCoroutine(StepTimer());
     }
 
-    public void SetRandomParams() {
-        isNotHidden = false;
+    private IEnumerator StepTimer() {
+        while (true) {
+            if (rightDir) {
+                Debug.Log(transform.localPosition.x + " < " + destination);
+                if (transform.localPosition.x < destination) {
+                    transform.localPosition = new Vector3(
+                        transform.localPosition.x + speed,
+                        transform.localPosition.y,
+                        transform.localPosition.z
+                    );
+                }
+                else
+                    break;
+            } else {
+                if (transform.localPosition.x > destination) {
+                    transform.localPosition = new Vector3(
+                        transform.localPosition.x - speed,
+                        transform.localPosition.y,
+                        transform.localPosition.z
+                    );
+                }
+                else
+                    break;
+            }
 
-        moveDirection.x = Random.Range(-maxMovSpd, maxMovSpd);
-        moveDirection.z = Random.Range(-maxMovSpd, maxMovSpd);
+            yield return new WaitForSeconds(0.01f);
+        }
 
-        Vector3 rand = new Vector3(
-            Random.Range(-maxRotSpd, maxRotSpd),
-            Random.Range(-maxRotSpd, maxRotSpd),
-            Random.Range(-maxRotSpd, maxRotSpd)
-        );
-
-        rotation = Quaternion.Euler(rand);
+        readyToDie = true;
     }
 
-    private void Update() {
-        objectModel.rotation *= rotation;
-        transform.position += moveDirection * Time.deltaTime;
-    }
+    public bool IsReady() { return readyToDie; }
 
-    public Vector3 GetMoveDirection() {
-        return moveDirection;
-    }
-    public void SetMoveDirection(Vector3 newDirection) {
-        moveDirection = newDirection;
-    }
 }
