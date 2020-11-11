@@ -33,8 +33,9 @@ public class Button_play : MonoBehaviour {
     [SerializeField] public Sprite pause_btn;
     [SerializeField] public Sprite start_btn;
 
-    private Sprite spr1, spr2;
+    private Sprite spr1, spr2, spr3;
     private bool cameraon = true;
+    private int camerastate = 0;
 
     private Vector3 backs;
     public Vector3 cameraFirst;
@@ -45,8 +46,9 @@ public class Button_play : MonoBehaviour {
 
 
     private void Start() {
-        spr1 = Resources.Load<Sprite>("Sprites/Button/eyeon");
-        spr2 = Resources.Load<Sprite>("Sprites/Button/eyeoff");
+        spr1 = Resources.Load<Sprite>("Sprites/Button/eye2");
+        spr2 = Resources.Load<Sprite>("Sprites/Button/eye3");
+        spr3 = Resources.Load<Sprite>("Sprites/Button/eye1");
         cameraFirst = Camera.main.transform.position;
         backs = new Vector3(back.transform.position.x, back.transform.position.y, back.transform.position.z);
         // cameraimg.GetComponent<Image>().sprite = spr1;
@@ -124,14 +126,14 @@ public class Button_play : MonoBehaviour {
 
     public void Speed() {
         Savegame.sv.speed += 2;
-        sped.text = "Game speed x" + 2;
+        sped.text =  Langgame.fills.dict["Game speed"] + 2;
         if (Savegame.sv.speed == 6) {
             Savegame.sv.speed += 1;
-            sped.text = "Game speed x" + 3;
+            sped.text =  Langgame.fills.dict["Game speed"] + 3;
         }
         else if (Savegame.sv.speed == 9) {
             Savegame.sv.speed -= 7;
-            sped.text = "Game speed x" + 1;
+            sped.text =  Langgame.fills.dict["Game speed"] + 1;
         }
         player.tot_speed();
     }
@@ -175,11 +177,11 @@ public class Button_play : MonoBehaviour {
     public void main_pause() {
         Time.timeScale = 0;
         if (Savegame.sv.speed == 4)
-            sped.text = "Game speed x" + 2;
+            sped.text = Langgame.fills.dict["Game speed"] + 2;
         else if (Savegame.sv.speed == 2)
-            sped.text = "Game speed x" + 1;
+            sped.text = Langgame.fills.dict["Game speed"] + 1;
         else if (Savegame.sv.speed == 7)
-            sped.text = "Game speed x" + 3;
+            sped.text = Langgame.fills.dict["Game speed"] + 3;
         pausepanel.gameObject.SetActive(true);
     }
     
@@ -220,7 +222,7 @@ public class Button_play : MonoBehaviour {
         }
         else if (Inputbuttons.move_btn == true) {
             Time.timeScale = 0;
-            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "      left";
+            hint_count.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
             hintmenu.gameObject.SetActive(true);
         }
     }
@@ -231,28 +233,38 @@ public class Button_play : MonoBehaviour {
     }
 
     private void perspective() {
-        if (cameraon == true) {
+        if (camerastate == 0) {
             cameraimg.GetComponent<Image>().sprite = spr2;
             Camera.main.transform.SetParent(playerobj.transform);
             Camera.main.transform.localPosition = backs;
             Camera.main.transform.LookAt(playerobj.transform);
             Camera.main.orthographicSize = 4;
-            cameraon = false;
+            camerastate++;
+        }
+        else if(camerastate == 1) {
+            changview();
         }
         else {
             cameraimg.GetComponent<Image>().sprite = spr1;
-            Camera.main.transform.position = cameraFirst;
-            Camera.main.orthographicSize = camsize;
-            changview();
+            Camera.main.orthographic = true;
+            camerastate = 0;
         }
     }
 
     public void changview() {
-        // cameraimg.GetComponent<Image>().sprite = spr1;
+        cameraimg.GetComponent<Image>().sprite = spr3;
         Camera.main.transform.rotation = Quaternion.Euler(45, 0, 0);
         Camera.main.transform.SetParent(null);
-        // Camera.main.transform.position = cameraFirst;
-        // Camera.main.orthographicSize = camsize;
-        cameraon = true;
+        Camera.main.transform.position = cameraFirst;
+        Camera.main.orthographicSize = camsize;
+        Camera.main.orthographic = false;
+        camerastate++;
+    }
+
+    public void changeonfirst() {
+        Camera.main.transform.rotation = Quaternion.Euler(45, 0, 0);
+        Camera.main.transform.SetParent(null);
+        Camera.main.orthographic = true;
+        camerastate = 0;
     }
 }

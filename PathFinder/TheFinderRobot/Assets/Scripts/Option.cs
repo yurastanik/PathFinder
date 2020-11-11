@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Option : MonoBehaviour {
     [SerializeField] private GameObject langPanel;
     [SerializeField] private Button music_but;
-    private Sprite spr1, spr2, spr3 ,spr4;
+    private Sprite spr1, spr2, spr3 ,spr4, spr5;
     [SerializeField] private Image flag;
     [SerializeField] private Langgame langclass;
 
@@ -16,11 +16,14 @@ public class Option : MonoBehaviour {
         spr2 = Resources.Load<Sprite>("Sprites/menu/off_music");
         spr3 = Resources.Load<Sprite>("Sprites/menu/Russia-icon");
         spr4 = Resources.Load<Sprite>("Sprites/menu/us-flag-icon-20");
+        spr5 = Resources.Load<Sprite>("Sprites/menu/ukraine");
 
         if (Savegame.sv.Languages == -1)
             langPanel.gameObject.SetActive(true);
         if (Savegame.sv.Languages == (int) Languages.Russion)
             flag.GetComponent<Image>().sprite = spr3;
+        else if (Savegame.sv.Languages == (int) Languages.Ukraine)
+            flag.GetComponent<Image>().sprite = spr5;
         else
             flag.GetComponent<Image>().sprite = spr4;
     }
@@ -59,6 +62,19 @@ public class Option : MonoBehaviour {
             flag.GetComponent<Image>().sprite = spr4;
             langclass.load_file();
         }
+        langPanel.gameObject.SetActive(false);
+    }
+    
+    public void choose_ukraine() {
+        if (Savegame.sv.Languages != (int) Languages.Ukraine) {
+            Savegame.sv.Languages = (int) Languages.Ukraine;
+            flag.GetComponent<Image>().sprite = spr5;
+            langclass.load_file();
+        }
+        langPanel.gameObject.SetActive(false);
+    }
+
+    public void back() {
         langPanel.gameObject.SetActive(false);
     }
 }

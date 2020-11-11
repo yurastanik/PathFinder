@@ -127,7 +127,8 @@ public class Savegame : MonoBehaviour
 
 public enum Languages {
     English,
-    Russion
+    Russion,
+    Ukraine
 }
 
 [SerializeField]
