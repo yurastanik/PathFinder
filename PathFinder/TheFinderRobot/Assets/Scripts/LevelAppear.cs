@@ -25,8 +25,6 @@ public class LevelAppear : MonoBehaviour
                 sm = 1;
             GameObject need = null;
             foreach (Transform child in Levelpanel.transform) {
-                Debug.Log(sm);
-                Debug.Log(child.name);
                 if (Convert.ToInt32(child.gameObject.name) > sm) {
                     need.SetActive(true);
                     if (need.name == "1")
@@ -61,7 +59,7 @@ public class LevelAppear : MonoBehaviour
         //menu.gameObject.SetActive(false);
         GameObject need = null;
         int sm = Savegame.sv.mapNum;
-        if (Savegame.sv.mapNum < 0) {
+        if (Savegame.sv.mapNum <= 0) {
             sm = 1;
         }
         foreach (Transform child in Levelpanel.transform) {

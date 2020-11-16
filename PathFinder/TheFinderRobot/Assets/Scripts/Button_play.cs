@@ -105,19 +105,14 @@ public class Button_play : MonoBehaviour {
         Image btn = transform.GetChild(1).GetComponent<Image>();
         btn.sprite = start_btn;
         btn.color = new Color(0.7458385f, 0.754717f, 0.01779993f, 1);
-        float x_pos = transform.GetChild(2).transform.position.x;
-        transform.GetChild(3).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
         transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(2).transform.position = new Vector3(transform.GetChild(3).transform.position.x, transform.GetChild(2).transform.position.y, transform.GetChild(2).transform.position.z);
-        transform.GetChild(3).transform.position = new Vector3(x_pos, transform.GetChild(3).transform.position.y, transform.GetChild(3).transform.position.z);
     }
 
     public void ActivateButton() {
-        float stop_pos = transform.GetChild(3).transform.position.x;
-        transform.GetChild(3).transform.position = new Vector3(transform.GetChild(2).transform.position.x, transform.GetChild(3).transform.position.y, transform.GetChild(3).transform.position.z);
-        transform.GetChild(2).transform.position = new Vector3(stop_pos, transform.GetChild(2).transform.position.y, transform.GetChild(2).transform.position.z);
+        transform.GetChild(2).transform.position = new Vector3(transform.GetChild(2).transform.position.x, transform.GetChild(1).transform.position.y, transform.GetChild(2).transform.position.z);
         transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(3).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.SetActive(true);
     }
 
     public void Stop_btn() {
