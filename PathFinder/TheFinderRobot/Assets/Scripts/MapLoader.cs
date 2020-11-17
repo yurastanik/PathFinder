@@ -15,7 +15,6 @@ public class MapLoader : MonoBehaviour {
     //public Panel_button panel;
     [SerializeField] private Camera camer;
     [SerializeField] private Education education;
-
     [SerializeField] private Material redMaterial;
     [SerializeField] private Material greenMaterial;
     [SerializeField] private Material blueMaterial;
@@ -49,10 +48,12 @@ public class MapLoader : MonoBehaviour {
             string tileFile = jsonTextFile.text;
             loadedMap = JsonUtility.FromJson<Map>(tileFile);
             RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
+            if (loadedMap.mapSize.y != 0)
+                gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, loadedMap.mapSize.y);
             playscript.changeonfirst();
             camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z);
-            cameraimg.GetComponent<Image>().sprite = spr1;
-            camer.orthographicSize = loadedMap.cameraSize;
+            cameraimg.GetComponent<Image>().sprite = spr1;            
+            camer.orthographicSize = (float)Screen.height/Screen.width*loadedMap.mapWidth;
             playscript.cameraFirst = camer.transform.position;
             Button_play.camsize = loadedMap.cameraSize;
             if (mapNum < 0) {
@@ -170,6 +171,7 @@ public class Map {
     public int[] targets;
     public float cameraSize;
     public Vector2Int startPos;
+    public Vector2 mapSize;
     public Vector3 cameraPos;
     public string direction;
 }

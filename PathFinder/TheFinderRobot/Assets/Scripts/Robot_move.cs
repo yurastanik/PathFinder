@@ -29,6 +29,7 @@ public class Robot_move : MonoBehaviour {
     bool winner = false;
     bool trans = false;
     bool isDestroy = false;
+    float n = 1;
     int i = 0;
     int t = 0;
     int movenum = 0;
@@ -50,6 +51,8 @@ public class Robot_move : MonoBehaviour {
         targets = targeti;
         startPos = loadedMap.startPos;
         currentDirection = loadedMap.direction;
+        if (loadedMap.mapSize.y != 0)
+            n = loadedMap.mapSize.y;
         if (lose)
             loader.OnMapUpdate(card, targeti);
     }
@@ -65,7 +68,7 @@ public class Robot_move : MonoBehaviour {
         LoadMap(loser);
         AtStart();
         DirectAtStart();
-        transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
+        transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2 * n);
     }
 
     public void MovesInit(int[,] moves1, int[,] moves2, int[,] moves3, int[,] moves4, int[,] moves5) {
