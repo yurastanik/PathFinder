@@ -191,7 +191,7 @@ public class Button_play : MonoBehaviour {
         StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Menu"));
         Savegame.sv.movesf1 = null;
         Savegame.sv.movesf2 = null;
-        Savegame.sv.movesf3 =  null;
+        Savegame.sv.movesf3 = null;
         Savegame.sv.movesf4 = null;
         Savegame.sv.movesf5 = null;
         Savegame.sv.moves1 = null;

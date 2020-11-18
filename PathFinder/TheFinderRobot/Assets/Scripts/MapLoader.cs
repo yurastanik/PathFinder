@@ -15,7 +15,6 @@ public class MapLoader : MonoBehaviour {
     //public Panel_button panel;
     [SerializeField] private Camera camer;
     [SerializeField] private Education education;
-
     [SerializeField] private Material redMaterial;
     [SerializeField] private Material greenMaterial;
     [SerializeField] private Material blueMaterial;
@@ -51,10 +50,10 @@ public class MapLoader : MonoBehaviour {
             RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
             playscript.changeonfirst();
             camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z);
-            cameraimg.GetComponent<Image>().sprite = spr1;
-            camer.orthographicSize = loadedMap.cameraSize;
+            cameraimg.GetComponent<Image>().sprite = spr1;            
+            camer.orthographicSize = (float)Screen.height/Screen.width*loadedMap.mapWidth;
             playscript.cameraFirst = camer.transform.position;
-            Button_play.camsize = loadedMap.cameraSize;
+            Button_play.camsize = (float)Screen.height/Screen.width*loadedMap.mapWidth;
             if (mapNum < 0) {
                 if (mapNum == -1) {
                     education.FirstChapt(0);
@@ -91,7 +90,7 @@ public class MapLoader : MonoBehaviour {
         int rows = map.Length / width;
         int rows_star = targets.Length / 2;
         int col = 0;
-
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, 1);
         foreach (Transform child in transform) 
             GameObject.Destroy(child.gameObject);
         for (int y = 0; y < rows; y++) {
@@ -105,6 +104,8 @@ public class MapLoader : MonoBehaviour {
             int[,] targeti = OneDToTwoDArray(targets, 2);
             CreateStar(new Vector3(targeti[x, 1] * 2, 0.2f, targeti[x, 0] * -2));
         }
+        if (loadedMap.mapSize.y != 0)
+                gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, loadedMap.mapSize.y);
     }
 
     private void CreateStar(Vector3 pos) {
@@ -170,6 +171,7 @@ public class Map {
     public int[] targets;
     public float cameraSize;
     public Vector2Int startPos;
+    public Vector2 mapSize;
     public Vector3 cameraPos;
     public string direction;
 }
