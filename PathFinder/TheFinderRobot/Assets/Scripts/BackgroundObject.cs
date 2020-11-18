@@ -20,7 +20,7 @@ public class BackgroundObject : MonoBehaviour {
     private IEnumerator StepTimer() {
         while (true) {
             if (rightDir) {
-                Debug.Log(transform.localPosition.x + " < " + destination);
+               // Debug.Log(transform.localPosition.x + " < " + destination);
                 if (transform.localPosition.x < destination) {
                     transform.localPosition = new Vector3(
                         transform.localPosition.x + speed,
