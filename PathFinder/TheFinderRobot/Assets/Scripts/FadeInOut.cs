@@ -21,7 +21,7 @@ public class FadeInOut : MonoBehaviour {
     public IEnumerator FadeOut() {
         while (img.color.a > 0) {
             img.color = new Color(0, 0, 0, img.color.a - alphaDecrement);
-            yield return new WaitForSeconds(pauseTime);
+            yield return new WaitForSeconds(pauseTime * Time.deltaTime);
         }
         inAccess = true;
     }
@@ -31,7 +31,7 @@ public class FadeInOut : MonoBehaviour {
             img.raycastTarget = true;
             while (img.color.a < 1) {
                 img.color = new Color(0, 0, 0, img.color.a + alphaDecrement);
-                yield return new WaitForSeconds(pauseTime);
+                yield return new WaitForSeconds(pauseTime * Time.deltaTime);
             }
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }

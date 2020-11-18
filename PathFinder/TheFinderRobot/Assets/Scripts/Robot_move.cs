@@ -29,6 +29,7 @@ public class Robot_move : MonoBehaviour {
     bool winner = false;
     bool trans = false;
     bool isDestroy = false;
+    float n = -2;
     int i = 0;
     int t = 0;
     int movenum = 0;
@@ -50,6 +51,9 @@ public class Robot_move : MonoBehaviour {
         targets = targeti;
         startPos = loadedMap.startPos;
         currentDirection = loadedMap.direction;
+        n = -2;
+        if (loadedMap.mapSize.y != 0)
+            n *= loadedMap.mapSize.y;
         if (lose)
             loader.OnMapUpdate(card, targeti);
     }
@@ -65,7 +69,7 @@ public class Robot_move : MonoBehaviour {
         LoadMap(loser);
         AtStart();
         DirectAtStart();
-        transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
+        transform.position = new Vector3(startPos.y * 2, 0, (float)Math.Floor(startPos.x * n));
     }
 
     public void MovesInit(int[,] moves1, int[,] moves2, int[,] moves3, int[,] moves4, int[,] moves5) {
@@ -92,7 +96,7 @@ public class Robot_move : MonoBehaviour {
         button.ReturnAll(true);
         func.gameObject.SetActive(true);
         anim.Play("Stay", 0);
-        Level();
+        Level(true);
         trans = true;
     }
 
@@ -137,16 +141,8 @@ public class Robot_move : MonoBehaviour {
 
     private void Update() {
         if (trans) {
-            transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
+            transform.position = new Vector3(startPos.y * 2, 0, (float)Math.Floor(startPos.x * n));
             DirectAtStart();
-        }     
-        if (Input.GetKeyUp(KeyCode.Alpha3)) {
-            anim.speed = 7;
-            fade_speed = 0;
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha2)) {
-            anim.speed = 4;
-            fade_speed = 0.001f;
         }
     }
 
@@ -573,7 +569,7 @@ public class Robot_move : MonoBehaviour {
                         currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
                     else {
                         var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + newpos.y);
+                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + (newpos.y * (n/-2)));
                     }
                 }
                 CheckMoveType(ref quene);
@@ -641,9 +637,6 @@ public class Robot_move : MonoBehaviour {
                 yield break;
             }
         }
-#if UNITY_EDITOR
-        Debug.Log("You Lose!!!");
-#endif
         yield return new WaitForSeconds(0.7f);
         Level(true);
         button.ReturnAll(true);
@@ -672,7 +665,7 @@ public class Robot_move : MonoBehaviour {
                         currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
                     else {
                         var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + newpos.y);
+                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + (newpos.y * (n/-2)));
                     }
                 } 
                 CheckMoveType(ref allarrays);
@@ -704,9 +697,6 @@ public class Robot_move : MonoBehaviour {
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
                     try {
-#if UNITY_EDITOR
-                        Debug.Log(currentMap);
-#endif
                         loader.MapNext(currentMap);
                         button.ReturnAll();
                         func.gameObject.SetActive(true);
@@ -714,10 +704,7 @@ public class Robot_move : MonoBehaviour {
                         func.FuncLoad(false);
                         input.ReStart();              
                     }
-                    catch(FileNotFoundException e) {
-#if UNITY_EDITOR
-                        Debug.Log(e);
-#endif
+                    catch(FileNotFoundException) {
                     }
                     Level();
                     yield break;
@@ -732,9 +719,6 @@ public class Robot_move : MonoBehaviour {
                         yield break;                
                 }
                 else if (isDestroy) {
-#if UNITY_EDITOR
-                    Debug.Log("x - " + startPos.x + "; y - " + startPos.y + " end");
-#endif
                     loader.OnMapUpdate(null, PointDes(targets));
                     isDestroy = false;
                 }
@@ -751,9 +735,6 @@ public class Robot_move : MonoBehaviour {
             yield break;
         }
         else {
-#if UNITY_EDITOR
-            Debug.Log("You Lose!!!");
-#endif
             yield return new WaitForSeconds(0.7f);
             Level(true);
             button.ReturnAll(true);
