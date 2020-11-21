@@ -171,7 +171,7 @@ public class Robot_move : MonoBehaviour {
     }
 
     private void DirectAtStart() {
-        if (currentDirection == "up") 
+        if (currentDirection == "up")
             anim.transform.rotation = Quaternion.Euler(0, 180, 0);
         else if (currentDirection == "right") 
             anim.transform.rotation = Quaternion.Euler(0, -90, 0);
@@ -658,11 +658,11 @@ public class Robot_move : MonoBehaviour {
     private IEnumerator MovesHandler() {
         yield return new WaitWhile(() => switchLst);
         for (int a = 0; a < allarrays.GetLength(0); a++) {
-            StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], quene.GetLength(0), a+1, isDel));
-            // if (button.ContentPrefab.transform.childCount > (100 + allarrays.GetLength(0))) {
-            //     button.DestroyLastPrefab();
-            //     yield return new WaitWhile(() => button.fade_last);
-            // }
+            StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], a+1));
+            if (button.ContentPrefab.transform.childCount > (100 + allarrays.GetLength(0))) {
+                button.DestroyLastPrefab();
+                yield return new WaitWhile(() => button.fade_last);
+            }
         }
         for (i = 0; i < allarrays.GetLength(0); i++) {
             if (isActive) {

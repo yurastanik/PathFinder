@@ -688,7 +688,7 @@ public class Choosebutton : MonoBehaviour
                 return f5;
     }
 
-    public IEnumerator CreatePrefab(int col, int moven, int check, int num, bool del) {        
+    public IEnumerator CreatePrefab(int col, int moven, int num) {
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
         if (newChild.transform.GetSiblingIndex() == 1)
@@ -702,8 +702,7 @@ public class Choosebutton : MonoBehaviour
         background = newChild.GetComponent<Image>();
         Color color = ColorGetting(col);
         float a = ColorIndeed(col).a;
-        if (check >= 1)
-            ForFunc(num);
+        ForFunc(num);
         float speed = robot.fade_speed;
         if (speed != 0) {
             for (float f = 0f; f <= a; f += a/20) {
