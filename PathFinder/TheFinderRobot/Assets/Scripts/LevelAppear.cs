@@ -59,9 +59,8 @@ public class LevelAppear : MonoBehaviour
         //menu.gameObject.SetActive(false);
         GameObject need = null;
         int sm = Savegame.sv.mapNum;
-        if (Savegame.sv.mapNum <= 0) {
+        if (Savegame.sv.mapNum <= 0)
             sm = 1;
-        }
         foreach (Transform child in Levelpanel.transform) {
             if (Convert.ToInt32(child.gameObject.name) > sm) {
                 if (need != null) {
@@ -69,8 +68,7 @@ public class LevelAppear : MonoBehaviour
                     if (need.name == "1")
                         prv.SetActive(false);
                     else if (need.name == "97")
-                        nxt.SetActive(false);
-                    
+                        nxt.SetActive(false);                    
                     foreach (Transform chill in need.transform) {
                         Color color = chill.GetComponent<Image>().color;
                         color.a = 1;
@@ -91,8 +89,16 @@ public class LevelAppear : MonoBehaviour
     }
 
     public void Backinmenu() {
-        if (Levelpanel.activeInHierarchy)
+        if (Levelpanel.activeInHierarchy) {
             Levelpanel.gameObject.SetActive(false);
+            foreach (Transform child in Levelpanel.transform) {
+                Debug.Log(child.gameObject.name);
+                Debug.Log(!child.gameObject.name.Contains("e"));
+                Debug.Log(!child.gameObject.name.Contains("--"));
+                if (!child.gameObject.name.Contains("e") && !child.gameObject.name.Contains("--"))
+                    child.gameObject.SetActive(false);
+            }
+        }
         else if (ManualOrTutorial.activeInHierarchy)
             ManualOrTutorial.gameObject.SetActive(false);
         else if (Educatepanel.activeInHierarchy)
