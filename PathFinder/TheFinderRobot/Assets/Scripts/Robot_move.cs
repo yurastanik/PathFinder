@@ -262,11 +262,13 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf1;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                int integer = (arr.GetLength(0) - movenum)-1;
-                ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {
-                    quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];
+                if (quene.GetLength(0) <= 100) {
+                    int integer = (arr.GetLength(0) - movenum)-1;
+                    ResizeArray(ref quene, integer);
+                    for (int j = 0; j < integer; j++) {
+                        quene[j, 0] = arr[movenum+(j+1), 0];
+                        quene[j, 1] = arr[movenum+(j+1), 1];
+                    }
                 }
                 switchLst = true;
                 movenum = -1;
@@ -283,11 +285,13 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf2; 
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                int integer = (arr.GetLength(0) - movenum)-1;
-                ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {
-                    quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];
+                if (quene.GetLength(0) <= 100) {
+                    int integer = (arr.GetLength(0) - movenum)-1;
+                    ResizeArray(ref quene, integer);
+                    for (int j = 0; j < integer; j++) {
+                        quene[j, 0] = arr[movenum+(j+1), 0];
+                        quene[j, 1] = arr[movenum+(j+1), 1];
+                    }
                 }
                 switchLst = true;
                 movenum = -1;
@@ -304,11 +308,13 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf3;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                int integer = (arr.GetLength(0) - movenum)-1;
-                ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {
-                    quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];
+                if (quene.GetLength(0) <= 100) {
+                    int integer = (arr.GetLength(0) - movenum)-1;
+                    ResizeArray(ref quene, integer);
+                    for (int j = 0; j < integer; j++) {
+                        quene[j, 0] = arr[movenum+(j+1), 0];
+                        quene[j, 1] = arr[movenum+(j+1), 1];
+                    }
                 }
                 switchLst = true;
                 movenum = -1;
@@ -325,11 +331,13 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf4;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                int integer = (arr.GetLength(0) - movenum)-1;
-                ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {
-                    quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];
+                if (quene.GetLength(0) <= 100) {
+                    int integer = (arr.GetLength(0) - movenum)-1;
+                    ResizeArray(ref quene, integer);
+                    for (int j = 0; j < integer; j++) {
+                        quene[j, 0] = arr[movenum+(j+1), 0];
+                        quene[j, 1] = arr[movenum+(j+1), 1];
+                    }
                 }
                 switchLst = true;
                 movenum = -1;
@@ -346,11 +354,13 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf5; 
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                int integer = (arr.GetLength(0) - movenum)-1;
-                ResizeArray(ref quene, integer);
-                for (int j = 0; j < integer; j++) {
-                    quene[j, 0] = arr[movenum+(j+1), 0];
-                    quene[j, 1] = arr[movenum+(j+1), 1];
+                if (quene.GetLength(0) <= 100) {
+                    int integer = (arr.GetLength(0) - movenum)-1;
+                    ResizeArray(ref quene, integer);
+                    for (int j = 0; j < integer; j++) {
+                        quene[j, 0] = arr[movenum+(j+1), 0];
+                        quene[j, 1] = arr[movenum+(j+1), 1];
+                    }
                 }
                 switchLst = true;
                 movenum = -1;
@@ -594,6 +604,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else {
+                    yield return new WaitWhile(() => button.new_speed);
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
                 }
@@ -648,6 +659,10 @@ public class Robot_move : MonoBehaviour {
         yield return new WaitWhile(() => switchLst);
         for (int a = 0; a < allarrays.GetLength(0); a++) {
             StartCoroutine(button.CreatePrefab(allarrays[a, 1], allarrays[a, 0], quene.GetLength(0), a+1, isDel));
+            // if (button.ContentPrefab.transform.childCount > (100 + allarrays.GetLength(0))) {
+            //     button.DestroyLastPrefab();
+            //     yield return new WaitWhile(() => button.fade_last);
+            // }
         }
         for (i = 0; i < allarrays.GetLength(0); i++) {
             if (isActive) {
@@ -689,6 +704,7 @@ public class Robot_move : MonoBehaviour {
                 if (switchLst)
                     isDel = true;
                 else {
+                    yield return new WaitWhile(() => button.new_speed);
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
                 }

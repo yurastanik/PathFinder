@@ -182,8 +182,12 @@ public class Button_play : MonoBehaviour {
     
     public void resume() {
         pausepanel.gameObject.SetActive(false);
-        Time.timeScale = 1;
+        if (isPause)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
     }
+
     public void quit() {
         Time.timeScale = 1;
         MaplevelChose.quit = true;
@@ -203,22 +207,24 @@ public class Button_play : MonoBehaviour {
     }
 
     public void hint_menu() {
-        if (Savegame.sv.mapNum < 0) {
-            if (Savegame.sv.mapNum > -3) {
-                education.FirstChapt(0);
-                education.Next();
+        if (player.readyToStart) {
+            if (Savegame.sv.mapNum < 0) {
+                if (Savegame.sv.mapNum > -3) { 
+                    education.FirstChapt(0);
+                    education.Next();
+                }
+                else if (Savegame.sv.mapNum > -5)
+                    education.FirstChapt(1);
+                else if (Savegame.sv.mapNum > -8)
+                    education.FirstChapt(2);
+                else
+                    education.FirstChapt(3);
             }
-            else if (Savegame.sv.mapNum > -5)
-                education.FirstChapt(1);
-            else if (Savegame.sv.mapNum > -8)
-                education.FirstChapt(2);
-            else
-                education.FirstChapt(3);
-        }
-        else if (Inputbuttons.move_btn == true) {
-            Time.timeScale = 0;
-            hint_count.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
-            hintmenu.gameObject.SetActive(true);
+            else if (Inputbuttons.move_btn == true) {
+                Time.timeScale = 0;
+                hint_count.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
+                hintmenu.gameObject.SetActive(true);
+            }
         }
     }
 
