@@ -7254,6 +7254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1031609117}
   - component: {fileID: 1031609116}
+  - component: {fileID: 1031609115}
   m_Layer: 0
   m_Name: UI_MENU
   m_TagString: Untagged
@@ -7261,6 +7262,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1031609115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031609114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91442183d9626c48b0207de9cc47df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hideInterface: 0
+  hideClouds: 0
+  scale: 3
+  cameraOffset: 2
+  cameraFOVScale: 0
+  objectsToHide:
+  - {fileID: 1108682852}
+  - {fileID: 1459655553}
+  - {fileID: 1670199801}
+  clouds: {fileID: 109469307}
 --- !u!222 &1031609116
 CanvasRenderer:
   m_ObjectHideFlags: 0
