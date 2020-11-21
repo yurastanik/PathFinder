@@ -25,7 +25,7 @@ public class Choosebutton : MonoBehaviour
     [SerializeField] public Inputbuttons input;
     [SerializeField] private Button[] button_list = new Button[15];
     [SerializeField] private Image Content;
-    [SerializeField] private Image ContentPrefab;
+    [SerializeField] public Image ContentPrefab;
     [SerializeField] private GameObject Scrol;
     [SerializeField] public Image button_frame;
     [SerializeField] private GameObject hintmenu;
@@ -48,6 +48,7 @@ public class Choosebutton : MonoBehaviour
     private int fun;
     public Sprite[] s1;
     public bool fade = false;
+    public bool fade_last = false;
     public List<int> func_num = new List<int>();
     Vector3 start_frame;
 
@@ -376,27 +377,31 @@ public class Choosebutton : MonoBehaviour
         }
     }
 
-    private void Move(Transform from, Transform to, float overTime, int n, int btn, int[,] lt) {
+    private void Move(Transform from, Transform to, int col, int n, int btn, int[,] lt) {
         Inputbuttons.move_btn = false;
-        StartCoroutine(_Move(from, to, overTime, n, btn, lt));
+        StartCoroutine(_Move(from, to, col, n, btn, lt));
     }
 
-    IEnumerator _Move(Transform from, Transform to, float overTime, int n, int btn, int[,] lt) {
+    IEnumerator _Move(Transform from, Transform to, int col, int n, int btn, int[,] lt) {
         //yield return new WaitWhile(() => neww);
         neww = false;
         Vector2 original = from.position;
         from.gameObject.SetActive(true);
         Image background = hint.GetComponent<Image>();
         background.sprite = s1[n];
-        background.color =  ColorIndeed(lt[btn, 1]);
+        background.color = ColorIndeed(lt[btn, 1]);
         Color color = background.color;
         float timer = 0.0f;
+        float overTime = ColorIndeed(col).a;
+        float y = 1;
+        if (overTime < 1)
+            y = 2.22f;
         while (timer < overTime) {
-            float step = Vector2.Distance(original, to.position) * (Time.deltaTime / overTime);
+            float step = Vector2.Distance(original, to.position) * (Time.deltaTime);
             from.position = Vector2.MoveTowards(from.position, to.position, step);
             color.a = timer;
             background.color = color;
-            timer += Time.deltaTime;
+            timer += Time.deltaTime/y;
             yield return null;
         }
         InputField.button_list[btn].image.sprite = s1[n];
@@ -444,7 +449,7 @@ public class Choosebutton : MonoBehaviour
                         if (n == 9)
                             n -= 3;
                         if (movesf1[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf1);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], n, btn, movesf1);
                         }
                     }
                 }
@@ -453,7 +458,7 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 7; a < 12; a++) {
                         n += 1;
                         if (movesf1[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf1);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], n, btn, movesf1);
                         }
                     }
                 }
@@ -468,7 +473,7 @@ public class Choosebutton : MonoBehaviour
                         if (n == 9)
                             n -= 3;
                         if (movesf2[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf2);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], n, btn, movesf2);
                         }
                     }
                 }
@@ -477,7 +482,7 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 7; a < 12; a++) {
                         n += 1;
                         if (movesf2[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf2);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], n, btn, movesf2);
                         }
                     }
                 }
@@ -492,7 +497,7 @@ public class Choosebutton : MonoBehaviour
                         if (n == 9)
                             n -= 3;
                         if (movesf3[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf3);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], n, btn, movesf3);
                         }
                     }
                 }
@@ -501,7 +506,7 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 7; a < 12; a++) {
                         n += 1;
                         if (movesf3[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf3);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], n, btn, movesf3);
                         }
                     }
                 }
@@ -516,7 +521,7 @@ public class Choosebutton : MonoBehaviour
                         if (n == 9)
                             n -= 3;;
                         if (movesf4[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf4);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], n, btn, movesf4);
                         }
                     }
                 }
@@ -525,7 +530,7 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 7; a < 12; a++) {
                         n += 1;
                         if (movesf4[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf4);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], n, btn, movesf4);
                         }
                     }
                 }
@@ -540,7 +545,7 @@ public class Choosebutton : MonoBehaviour
                         if (n == 9)
                             n -= 3;
                         if (movesf5[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf5);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], n, btn, movesf5);
                         }
                     }
                 }
@@ -549,7 +554,7 @@ public class Choosebutton : MonoBehaviour
                     for (int a = 7; a < 12; a++) {
                         n += 1;
                         if (movesf5[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, 1f, n, btn, movesf5);
+                            Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], n, btn, movesf5);
                         }
                     }
                 }
@@ -557,18 +562,27 @@ public class Choosebutton : MonoBehaviour
         }
     }
 
+    public void DestroyLastPrefab() {
+        fade_last = true;
+        Transform child = ContentPrefab.transform.GetChild(ContentPrefab.transform.childCount-1);
+        GameObject.Destroy(child.gameObject);
+        fade_last = false;
+    }
+
     public void DestroyPrefab(int num = 0) {
-        fade = true;
-        Transform child = ContentPrefab.transform.GetChild(num);
-        if (ContentPrefab.transform.childCount > 1) {
-            Transform children = ContentPrefab.transform.GetChild(1);
-            FrameTranslate(children, child);
+        if (!fade) {
+            fade = true;
+            Transform child = ContentPrefab.transform.GetChild(num);
+            if (ContentPrefab.transform.childCount > 1) {
+                Transform children = ContentPrefab.transform.GetChild(1);
+                FrameTranslate(children, child);
+            }
+            else {
+                button_frame.transform.SetParent(Panel.transform);
+                destroy = false;
+            }
+            StartCoroutine(UnvisiblePrefab(child));
         }
-        else {
-            button_frame.transform.SetParent(Panel.transform);
-            destroy = false;
-        }
-        StartCoroutine(UnvisiblePrefab(child));
     }
  
     public void ReturnAll(bool stop = false) {
@@ -587,6 +601,10 @@ public class Choosebutton : MonoBehaviour
         panelka.sizeDelta = new Vector2(0, -24.35027f);
         scroll.content = pict;
         button_frame.gameObject.SetActive(false);
+        fade = false;
+        fade_last = false;
+        new_speed = false;
+        destroy = true;
         if (!stop) {
             Savegame.sv.movesf1 = null;
             Savegame.sv.movesf2 = null;
@@ -628,11 +646,11 @@ public class Choosebutton : MonoBehaviour
     public static Color ColorIndeed(int color) {
         if (color != 0) {
             if (color == 1)
-                return new Color(0.2763439F, 0.6294675F, 0.8490566F, 1F); 
+                return new Color(0F, 0.2509804F, 1F, 0.45F);
             else if (color == 2)
-                return new Color(0.3551086F, 0.7169812F,0.3980731F, 1F);
+                return new Color(0F, 1F, 0.1098039F, 0.45F);
             else 
-                return new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
+                return new Color(1F, 0F, 0F, 0.45F);
         }
         else
             return new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
@@ -641,11 +659,11 @@ public class Choosebutton : MonoBehaviour
     public static Color ColorGetting(int color) {
         if (color != 0) {
             if (color == 1)
-                return new Color(0.2763439F, 0.6294675F, 0.8490566F, 0F); 
+                return new Color(0F, 0.2509804F, 1F, 0F);
             else if (color == 2)
-                return new Color(0.3551086F, 0.7169812F,0.3980731F, 0F);
+                return new Color(0F, 1F, 0.1098039F, 0F);
             else 
-                return new Color(0.8490566F, 0.2763439F, 0.2763439F, 0F);
+                return new Color(1F, 0F, 0F, 0F);
         }
         else
             return new Color(0.7333333f, 0.7843138f, 0.8784314f, 0f);
@@ -670,7 +688,7 @@ public class Choosebutton : MonoBehaviour
                 return f5;
     }
 
-    public IEnumerator CreatePrefab(int col, int moven, int check, int num, bool del) {
+    public IEnumerator CreatePrefab(int col, int moven, int num) {
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
         if (newChild.transform.GetSiblingIndex() == 1)
@@ -683,12 +701,12 @@ public class Choosebutton : MonoBehaviour
         Image background;
         background = newChild.GetComponent<Image>();
         Color color = ColorGetting(col);
-        if (check >= 1)
-            ForFunc(num);
+        float a = ColorIndeed(col).a;
+        ForFunc(num);
         float speed = robot.fade_speed;
         if (speed != 0) {
-            for (float f = 0f; f <= 1; f += 0.05f) {
-                if (new_speed && f == 0.05f)
+            for (float f = 0f; f <= a; f += a/20) {
+                if (new_speed && f > 0)
                     new_speed = false;
                 speed = robot.fade_speed;
                 color.a = f;
@@ -696,14 +714,14 @@ public class Choosebutton : MonoBehaviour
                 if (speed != 0)
                     yield return new WaitForSeconds(speed);
                 else {
-                    color.a = 1;
+                    color.a = a;
                     background.color = color;
                     yield break;
                 }
             }
         }
         else {
-            color.a = 1;
+            color.a = a;
             background.color = color;
             if (new_speed)
                 new_speed = false;
@@ -720,7 +738,7 @@ public class Choosebutton : MonoBehaviour
     public void Red_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.color = new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
+            InputField.button_list[btn].image.color = new Color(1F, 0F, 0F, 0.45F);
             Btnplay.func[fun].input_arr[btn].color = (int) Input_Class.Colors.Red;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 1] = 3;
@@ -736,7 +754,7 @@ public class Choosebutton : MonoBehaviour
     public void Blue_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.color = new Color(0.2763439F, 0.6294675F, 0.8490566F, 1F);
+            InputField.button_list[btn].image.color = new Color(0F, 0.2509804F, 1F, 0.45F);
             Btnplay.func[fun].input_arr[btn].color = (int) Input_Class.Colors.Blue;
             if (fun == 0)
                 Savegame.sv.moves1[btn, 1] = 1;
@@ -752,7 +770,7 @@ public class Choosebutton : MonoBehaviour
     public void Green_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.color = new Color(0.3551086F, 0.7169812F,0.3980731F, 1F);
+            InputField.button_list[btn].image.color = new Color(0F, 1F, 0.1098039F, 0.45F);
             Btnplay.func[fun].input_arr[btn].color = (int) Input_Class.Colors.Green;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 1] = 2;

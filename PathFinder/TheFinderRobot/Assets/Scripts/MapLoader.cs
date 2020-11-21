@@ -49,11 +49,14 @@ public class MapLoader : MonoBehaviour {
             loadedMap = JsonUtility.FromJson<Map>(tileFile);
             RenderMap(loadedMap.map, loadedMap.targets, loadedMap.mapWidth);
             playscript.changeonfirst();
+            int width = loadedMap.mapWidth;
+            if (loadedMap.map.Length/loadedMap.mapWidth > loadedMap.mapWidth)
+                width = loadedMap.map.Length/loadedMap.mapWidth;
             camer.transform.position = new Vector3(loadedMap.cameraPos.x, loadedMap.cameraPos.y, loadedMap.cameraPos.z);
-            cameraimg.GetComponent<Image>().sprite = spr1;            
-            camer.orthographicSize = (float)Screen.height/Screen.width*loadedMap.mapWidth;
+            cameraimg.GetComponent<Image>().sprite = spr1;
+            camer.orthographicSize = (float)Screen.height/Screen.width*width;
             playscript.cameraFirst = camer.transform.position;
-            Button_play.camsize = (float)Screen.height/Screen.width*loadedMap.mapWidth;
+            Button_play.camsize = (float)Screen.height/Screen.width*width;
             if (mapNum < 0) {
                 if (mapNum == -1) {
                     education.FirstChapt(0);
