@@ -18,8 +18,10 @@ public class Option : MonoBehaviour {
         spr4 = Resources.Load<Sprite>("Sprites/menu/us-flag-icon-20");
         spr5 = Resources.Load<Sprite>("Sprites/menu/ukraine");
 
-        if (Savegame.sv.Languages == -1)
+        if (Savegame.firstEntry) {
             langPanel.gameObject.SetActive(true);
+            Debug.Log("Swich (********************************************");
+        }
         if (Savegame.sv.Languages == (int) Languages.Russion)
             flag.GetComponent<Image>().sprite = spr3;
         else if (Savegame.sv.Languages == (int) Languages.Ukraine)
@@ -75,6 +77,7 @@ public class Option : MonoBehaviour {
     }
 
     public void back() {
+
         langPanel.gameObject.SetActive(false);
     }
 }
