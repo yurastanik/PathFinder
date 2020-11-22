@@ -44,6 +44,7 @@
      <Compile Include="Assets\Scripts\Creating.cs" />
      <Compile Include="Assets\Scripts\Education.cs" />
      <Compile Include="Assets\Scripts\FadeInOut.cs" />
+     <Compile Include="Assets\Scripts\FadeStarter.cs" />
      <Compile Include="Assets\Scripts\Functionclass.cs" />
      <Compile Include="Assets\Scripts\GameColors.cs" />
      <Compile Include="Assets\Scripts\HSVRotation.cs" />
@@ -60,6 +61,7 @@
      <Compile Include="Assets\Scripts\Rainbow.cs" />
      <Compile Include="Assets\Scripts\Robot_move.cs" />
      <Compile Include="Assets\Scripts\Savegame.cs" />
+     <Compile Include="Assets\Scripts\ScreenshotScript.cs" />
      <Compile Include="Assets\Scripts\SkipIntro.cs" />
      <Compile Include="Assets\Scripts\SprayParticle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
@@ -98,6 +100,7 @@
      <None Include="Assets\Shaders\Glow.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\SoftMask\Shaders\Resources\SoftMask.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
@@ -106,8 +109,10 @@
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+     <None Include="Assets\SoftMask\Shaders\Resources\UI-Default-SoftMaskable.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\UnityAds\link.xml" />
+     <None Include="Assets\SoftMask\Shaders\Resources\SoftMask.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
@@ -690,6 +695,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Coffee.SoftMaskForUGUI.csproj">
+      <Project>{DB91DC50-5644-A69E-DDF9-260413B7E3AC}</Project>
+      <Name>Coffee.SoftMaskForUGUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Coffee.SoftMaskForUGUI.Editor.csproj">
+      <Project>{67FC22DD-F02B-4514-9F74-1BF35C110E50}</Project>
+      <Name>Coffee.SoftMaskForUGUI.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
