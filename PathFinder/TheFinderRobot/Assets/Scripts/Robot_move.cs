@@ -719,6 +719,7 @@ public class Robot_move : MonoBehaviour {
                         button.ButtonLoad(false);     
                         func.FuncLoad(false);
                         input.ReStart();              
+                        anim.Play("LookArrow", 0);
                     }
                     catch(FileNotFoundException) {
                     }
