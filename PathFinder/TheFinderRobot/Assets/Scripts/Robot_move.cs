@@ -29,7 +29,6 @@ public class Robot_move : MonoBehaviour {
     bool winner = false;
     bool trans = false;
     bool isDestroy = false;
-    float n = -2;
     int i = 0;
     int t = 0;
     int movenum = 0;
@@ -51,9 +50,6 @@ public class Robot_move : MonoBehaviour {
         targets = targeti;
         startPos = loadedMap.startPos;
         currentDirection = loadedMap.direction;
-        n = -2;
-        if (loadedMap.mapSize.y != 0)
-            n *= loadedMap.mapSize.y;
         if (lose)
             loader.OnMapUpdate(card, targeti);
     }
@@ -69,7 +65,7 @@ public class Robot_move : MonoBehaviour {
         LoadMap(loser);
         AtStart();
         DirectAtStart();
-        transform.position = new Vector3(startPos.y * 2, 0, (float)Math.Floor(startPos.x * n));
+        transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
     }
 
     public void MovesInit(int[,] moves1, int[,] moves2, int[,] moves3, int[,] moves4, int[,] moves5) {
@@ -142,7 +138,7 @@ public class Robot_move : MonoBehaviour {
 
     private void Update() {
         if (trans) {
-            transform.position = new Vector3(startPos.y * 2, 0, (float)Math.Floor(startPos.x * n));
+            transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
             DirectAtStart();
         }
     }
@@ -580,7 +576,7 @@ public class Robot_move : MonoBehaviour {
                         currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
                     else {
                         var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + (newpos.y * (n/-2)));
+                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + newpos.y);
                     }
                 }
                 CheckMoveType(ref quene);
@@ -681,7 +677,7 @@ public class Robot_move : MonoBehaviour {
                         currentPosLR = Quaternion.Euler(anim.transform.rotation.eulerAngles);
                     else {
                         var newpos = LeftRight(currentDirection);
-                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + (newpos.y * (n/-2)));
+                        positionToRun = new Vector3(currentPosRun.x + newpos.x, 0, currentPosRun.z + newpos.y);
                     }
                 } 
                 CheckMoveType(ref allarrays);
@@ -720,6 +716,7 @@ public class Robot_move : MonoBehaviour {
                         button.ButtonLoad(false);     
                         func.FuncLoad(false);
                         input.ReStart();              
+                        anim.Play("LookArrow", 0);
                     }
                     catch(FileNotFoundException) {
                     }
