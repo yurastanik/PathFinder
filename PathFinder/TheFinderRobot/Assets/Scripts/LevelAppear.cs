@@ -10,6 +10,7 @@ public class LevelAppear : MonoBehaviour
     [SerializeField] private GameObject Levelpanel;
     [SerializeField] private GameObject Educatepanel;
     [SerializeField] private GameObject ManualOrTutorial;
+    [SerializeField] private GameObject credits;
     public GameObject nxt;
     public GameObject prv;
     [SerializeField] public GameObject menu;
@@ -88,6 +89,24 @@ public class LevelAppear : MonoBehaviour
         menu.gameObject.SetActive(false);
     }
 
+    IEnumerator Alfa(Transform obj) {
+        Color col = obj.gameObject.GetComponent<Text>().color;
+        for (float a = 0.05f; a <= 1; a += 0.05f) {
+            col.a = a;
+            obj.gameObject.GetComponent<Text>().color = col;
+            yield return new WaitForSeconds(0.03f);
+        }
+    }
+
+    public void ShowCredits() {
+        credits.SetActive(true);
+        menu.gameObject.SetActive(false);
+        foreach (Transform child in credits.transform) {
+            if (child.gameObject.name != "Inmenu")
+                StartCoroutine(Alfa(child));
+        }
+    }
+
     public void Backinmenu() {
         if (Levelpanel.activeInHierarchy) {
             Levelpanel.gameObject.SetActive(false);
@@ -103,6 +122,16 @@ public class LevelAppear : MonoBehaviour
             ManualOrTutorial.gameObject.SetActive(false);
         else if (Educatepanel.activeInHierarchy)
             Educatepanel.gameObject.SetActive(false);
+        else if (credits.activeInHierarchy) {
+            credits.SetActive(false);
+            foreach (Transform child in credits.transform) {
+                if (child.gameObject.name != "Inmenu") {
+                    Color unvis = child.gameObject.GetComponent<Text>().color;
+                    unvis.a = 0;
+                    child.gameObject.GetComponent<Text>().color = unvis;
+                }
+            }
+        }
         menu.gameObject.SetActive(true);
     }
 
