@@ -9,6 +9,7 @@ public class Savegame : MonoBehaviour
 
     public static Save sv = new Save();
     public LevelAppear la;
+    public static bool firstEntry = false;
 
     private void Awake() {
         if (MaplevelChose.getsave) {
@@ -18,6 +19,7 @@ public class Savegame : MonoBehaviour
 #if UNITY_EDITOR
                 Debug.Log("first game");
 #endif
+                firstEntry = true;
                 sv.FirstEntry = true;
                 sv.Education = false;
                 sv.Chapter1 = false;
@@ -153,7 +155,7 @@ public class Save {
     public int speed = 2;
     public int hint = 100;
     public string time;
-    public int Languages = -1;
+    public int Languages = 0;
     public bool music = true;
 }
 

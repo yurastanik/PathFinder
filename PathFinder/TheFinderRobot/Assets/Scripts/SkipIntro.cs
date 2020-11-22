@@ -11,6 +11,7 @@ public class SkipIntro : MonoBehaviour {
     private IEnumerator Pause() {
         yield return new WaitForSeconds(5);
         StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Menu"));
+
     }
 
 }

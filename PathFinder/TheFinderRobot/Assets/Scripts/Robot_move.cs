@@ -87,6 +87,7 @@ public class Robot_move : MonoBehaviour {
             allarrays = movesf1;
             StartCoroutine(MovesHandler());
         }
+        
     }
 
     public void StopGame() {
