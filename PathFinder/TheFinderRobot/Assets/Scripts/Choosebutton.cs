@@ -51,6 +51,8 @@ public class Choosebutton : MonoBehaviour
     public bool fade_last = false;
     public List<int> func_num = new List<int>();
     Vector3 start_frame;
+    Vector2 sizeDelt;
+    Vector2 localPos;
 
 
     public void Awake() {
@@ -347,6 +349,8 @@ public class Choosebutton : MonoBehaviour
         RectTransform panelka = Panel.GetComponent<RectTransform>();
         ScrollRect scroll = Panel.GetComponent<ScrollRect>();
         RectTransform pict = ContentPrefab.GetComponent<RectTransform>();
+        sizeDelt = panelka.sizeDelta;
+        localPos = panelka.localPosition;
         panelka.localPosition = new Vector3(0, -398.6f, 0);
         panelka.sizeDelta = new Vector2(57f, 17.1f);
         scroll.content = pict;
@@ -597,8 +601,8 @@ public class Choosebutton : MonoBehaviour
         RectTransform panelka = Panel.GetComponent<RectTransform>();
         ScrollRect scroll = Panel.GetComponent<ScrollRect>();
         RectTransform pict = Content.GetComponent<RectTransform>();
-        panelka.localPosition = new Vector3(-29, -477.525f, 0);
-        panelka.sizeDelta = new Vector2(0, -24.35027f);
+        panelka.sizeDelta = sizeDelt;
+        panelka.localPosition = localPos;//new Vector3(-66.7f, -477.525f, 0);
         scroll.content = pict;
         button_frame.gameObject.SetActive(false);
         fade = false;
