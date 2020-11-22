@@ -107,8 +107,6 @@ public class MapLoader : MonoBehaviour {
             int[,] targeti = OneDToTwoDArray(targets, 2);
             CreateStar(new Vector3(targeti[x, 1] * 2, 0.2f, targeti[x, 0] * -2));
         }
-        if (loadedMap.mapSize.y != 0)
-                gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, loadedMap.mapSize.y);
     }
 
     private void CreateStar(Vector3 pos) {
