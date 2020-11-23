@@ -53,6 +53,7 @@ public class Choosebutton : MonoBehaviour
     Vector3 start_frame;
     Vector2 sizeDelt;
     Vector2 localPos;
+    Vector2 anxorMax;
 
 
     public void Awake() {
@@ -351,7 +352,9 @@ public class Choosebutton : MonoBehaviour
         RectTransform pict = ContentPrefab.GetComponent<RectTransform>();
         sizeDelt = panelka.sizeDelta;
         localPos = panelka.localPosition;
+        anxorMax = panelka.anchorMax;
         panelka.localPosition = new Vector3(0, -398.6f, 0);
+        panelka.anchorMax = new Vector2(1f, anxorMax.y);
         panelka.sizeDelta = new Vector2(57f, 17.1f);
         scroll.content = pict;
         button_frame.gameObject.SetActive(true);
@@ -601,6 +604,7 @@ public class Choosebutton : MonoBehaviour
         RectTransform panelka = Panel.GetComponent<RectTransform>();
         ScrollRect scroll = Panel.GetComponent<ScrollRect>();
         RectTransform pict = Content.GetComponent<RectTransform>();
+        panelka.anchorMax = anxorMax;
         panelka.sizeDelta = sizeDelt;
         panelka.localPosition = localPos;
         scroll.content = pict;

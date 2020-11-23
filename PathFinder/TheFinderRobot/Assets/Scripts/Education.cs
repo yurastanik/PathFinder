@@ -5,6 +5,11 @@ public class Education : MonoBehaviour {
 
     public void FirstChapt(int num) {
         gameObject.gameObject.SetActive(true);
+        foreach (Transform child in gameObject.transform.GetChild(0).GetChild(0)) {
+            if (child.gameObject.activeInHierarchy) {
+                child.gameObject.SetActive(false);
+            }
+        }
         gameObject.transform.GetChild(0).GetChild(0).GetChild(num).gameObject.SetActive(true);
     }
 
