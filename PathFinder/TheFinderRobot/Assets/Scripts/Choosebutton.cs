@@ -165,7 +165,6 @@ public class Choosebutton : MonoBehaviour
                     if (Savegame.sv.moves1[i, 0] < 4) {
                         int n = 6;
                         for (int a = 1; a < 4; a++) {
-                            Debug.Log("sv - " + Savegame.sv.moves1[i, 0] + " tot - " + a);
                             n += 1;
                             if (n == 9)
                                 n -= 3;
@@ -189,113 +188,29 @@ public class Choosebutton : MonoBehaviour
         if (Savegame.sv.movesf2 != null && Savegame.sv.movesf2.Length > 0) {
             Savegame.sv.moves2 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf2, 2);
             for (int i = 0; i < Savegame.sv.moves2.GetLength(0); i++) {
-                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves2[i, 1]);
                 Btnplay.func[1].input_arr[i].color = Savegame.sv.moves2[i, 1];
                 Btnplay.func[1].input_arr[i].direct = Savegame.sv.moves2[i, 0];
-                if (Savegame.sv.moves2[i, 0] != 0) {
-                    if (Savegame.sv.moves2[i, 0] < 4) {
-                        int n = 6;
-                        for (int a = 1; a < 4; a++) {
-                            n += 1;
-                            if (n == 9)
-                                n -= 3;;
-                            if (Savegame.sv.moves2[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                    else if (Savegame.sv.moves2[i, 0] > 6) {
-                        int n = 0;
-                        for (int a = 7; a < 12; a++) {
-                            n += 1;
-                            if (Savegame.sv.moves2[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                }
             }
         }
         if (Savegame.sv.movesf3 != null && Savegame.sv.movesf3.Length > 0) {
             Savegame.sv.moves3 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf3, 2);
             for (int i = 0; i < Savegame.sv.moves3.GetLength(0); i++) {
-                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves3[i, 1]);
                 Btnplay.func[2].input_arr[i].color = Savegame.sv.moves3[i, 1];
-                Btnplay.func[3].input_arr[i].direct = Savegame.sv.moves3[i, 0];
-                if (Savegame.sv.moves3[i, 0] != 0) {
-                    if (Savegame.sv.moves3[i, 0] < 4) {
-                        int n = 6;
-                        for (int a = 1; a < 4; a++) {
-                            n += 1;
-                            if (n == 9)
-                                n -= 3;;
-                            if (Savegame.sv.moves3[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                    else if (Savegame.sv.moves3[i, 0] > 6) {
-                        int n = 0;
-                        for (int a = 7; a < 12; a++) {
-                            n += 1;
-                            if (Savegame.sv.moves3[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                }
+                Btnplay.func[2].input_arr[i].direct = Savegame.sv.moves3[i, 0];
             }
         }
         if (Savegame.sv.movesf4 != null && Savegame.sv.movesf4.Length > 0) {
             Savegame.sv.moves4 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf4, 2);
             for (int i = 0; i < Savegame.sv.moves4.GetLength(0); i++) {
-                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves4[i, 1]);
                 Btnplay.func[3].input_arr[i].color = Savegame.sv.moves4[i, 1];
                 Btnplay.func[3].input_arr[i].direct = Savegame.sv.moves4[i, 0];
-                if (Savegame.sv.moves4[i, 0] != 0) {
-                    if (Savegame.sv.moves4[i, 0] < 4) {
-                        int n = 6;
-                        for (int a = 1; a < 4; a++) {
-                            n += 1;
-                            if (n == 9)
-                                n -= 3;;
-                            if (Savegame.sv.moves4[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                    else if (Savegame.sv.moves4[i, 0] > 6) {
-                        int n = 0;
-                        for (int a = 7; a < 12; a++) {
-                            n += 1;
-                            if (Savegame.sv.moves4[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                }
             } 
         }
         if (Savegame.sv.movesf5 != null && Savegame.sv.movesf5.Length > 0) {
             Savegame.sv.moves5 = MapLoader.OneDToTwoDArray(Savegame.sv.movesf5, 2);
             for (int i = 0; i < Savegame.sv.moves5.GetLength(0); i++) {
-                InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves5[i, 1]);
                 Btnplay.func[4].input_arr[i].color = Savegame.sv.moves5[i, 1];
                 Btnplay.func[4].input_arr[i].direct = Savegame.sv.moves5[i, 0];
-                if (Savegame.sv.moves5[i, 0] != 0) {
-                    if (Savegame.sv.moves5[i, 0] < 4) {
-                        int n = 6;
-                        for (int a = 1; a < 4; a++) {
-                            n += 1;
-                            if (n == 9)
-                                n -= 3;;
-                            if (Savegame.sv.moves5[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                    else if (Savegame.sv.moves5[i, 0] > 6) {
-                        int n = 0;
-                        for (int a = 7; a < 12; a++) {
-                            n += 1;
-                            if (Savegame.sv.moves5[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                }
             }
         }
     }

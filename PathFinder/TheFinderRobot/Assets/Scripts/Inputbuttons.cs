@@ -256,11 +256,11 @@ public class Inputbuttons : MonoBehaviour
             Panel_input.GetComponent<HorizontalLayoutGroup>().padding.right = spac;
             for (int i = 0; i < buton_num; i++) {
                 if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Red)
-                    button_list[i].image.color = new Color(0.8490566F, 0.2763439F, 0.2763439F, 1F);
+                    button_list[i].image.color = new Color(1F, 0F, 0F, 0.45F);
                 else if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Blue)
-                    button_list[i].image.color = new Color(0.2763439F, 0.6294675F, 0.8490566F, 1F);
+                    button_list[i].image.color = new Color(0F, 0.2509804F, 1F, 0.45F);
                 else if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Green)
-                    button_list[i].image.color = new Color(0.3551086F, 0.7169812F,0.3980731F, 1F);
+                    button_list[i].image.color = new Color(0F, 1F, 0.1098039F, 0.45F);
                 if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.left)
                     button_list[i].image.sprite = choosebutton.s1[6];
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.right)
