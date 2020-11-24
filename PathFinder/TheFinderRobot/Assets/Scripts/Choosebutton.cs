@@ -355,7 +355,9 @@ public class Choosebutton : MonoBehaviour
         anxorMax = panelka.anchorMax;
         panelka.localPosition = new Vector3(0, -398.6f, 0);
         panelka.anchorMax = new Vector2(1f, anxorMax.y);
-        panelka.sizeDelta = new Vector2(57f, 17.1f);
+        panelka.sizeDelta = new Vector2(0f, 17.1f);
+        panelka.offsetMin = new Vector2(0f, panelka.offsetMin.y);
+        panelka.offsetMax = new Vector2(65f, panelka.offsetMax.y);
         scroll.content = pict;
         button_frame.gameObject.SetActive(true);
         if (start_frame.x != 0 && start_frame.y != 0)
