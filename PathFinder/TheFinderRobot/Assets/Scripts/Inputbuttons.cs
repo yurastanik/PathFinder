@@ -95,7 +95,7 @@ public class Inputbuttons : MonoBehaviour
         func = 0;
         button_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[0].GetComponent<RectTransform>().rect.width)*delata, button_list[0].GetComponent<RectTransform>().rect.height*delata);
         func_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[0].GetComponent<RectTransform>().rect.width)*delata_func, func_list[0].GetComponent<RectTransform>().rect.height*delata_func);
-        func_list[0].GetComponent<RectTransform>().localPosition = new Vector3 (func_list[0].GetComponent<RectTransform>().localPosition.x, func_list[0].GetComponent<RectTransform>().localPosition.y + 22.5301F, func_list[0].GetComponent<RectTransform>().localPosition.z);
+        func_list[0].GetComponent<RectTransform>().anchoredPosition = new Vector2 (func_list[0].GetComponent<RectTransform>().anchoredPosition.x, func_list[0].GetComponent<RectTransform>().sizeDelta.y/2.0006029999f);
         func_list[0].GetComponent<Image>().color = new Color(0.8627451F, 0.8784314F, 0.7333333F, 1F);
         move_btn = false;
         Move(button_frame.transform, button_list[button].transform, 0.5F);
@@ -105,7 +105,7 @@ public class Inputbuttons : MonoBehaviour
 
     private void ReUpdate() {
         func_list[func].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func].GetComponent<RectTransform>().rect.width)/delata_func, func_list[func].GetComponent<RectTransform>().rect.height/delata_func);
-        func_list[func].GetComponent<RectTransform>().localPosition = new Vector3 (func_list[func].GetComponent<RectTransform>().localPosition.x, func_list[func].GetComponent<RectTransform>().localPosition.y - 22.5301F, func_list[func].GetComponent<RectTransform>().localPosition.z);
+        func_list[func].GetComponent<RectTransform>().anchoredPosition = new Vector2 (func_list[0].GetComponent<RectTransform>().anchoredPosition.x, func_list[0].GetComponent<RectTransform>().sizeDelta.y/2.0006029999f);
         func_list[func].GetComponent<Image>().color = new Color(0.7333333F, 0.7843137F, 0.8784314F, 1F);
         button_list[button].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button].GetComponent<RectTransform>().rect.width)/delata, button_list[button].GetComponent<RectTransform>().rect.height/delata);
     }
@@ -196,12 +196,14 @@ public class Inputbuttons : MonoBehaviour
 
     private void FuncButton(ref int func_num, int but) {
         if (func_num != but && move_btn != false) {
+            Debug.Log(func_list[but].GetComponent<RectTransform>().sizeDelta);
+            //func_list[func_num].GetComponent<RectTransform>().anchoredPosition = 
             func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)/delata_func, func_list[func_num].GetComponent<RectTransform>().rect.height/delata_func);
-            func_list[func_num].GetComponent<RectTransform>().localPosition = new Vector3 (func_list[func_num].GetComponent<RectTransform>().localPosition.x, func_list[func_num].GetComponent<RectTransform>().localPosition.y - 22.5301F, func_list[func_num].GetComponent<RectTransform>().localPosition.z);
+            func_list[func_num].GetComponent<RectTransform>().anchoredPosition = new Vector2(func_list[func_num].GetComponent<RectTransform>().anchoredPosition.x, func_list[func_num].GetComponent<RectTransform>().sizeDelta.y/2.0006029999f);
             func_list[func_num].GetComponent<Image>().color = new Color(0.7333333F, 0.7843137F, 0.8784314F, 1F);
             func_num = but;
             func_list[func_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[func_num].GetComponent<RectTransform>().rect.width)*delata_func, func_list[func_num].GetComponent<RectTransform>().rect.height*delata_func);
-            func_list[func_num].GetComponent<RectTransform>().localPosition = new Vector3 (func_list[func_num].GetComponent<RectTransform>().localPosition.x, func_list[func_num].GetComponent<RectTransform>().localPosition.y + 22.5301F, func_list[func_num].GetComponent<RectTransform>().localPosition.z);
+            func_list[func_num].GetComponent<RectTransform>().anchoredPosition = new Vector2(func_list[func_num].GetComponent<RectTransform>().anchoredPosition.x, func_list[func_num].GetComponent<RectTransform>().sizeDelta.y/2.0006029999f);
             func_list[func_num].GetComponent<Image>().color = new Color(0.8627451F, 0.8784314F, 0.7333333F, 1F);
             button_list[button].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button].GetComponent<RectTransform>().rect.width)/delata, button_list[button].GetComponent<RectTransform>().rect.height/delata);
             delta_transofrm_x = firs_pos;
@@ -313,7 +315,6 @@ public class Inputbuttons : MonoBehaviour
                     spac -= 270;
                 }
             }
-           // move_btn = true;
     }
     private void eight_activate() {
         delta_transofrm_x = firs_pos - 67;
@@ -327,7 +328,6 @@ public class Inputbuttons : MonoBehaviour
                 }
             }
             button_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(width_frame/1.2668F, height_frame/1.325F);
-            //move_btn = true;
     }
 
 
