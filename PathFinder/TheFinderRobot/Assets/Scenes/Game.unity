@@ -1374,7 +1374,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 102616205}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1108682857}
+        m_MethodName: green_scatch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &102616205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,7 +1405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a2ca17665a7dec34196687caba5fd839, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 22b907d572f00d94f8e5f8c17a3b8f44, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3067,7 +3078,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 412235272}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1108682857}
+        m_MethodName: red_scatch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &412235272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3087,7 +3109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a2ca17665a7dec34196687caba5fd839, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e6ba723e920084f439a0cd2c7c209a80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4508,7 +4530,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 645195540}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1108682857}
+        m_MethodName: blue_scatch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &645195540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8106,6 +8139,12 @@ MonoBehaviour:
   loader: {fileID: 187101097}
   robot: {fileID: 335267608}
   top: {fileID: 3423835061380079638, guid: d8441fb3126ecdf4aae51e693068f6a1, type: 3}
+  blue_scratch: {fileID: 3379471168335218896, guid: 2d85bc1edfb9f454da192fa910df965e,
+    type: 3}
+  green_scratch: {fileID: 2150209200626855037, guid: c487b8483014acc4fbc6b867f3e736c7,
+    type: 3}
+  red_scratch: {fileID: 4480132499419003184, guid: eb37515282724c04ba64827e0afb5e01,
+    type: 3}
   left: {fileID: 3423835061380079638, guid: e44a9a87a3fa8154fb73b4d38202af57, type: 3}
   right: {fileID: 3423835061380079638, guid: f7cde21f35c101441a12efeb867aeb16, type: 3}
   f1: {fileID: 3423835061380079638, guid: bc256b6dffcceef4686e6d5f9fe7b663, type: 3}

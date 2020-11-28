@@ -28,6 +28,15 @@ public class Option : MonoBehaviour {
             flag.GetComponent<Image>().sprite = spr5;
         else
             flag.GetComponent<Image>().sprite = spr4;
+        if (Savegame.sv.music == true) {
+            music_but.GetComponent<Image>().sprite = spr1;
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
+        }
+        else {
+            music_but.GetComponent<Image>().sprite = spr2;
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);
+            
+        }
     }
 
     public void lang_button() {

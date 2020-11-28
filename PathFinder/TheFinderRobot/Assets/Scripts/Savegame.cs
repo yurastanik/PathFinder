@@ -16,9 +16,6 @@ public class Savegame : MonoBehaviour
             
             DontDestroyOnLoad(this.gameObject);
             if (!PlayerPrefs.HasKey("Save")) {
-#if UNITY_EDITOR
-                Debug.Log("first game");
-#endif
                 firstEntry = true;
                 sv.FirstEntry = true;
                 sv.Education = false;
@@ -28,14 +25,9 @@ public class Savegame : MonoBehaviour
                 sv.time = System.DateTime.Now.ToString();
             }
             else {
-                //Debug.Log("NOT FIRST");
 
                 sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("Save"));
-                                #if UNITY_EDITOR
-                    Debug.Log("time in awake " + sv.time);
-                    Debug.Log("LAng in awake " + sv.Languages);
-                #endif
-                 DateTime realtime;
+                DateTime realtime;
                 if (sv.time.Length > 0)
                     realtime = System.DateTime.Parse(sv.time);
                 else {
