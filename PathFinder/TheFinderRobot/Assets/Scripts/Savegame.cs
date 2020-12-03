@@ -147,7 +147,7 @@ public class Save {
     public int speed = 2;
     public int hint = 100;
     public string time;
-    public int Languages = 0;
+    public int Languages = -1;
     public bool music = true;
 }
 

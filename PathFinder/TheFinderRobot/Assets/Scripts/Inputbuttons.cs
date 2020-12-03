@@ -8,7 +8,7 @@ public class Inputbuttons : MonoBehaviour
 {
 
     public Button[] button_list = new Button[8];
-    [SerializeField] private Button[] func_list = new Button[6];
+    [SerializeField] private Button[] func_list = new Button[5];
 
     public int button = 0;
     public int func = 0;
@@ -48,7 +48,7 @@ public class Inputbuttons : MonoBehaviour
 
     public void FuncLoad(bool isFisrst) {
         if (!isFisrst){
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 5; i++) {
                 func_list[i].gameObject.SetActive(false);
             }
             for (int i = 0; i < 8; i++) {

@@ -8,7 +8,7 @@ using System;
 public class Levelbutton : MonoBehaviour {
 
     public void choose_level() {
-        //if (gameObject.GetComponent<Image>().sprite.name != "blocked") {
+        if (gameObject.GetComponent<Image>().sprite.name != "blocked") {
         // else {
     //#if UNITY_EDITOR
     //#endif
@@ -25,7 +25,7 @@ public class Levelbutton : MonoBehaviour {
             StartCoroutine(GameObject.FindGameObjectWithTag("FadeInFadeOut").GetComponent<FadeInOut>().FadeIn("Game"));
         // }
             // SceneManager.LoadScene("Game", LoadSceneMode.Single);
-        //}
+        }
     }
 
 }
