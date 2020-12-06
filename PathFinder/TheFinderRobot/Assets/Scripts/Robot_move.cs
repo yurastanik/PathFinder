@@ -136,6 +136,18 @@ public class Robot_move : MonoBehaviour {
         }
     }
 
+    private int[,] list_num(int num) {
+        if (num == 7)
+            return movesf1;
+        else if (num == 8)
+            return movesf2;
+        else if (num == 9)
+            return movesf3;
+        else if (num == 10)
+            return movesf4;
+        return movesf5;
+    }
+
     private void Update() {
         if (trans) {
             transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
@@ -249,16 +261,16 @@ public class Robot_move : MonoBehaviour {
                 }
             }
         }
-        else if (arr[movenum, 0] == 7) {
-            if (arr[movenum, 1] == 0 || (arr[movenum, 1] == card[startPos.x, startPos.y] && (movenum == arr.GetLength(0)-1 || arr == quene))){
+        else if (arr[movenum, 0] >= 7) {
+            if ((arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y]) && (movenum == arr.GetLength(0)-1 || arr == quene)){
+                allarrays = list_num(arr[movenum, 0]);
                 if (arr == quene) {
                     SizeReArray(ref arr, movenum);
                 }
                 switchLst = true;
                 movenum = -1;
-                allarrays = movesf1;
             }
-            else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
+            else if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 if (quene.GetLength(0) <= 100) {
                     int integer = (arr.GetLength(0) - movenum)-1;
                     ResizeArray(ref quene, integer);
@@ -268,100 +280,8 @@ public class Robot_move : MonoBehaviour {
                     }
                 }
                 switchLst = true;
-                movenum = -1;
-                allarrays = movesf1;
-            }
-        }
-        else if (arr[movenum, 0] == 8) {
-            if (arr[movenum, 1] == 0 || (arr[movenum, 1] == card[startPos.x, startPos.y] && (movenum == arr.GetLength(0)-1 || arr == quene))){
-                if (arr == quene) {
-                    SizeReArray(ref arr, movenum);
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf2; 
-            }
-            else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
-                    int integer = (arr.GetLength(0) - movenum)-1;
-                    ResizeArray(ref quene, integer);
-                    for (int j = 0; j < integer; j++) {
-                        quene[j, 0] = arr[movenum+(j+1), 0];
-                        quene[j, 1] = arr[movenum+(j+1), 1];
-                    }
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf2; 
-            }
-        }
-        else if (arr[movenum, 0] == 9) {
-            if (arr[movenum, 1] == 0 || (arr[movenum, 1] == card[startPos.x, startPos.y] && (movenum == arr.GetLength(0)-1 || arr == quene))){
-                if (arr == quene) {
-                    SizeReArray(ref arr, movenum);
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf3;
-            }
-            else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
-                    int integer = (arr.GetLength(0) - movenum)-1;
-                    ResizeArray(ref quene, integer);
-                    for (int j = 0; j < integer; j++) {
-                        quene[j, 0] = arr[movenum+(j+1), 0];
-                        quene[j, 1] = arr[movenum+(j+1), 1];
-                    }
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf3; 
-            }
-        }
-        else if (arr[movenum, 0] == 10) {
-            if (arr[movenum, 1] == 0 || (arr[movenum, 1] == card[startPos.x, startPos.y] && (movenum == arr.GetLength(0)-1 || arr == quene))){
-                if (arr == quene) {
-                    SizeReArray(ref arr, movenum);
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf4;
-            }
-            else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
-                    int integer = (arr.GetLength(0) - movenum)-1;
-                    ResizeArray(ref quene, integer);
-                    for (int j = 0; j < integer; j++) {
-                        quene[j, 0] = arr[movenum+(j+1), 0];
-                        quene[j, 1] = arr[movenum+(j+1), 1];
-                    }
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf4;
-            }
-        }
-        else if (arr[movenum, 0] == 11) {
-            if (arr[movenum, 1] == 0 || (arr[movenum, 1] == card[startPos.x, startPos.y] && (movenum == arr.GetLength(0)-1 || arr == quene))){
-                if (arr == quene) {
-                    SizeReArray(ref arr, movenum);
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf5; 
-            }
-            else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
-                    int integer = (arr.GetLength(0) - movenum)-1;
-                    ResizeArray(ref quene, integer);
-                    for (int j = 0; j < integer; j++) {
-                        quene[j, 0] = arr[movenum+(j+1), 0];
-                        quene[j, 1] = arr[movenum+(j+1), 1];
-                    }
-                }
-                switchLst = true;
-                movenum = -1;
-                allarrays = movesf5;
+                allarrays = list_num(arr[movenum, 0]);
+                movenum = -1;                
             }
         }
     }
