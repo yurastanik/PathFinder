@@ -259,7 +259,7 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf1;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
+                if (quene.GetLength(0) <= 200) {
                     int integer = (arr.GetLength(0) - movenum)-1;
                     ResizeArray(ref quene, integer);
                     for (int j = 0; j < integer; j++) {
@@ -282,7 +282,7 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf2; 
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
+                if (quene.GetLength(0) <= 200) {
                     int integer = (arr.GetLength(0) - movenum)-1;
                     ResizeArray(ref quene, integer);
                     for (int j = 0; j < integer; j++) {
@@ -305,7 +305,7 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf3;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
+                if (quene.GetLength(0) <= 200) {
                     int integer = (arr.GetLength(0) - movenum)-1;
                     ResizeArray(ref quene, integer);
                     for (int j = 0; j < integer; j++) {
@@ -328,7 +328,7 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf4;
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
+                if (quene.GetLength(0) <= 200) {
                     int integer = (arr.GetLength(0) - movenum)-1;
                     ResizeArray(ref quene, integer);
                     for (int j = 0; j < integer; j++) {
@@ -351,7 +351,7 @@ public class Robot_move : MonoBehaviour {
                 allarrays = movesf5; 
             }
             else if (arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                if (quene.GetLength(0) <= 100) {
+                if (quene.GetLength(0) <= 200) {
                     int integer = (arr.GetLength(0) - movenum)-1;
                     ResizeArray(ref quene, integer);
                     for (int j = 0; j < integer; j++) {

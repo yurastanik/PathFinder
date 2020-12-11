@@ -314,7 +314,7 @@ public class Choosebutton : MonoBehaviour
     
 
     public void GetMoreHint() {
-        if (Advertisement.IsReady()) {
+        if (Advertisement.IsReady("rewardedVideo")) {
             Advertisement.Show("rewardedVideo");
             Savegame.sv.hint++;
             hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
