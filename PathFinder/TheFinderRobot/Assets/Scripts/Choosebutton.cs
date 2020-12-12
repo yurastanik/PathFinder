@@ -654,9 +654,10 @@ public class Choosebutton : MonoBehaviour
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
+        float alf = color.a;
         float speed = robot.fade_speed;
         if (speed != 0) {
-            for (float f = 0.95f; f >= 0; f -= 0.05f) {
+            for (float f = alf-alf/20; f >= 0; f -= alf/20) {
                 speed = robot.fade_speed;
                 color.a = f;
                 background.color = color;

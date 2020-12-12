@@ -85,11 +85,11 @@ public class Panel_button : MonoBehaviour
 
     public IEnumerator move_left(Transform old_obj, Transform new_obj) {
         new_obj.gameObject.SetActive(true);
-        for (float i = 0; i >= -1800; i-=300) {
+        for (float i = 0; i >= -1800; i-=100) {
             new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i+1800, 0, 0);
             old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
             visibiling(old_obj, new_obj);
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
         old_obj.gameObject.SetActive(false);
         old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
@@ -98,11 +98,11 @@ public class Panel_button : MonoBehaviour
 
     public IEnumerator move_right(Transform old_obj, Transform new_obj) {
         new_obj.gameObject.SetActive(true);
-        for (float i = 0; i <= 1800; i+=300) {
+        for (float i = 0; i <= 1800; i+=100) {
             new_obj.GetComponent<RectTransform>().localPosition = new Vector3(i-1800, 0, 0);
             old_obj.GetComponent<RectTransform>().localPosition = new Vector3(i, 0, 0);
             visibiling(old_obj, new_obj);
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
         old_obj.gameObject.SetActive(false);
         old_obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
@@ -112,21 +112,21 @@ public class Panel_button : MonoBehaviour
     public void visibiling(Transform old, Transform newo) {
         foreach (Transform chill in old) {
             Color col = chill.GetComponent<Image>().color;
-            col.a -= 0.16666f;
+            col.a -= 0.055556f;
             chill.GetComponent<Image>().color = col;
             if (chill.GetChild(0).gameObject.activeSelf) {
                 Color color = chill.GetChild(0).GetComponent<Text>().color;
-                color.a -= 0.16666f;
+                color.a -= 0.055556f;
                 chill.GetChild(0).GetComponent<Text>().color = color;
             }
         }
         foreach (Transform chill in newo) {
             Color col = chill.GetComponent<Image>().color;
-            col.a += 0.16666f;
+            col.a += 0.055556f;
             chill.GetComponent<Image>().color = col;
             if (chill.GetChild(0).gameObject.activeSelf) {
                 Color color = chill.GetChild(0).GetComponent<Text>().color;
-                color.a += 0.16666f;
+                color.a += 0.055556f;
                 chill.GetChild(0).GetComponent<Text>().color = color;
             }
         }
