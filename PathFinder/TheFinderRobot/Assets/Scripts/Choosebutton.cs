@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Advertisements;
 
 public class Choosebutton : MonoBehaviour
 {
@@ -64,14 +63,7 @@ public class Choosebutton : MonoBehaviour
         ButtonLoad(true);
 
 
-        if (Advertisement.isSupported) {
-#if UNITY_ANDROID
-            Advertisement.Initialize("3803433");
-#endif
-#if UNITY_IOS
-            Advertisement.Initialize("3803432");
-#endif
-        }
+
 
 #if UNITY_EDITOR
         if (Savegame.sv.movesf1 != null && Savegame.sv.movesf1.Length > 0) {
@@ -313,13 +305,13 @@ public class Choosebutton : MonoBehaviour
     }
     
 
-    public void GetMoreHint() {
-        if (Advertisement.IsReady("rewardedVideo")) {
-            Advertisement.Show("rewardedVideo");
-            Savegame.sv.hint++;
-            hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
-        }
-    }
+    // public void GetMoreHint() {
+    //     if (Advertisement.IsReady("rewardedVideo")) {
+    //         Advertisement.Show("rewardedVideo");
+    //         Savegame.sv.hint++;
+    //         hint_count.GetComponentInChildren<Text>().text = Savegame.sv.hint + "        left";
+    //     }
+    // }
 
     private void Move(Transform from, Transform to, int col, int n, int btn, int[,] lt) {
         Inputbuttons.move_btn = false;
