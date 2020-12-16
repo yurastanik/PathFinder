@@ -2516,9 +2516,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Game by Trinity Games:\nAndrii Bondarenko,\nSasha and Yura Stanislavskyi\n\n\xA9
-    2011 Juan Montoreano (juan@remolacha.biz), with Reserved Font Names \"Lilita
-    One\""
+  m_Text: "Game by Trinity Games Team\nAndrii Bondarenko\nSasha Stanislavskyi\nYura
+    Stanislavskyi\n\n\xA9 2011 Juan Montoreano (juan@remolacha.biz), with Reserved
+    Font Names \"Lilita One\""
 --- !u!222 &214868255
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13542,7 +13542,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\xA9 2019-2020 Trinity Games\n"
+  m_Text: "\xA9 2019-2021 Trinity Games Team\nAll rights reserverd"
 --- !u!222 &1071392676
 CanvasRenderer:
   m_ObjectHideFlags: 0
