@@ -7853,7 +7853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.89514816, y: 0.09}
-  m_AnchoredPosition: {x: -26.900024, y: 12.976318}
+  m_AnchoredPosition: {x: -26.900024, y: 12.976074}
   m_SizeDelta: {x: -52.129395, y: -23.952534}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101634976
@@ -8274,8 +8274,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1108682857}
-        m_MethodName: GetMoreHint
+      - m_Target: {fileID: 1670199808}
+        m_MethodName: UserChoseToWatchAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12604,6 +12604,7 @@ GameObject:
   - component: {fileID: 1670199803}
   - component: {fileID: 1670199806}
   - component: {fileID: 1670199807}
+  - component: {fileID: 1670199808}
   m_Layer: 5
   m_Name: Play_pause
   m_TagString: Untagged
@@ -12742,6 +12743,19 @@ MonoBehaviour:
   music_but: {fileID: 1678277426}
   flag: {fileID: 212378879}
   langclass: {fileID: 1460902034}
+--- !u!114 &1670199808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670199801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd0e016a054e6a4893246893d37cd41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HintCount: {fileID: 1549546803}
 --- !u!1 &1678277423
 GameObject:
   m_ObjectHideFlags: 0

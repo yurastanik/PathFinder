@@ -315,8 +315,20 @@
     <Reference Include="UnityEditor.iOS.Extensions">
         <HintPath>E:/Programs/UnityHubEditor/2019.4.9f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.162.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.162.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.PackageManagerResolver_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.162.dll</HintPath>
+    </Reference>
     <Reference Include="Google.VersionHandler">
-        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.162.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
         <HintPath>E:/Programs/UnityHubEditor/2019.4.9f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Admob.cs" />
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
      <Compile Include="Assets\Scripts\BackgroundObject.cs" />
      <Compile Include="Assets\Scripts\Btn_move.cs" />
@@ -694,14 +695,14 @@
       <Name>Coffee.SoftMaskForUGUI</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="Coffee.SoftMaskForUGUI.Editor.csproj">
-      <Project>{dd22fc67-2bf0-1445-9f74-1bf35c110e50}</Project>
-      <Name>Coffee.SoftMaskForUGUI.Editor</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="GoogleMobileAds.csproj">
       <Project>{8db080b4-fa07-f952-6111-e2e0bac28d24}</Project>
       <Name>GoogleMobileAds</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="Coffee.SoftMaskForUGUI.Editor.csproj">
+      <Project>{dd22fc67-2bf0-1445-9f74-1bf35c110e50}</Project>
+      <Name>Coffee.SoftMaskForUGUI.Editor</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="GoogleMobileAds.Editor.csproj">

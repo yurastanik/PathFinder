@@ -239,17 +239,20 @@
     <Reference Include="UnityEditor.iOS.Extensions">
         <HintPath>E:/Programs/UnityHubEditor/2019.4.9f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements.Editor">
-        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Assets/UnityAds/UnityEngine.Advertisements.Editor.dll</HintPath>
+    <Reference Include="Google.IOSResolver_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.162.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Monetization.Editor">
-        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Assets/UnityAds/UnityEngine.Monetization.Editor.dll</HintPath>
+    <Reference Include="Google.JarResolver_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.162.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.unity.purchasing@2.0.6/UnityEngine.Purchasing.dll</HintPath>
+    <Reference Include="Google.PackageManagerResolver_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.162.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.Purchasing">
-        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+    <Reference Include="Google.VersionHandler">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.162">
+        <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.google.external-dependency-manager@1.2.162/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.162.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
         <HintPath>C:/Users/Sasha/Project/newPathFinder/PathFinder/TheFinderRobot/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
