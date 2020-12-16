@@ -2611,6 +2611,8 @@ MonoBehaviour:
   input: {fileID: 1670199806}
   func: {fileID: 1459655559}
   button: {fileID: 1108682857}
+  ads: {fileID: 1670199808}
+  HintCount: {fileID: 1549546803}
   loader: {fileID: 187101097}
   fade_speed: 0.03
   readyToStart: 1
@@ -8210,7 +8212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1112524400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12721,6 +12723,8 @@ MonoBehaviour:
   hintmenu: {fileID: 1094940032}
   hint_count: {fileID: 1549546803}
   education: {fileID: 22286655}
+  ads: {fileID: 1670199808}
+  GetMore: {fileID: 1112524401}
   pause_btn: {fileID: 21300000, guid: 845397ea46cab0541b94e2241ac4a2e8, type: 3}
   start_btn: {fileID: 21300000, guid: e88df9dce5733f944bf14d72ada9ee10, type: 3}
   cameraFirst: {x: 0, y: 0, z: 0}
@@ -12755,6 +12759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd0e016a054e6a4893246893d37cd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isClosed: 0
   HintCount: {fileID: 1549546803}
 --- !u!1 &1678277423
 GameObject:

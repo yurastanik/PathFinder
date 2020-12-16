@@ -2,11 +2,14 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Robot_move : MonoBehaviour {
     [SerializeField] private Button_play input;
     [SerializeField] private Inputbuttons func;
     [SerializeField] private Choosebutton button;
+    [SerializeField] private Admob ads;
+    [SerializeField] private Image HintCount;
     private int[,] card;
     private int[,] movesf1;
     private int[,] targets;
@@ -153,6 +156,10 @@ public class Robot_move : MonoBehaviour {
         if (trans) {
             transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
             DirectAtStart();
+        }
+        else if (ads.isClosed) {
+            HintCount.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
+            ads.isClosed = false;
         }
     }
 

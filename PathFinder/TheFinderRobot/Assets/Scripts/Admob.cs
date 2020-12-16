@@ -11,7 +11,8 @@ public class Admob : MonoBehaviour
 
     // private string APP_ID;
     // private string ADS_ID;
-    private RewardedAd rewardedAd;
+    public RewardedAd rewardedAd;
+    public bool isClosed = false;
     [SerializeField] private Image HintCount;
 
     void Start()
@@ -93,14 +94,16 @@ public class Admob : MonoBehaviour
     {
         RewardVideoInit();
         MonoBehaviour.print("HandleRewardedAdClosed event received");
+        isClosed = true;
     }
 
     public void HandleUserEarnedReward(object sender, Reward args)
     {
         string type = args.Type;
         double amount = args.Amount;
+        Debug.Log("Was = " + Savegame.sv.hint);
         Savegame.sv.hint++;
-        HintCount.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
+        Debug.Log("Become = " + Savegame.sv.hint);
         MonoBehaviour.print(
             "HandleRewardedAdRewarded event received for "
                         + amount.ToString() + " " + type);
@@ -109,6 +112,8 @@ public class Admob : MonoBehaviour
     public void UserChoseToWatchAd() {
         if (this.rewardedAd.IsLoaded()) {
             this.rewardedAd.Show();
+            // HintCount.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
+            // HintCount.GetComponentInChildren<Text>().text = "lol";
         }
     }
 }

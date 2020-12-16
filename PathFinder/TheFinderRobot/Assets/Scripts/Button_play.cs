@@ -16,6 +16,8 @@ public class Button_play : MonoBehaviour {
     [SerializeField] private GameObject hintmenu;
     [SerializeField] private Image hint_count;
     [SerializeField] private Education education;
+    [SerializeField] private Admob ads;
+    [SerializeField] private Button GetMore;
 
 
     bool isPause = false;
@@ -224,6 +226,8 @@ public class Button_play : MonoBehaviour {
                 Time.timeScale = 0;
                 hint_count.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
                 hintmenu.gameObject.SetActive(true);
+                if (ads.rewardedAd.IsLoaded())
+                    GetMore.gameObject.SetActive(true);
             }
         }
     }
