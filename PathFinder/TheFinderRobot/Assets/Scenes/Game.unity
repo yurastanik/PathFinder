@@ -12718,6 +12718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choosebutton: {fileID: 1108682857}
   player: {fileID: 335267608}
+  mapa: {fileID: 187101097}
   pausepanel: {fileID: 1329581256}
   sped: {fileID: 1000602545}
   hintmenu: {fileID: 1094940032}

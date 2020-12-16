@@ -9,7 +9,7 @@ public class Button_play : MonoBehaviour {
     private int func_count;
     [SerializeField] private Choosebutton choosebutton;
     [SerializeField] private Robot_move player;
-
+    [SerializeField] private MapLoader mapa;
 
     [SerializeField] private GameObject pausepanel;
     [SerializeField] private Text sped;
@@ -263,6 +263,7 @@ public class Button_play : MonoBehaviour {
         Camera.main.transform.position = cameraFirst;
         Camera.main.orthographicSize = camsize;
         Camera.main.orthographic = false;
+        Camera.main.fieldOfView = mapa.loadedMap.cameraSize;
         camerastate++;
     }
 
