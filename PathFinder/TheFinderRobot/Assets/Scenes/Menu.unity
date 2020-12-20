@@ -23477,6 +23477,7 @@ MonoBehaviour:
   - {fileID: 711650885}
   - {fileID: 1479689391}
   - {fileID: 1973626306}
+  - {fileID: 815546017}
 --- !u!222 &1743224625
 CanvasRenderer:
   m_ObjectHideFlags: 0

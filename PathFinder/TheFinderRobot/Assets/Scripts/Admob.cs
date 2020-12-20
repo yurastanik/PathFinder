@@ -112,8 +112,6 @@ public class Admob : MonoBehaviour
     public void UserChoseToWatchAd() {
         if (this.rewardedAd.IsLoaded()) {
             this.rewardedAd.Show();
-            // HintCount.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
-            // HintCount.GetComponentInChildren<Text>().text = "lol";
         }
     }
 }
