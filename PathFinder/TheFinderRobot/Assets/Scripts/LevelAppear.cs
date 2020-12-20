@@ -11,6 +11,7 @@ public class LevelAppear : MonoBehaviour
     [SerializeField] private GameObject Educatepanel;
     [SerializeField] private GameObject ManualOrTutorial;
     [SerializeField] private GameObject credits;
+    [SerializeField] private GameObject settings;
     public GameObject nxt;
     public GameObject prv;
     [SerializeField] public GameObject menu;
@@ -19,6 +20,12 @@ public class LevelAppear : MonoBehaviour
     private Save sv;
 
     private void Awake() {
+        if (Savegame.sv.music == true) {
+            Debug.Log(GameObject.FindGameObjectsWithTag("Music")[0].name);
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
+        }
+        else
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);            
         if (MaplevelChose.quit == true) {
             menu.gameObject.SetActive(false);
             int sm = Savegame.sv.mapNum;
@@ -120,6 +127,10 @@ public class LevelAppear : MonoBehaviour
         }
         else if (ManualOrTutorial.activeInHierarchy)
             ManualOrTutorial.gameObject.SetActive(false);
+        else if (settings.activeInHierarchy) {
+            Debug.Log(settings.name);
+            settings.gameObject.SetActive(false);
+        }
         else if (Educatepanel.activeInHierarchy)
             Educatepanel.gameObject.SetActive(false);
         else if (credits.activeInHierarchy) {
