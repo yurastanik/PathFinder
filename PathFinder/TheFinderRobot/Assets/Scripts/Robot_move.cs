@@ -45,8 +45,6 @@ public class Robot_move : MonoBehaviour {
     private int[,] quene = new int[0,0];
     private int[,] targeti;
 
-    bool test = false;
-
     private void LoadMap(bool lose = false) {
         Map loadedMap = loader.GetMap();
         card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
@@ -220,10 +218,8 @@ public class Robot_move : MonoBehaviour {
             }
         } 
         else if (arr[movenum, 0] == 3) {
-            if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                test = true;
+            if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y])
                 ChangeDirection(currentDirection, 3);
-            }
             if (arr == quene) {
                 SizeReArray(ref quene, movenum);
                 movenum -= 1;
@@ -484,13 +480,6 @@ public class Robot_move : MonoBehaviour {
         for (i = 0; i < quene.GetLength(0); i++) {
             if (isActive) {
                 movename = "Other";
-                if (test) {
-                    for (int i = 0; i < quene.GetLength(0); i++)
-                        Debug.Log(IntToMove(quene[i, 0], false) + " -- " + quene[i, 1]);
-                    Debug.Log("the end");
-                    Debug.Log("|");
-                    Debug.Log("|");
-                }
                 Vector3 currentPosRun = anim.transform.position;
                 if (quene[movenum, 1] == card[startPos.x, startPos.y] || quene[movenum, 1] == 0 || quene[movenum, 0] == 4) {
                     movename = IntToMove(quene[movenum, 0], false);

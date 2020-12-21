@@ -76,16 +76,12 @@ public class Choosebutton : MonoBehaviour
     private void UpDatetion() { 
         for (int i = 0; i < Btnplay.func.Count; i++){
             int buttons = Btnplay.func[i].input_arr.Count;
-            int j = 0;
             for (int a = 0; a < buttons; a++){
-                InputField.button_list[a].image.sprite = s1[j];
+                Color tmp = InputField.button_list[a].transform.GetChild(0).GetComponent<Image>().color;
+                tmp = new Color(tmp.r, tmp.g, tmp.b, 0F);
                 InputField.button_list[a].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
                 Btnplay.func[i].input_arr[a].direct = 0;
                 Btnplay.func[i].input_arr[a].color = 0;
-                if (j == 0)
-                    j = 12;
-                else
-                    j = 0;
             }
         }
         movesf2 = new int[0,0];
@@ -156,45 +152,8 @@ public class Choosebutton : MonoBehaviour
                 InputField.button_list[i].image.color = ColorIndeed(Savegame.sv.moves1[i, 1]);
                 Btnplay.func[0].input_arr[i].color = Savegame.sv.moves1[i, 1];
                 Btnplay.func[0].input_arr[i].direct = Savegame.sv.moves1[i, 0];
-                if (Savegame.sv.moves1[i, 0] != 0) {
-                    if (Savegame.sv.moves1[i, 0] < 4) {
-                        int n = 6;
-                        for (int a = 1; a < 4; a++) {
-                            n += 1;
-                            if (n == 9)
-                                n -= 3;
-                            if (Savegame.sv.moves1[i, 0] == a) {
-                                InputField.button_list[i].image.sprite = s1[n];
-                                break;
-                            }
-                        }
-                    }
-                    else if (Savegame.sv.moves1[i, 0] <= 6) {
-                        int n = 10;
-                        for (int a = 4; a < 7; a++) {
-                            if (Savegame.sv.moves1[i, 0] == a) {
-                                if (a == 4)
-                                    InputField.button_list[i].image.sprite = s1[n];
-                                else if (a == 5) {
-                                    n -= 1;
-                                    InputField.button_list[i].image.sprite = s1[n];
-                                }
-                                else {
-                                    n += 1;
-                                    InputField.button_list[i].image.sprite = s1[n];
-                                }
-                            }
-                        }
-                    }
-                    else if (Savegame.sv.moves1[i, 0] > 6) {
-                        int n = 0;
-                        for (int a = 7; a < 12; a++) {
-                            n += 1;
-                            if (Savegame.sv.moves1[i, 0] == a)
-                                InputField.button_list[i].image.sprite = s1[n];
-                        }
-                    }
-                }
+                if (Savegame.sv.moves1[i, 0] != 0)
+                    action_chose(Savegame.sv.moves1[i, 0]-1, i);
             }
         }
         if (Savegame.sv.movesf2 != null && Savegame.sv.movesf2.Length > 0) {
@@ -245,7 +204,8 @@ public class Choosebutton : MonoBehaviour
         if (Inputbuttons.move_btn == true) {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[0];
+            Color tmp = InputField.button_list[btn].transform.GetChild(0).GetComponent<Image>().color;
+            InputField.button_list[btn].transform.GetChild(0).GetComponent<Image>().color = new Color(tmp.r, tmp.g, tmp.b, 0F);
             Btnplay.func[fun].input_arr[btn].direct = 0;
             InputField.button_list[btn].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
             Btnplay.func[fun].input_arr[btn].color = 0;
@@ -293,6 +253,14 @@ public class Choosebutton : MonoBehaviour
             start_frame = button_frame.transform.position;
     }
 
+    public Vector3 scale_for_move(int move) {
+        if (move == 0)
+            return new Vector3(0.5F, 0.8F, 1F);
+        else if (move == 1 || move == 2)
+            return new Vector3(0.65F, 0.8F, 1F);
+        return new Vector3(0.9F, 0.8F, 1F);
+    }
+
     public void FrameTranslate(Transform nextchild, Transform currentchild) {
         Vector3 currentPos = button_frame.transform.position;
         float speed = robot.fade_speed;
@@ -323,10 +291,12 @@ public class Choosebutton : MonoBehaviour
         neww = false;
         Vector2 original = from.position;
         from.gameObject.SetActive(true);
-        Image background = hint.GetComponent<Image>();
-        background.sprite = s1[n];
-        background.color = ColorIndeed(lt[btn, 1]);
-        Color color = background.color;
+        Image hint_background = hint.GetComponent<Image>();
+        Image child = hint.transform.GetChild(0).GetComponent<Image>();
+        child.sprite = s1[n];
+        child.transform.localScale = scale_for_move(n);
+        hint_background.color = ColorIndeed(lt[btn, 1]);
+        Color color = hint_background.color;
         float timer = 0.0f;
         float overTime = ColorIndeed(col).a;
         float y = 1;
@@ -336,18 +306,19 @@ public class Choosebutton : MonoBehaviour
             float step = Vector2.Distance(original, to.position) * (Time.deltaTime);
             from.position = Vector2.MoveTowards(from.position, to.position, step);
             color.a = timer;
-            background.color = color;
+            hint_background.color = color;
+            child.color = new Color(child.color.r, child.color.g, child.color.b, timer*y);
             timer += Time.deltaTime/y;
             yield return null;
         }
-        InputField.button_list[btn].image.sprite = s1[n];
+        action_chose(n);
         InputField.button_list[btn].image.color = ColorIndeed(lt[btn, 1]);
         from.gameObject.SetActive(false);
         color.a = 0;
-        background.color = color;
+        hint_background.color = color;
+        child.color = new Color(child.color.r, child.color.g, child.color.b, 0);
         from.transform.position = original;
         Inputbuttons.move_btn = true;
-        Debug.Log(Btnplay.func[fun].input_arr.Count + " + " + btn);
         if (btn+1 < Btnplay.func[fun].input_arr.Count) {
             if (btn == 0)
                 input.secondbutton();
@@ -377,207 +348,27 @@ public class Choosebutton : MonoBehaviour
             if (fun == 0) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf1[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf1[btn, 1];
-                if (movesf1[btn, 0] < 4) {
-                    int n = 6;
-                    for (int a = 1; a < 4; a++) {
-                        n += 1;
-                        if (n == 9)
-                            n -= 3;
-                        if (movesf1[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], n, btn, movesf1);
-                        }
-                    }
-                }
-                else if (movesf1[btn, 0] <= 6) {
-                    int n = 10;
-                    for (int a = 4; a < 7; a++) {
-                        if (movesf1[btn, 0] == a) {
-                            if (a == 4)
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], n, btn, movesf1);
-                            else if (a == 5) {
-                                n -= 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], n, btn, movesf1);
-                            }
-                            else {
-                                n += 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], n, btn, movesf1);
-                            }
-                        }
-                    }
-                }
-                else if (movesf1[btn, 0] > 6) {
-                    int n = 0;
-                    for (int a = 7; a < 12; a++) {
-                        n += 1;
-                        if (movesf1[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], n, btn, movesf1);
-                        }
-                    }
-                }
+                Move(hint.transform, InputField.button_list[btn].transform, movesf1[btn, 1], movesf1[btn, 0]-1, btn, movesf1);
             }
             else if (fun == 1) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf2[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf2[btn, 1];
-                if (movesf2[btn, 0] < 4) {
-                    int n = 6;
-                    for (int a = 1; a < 4; a++) {
-                        n += 1;
-                        if (n == 9)
-                            n -= 3;
-                        if (movesf2[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], n, btn, movesf2);
-                        }
-                    }
-                }
-                else if (movesf2[btn, 0] <= 6) {
-                    int n = 10;
-                    for (int a = 4; a < 7; a++) {
-                        if (movesf2[btn, 0] == a) {
-                            if (a == 4)
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], n, btn, movesf2);
-                            else if (a == 5) {
-                                n -= 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], n, btn, movesf2);
-                            }
-                            else {
-                                n += 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], n, btn, movesf2);
-                            }
-                        }
-                    }
-                }
-                else if (movesf2[btn, 0] > 6) {
-                    int n = 0;
-                    for (int a = 7; a < 12; a++) {
-                        n += 1;
-                        if (movesf2[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], n, btn, movesf2);
-                        }
-                    }
-                }
+                Move(hint.transform, InputField.button_list[btn].transform, movesf2[btn, 1], movesf2[btn, 0]-1, btn, movesf2);
             }
             else if (fun == 2) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf3[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf3[btn, 1];
-                if (movesf3[btn, 0] < 4) {
-                    int n = 6;
-                    for (int a = 1; a < 4; a++) {
-                        n += 1;
-                        if (n == 9)
-                            n -= 3;
-                        if (movesf3[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], n, btn, movesf3);
-                        }
-                    }
-                }
-                else if (movesf3[btn, 0] <= 6) {
-                    int n = 10;
-                    for (int a = 4; a < 7; a++) {
-                        if (movesf3[btn, 0] == a) {
-                            if (a == 4)
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], n, btn, movesf3);
-                            else if (a == 5) {
-                                n -= 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], n, btn, movesf3);
-                            }
-                            else {
-                                n += 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], n, btn, movesf3);
-                            }
-                        }
-                    }
-                }
-                else if (movesf3[btn, 0] > 6) {
-                    int n = 0;
-                    for (int a = 7; a < 12; a++) {
-                        n += 1;
-                        if (movesf3[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], n, btn, movesf3);
-                        }
-                    }
-                }
+                Move(hint.transform, InputField.button_list[btn].transform, movesf3[btn, 1], movesf3[btn, 0]-1, btn, movesf3);
             }
             if (fun == 3) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf4[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf4[btn, 1];
-                if (movesf4[btn, 0] < 4) {
-                    int n = 6;
-                    for (int a = 1; a < 4; a++) {
-                        n += 1;
-                        if (n == 9)
-                            n -= 3;;
-                        if (movesf4[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], n, btn, movesf4);
-                        }
-                    }
-                }
-                else if (movesf4[btn, 0] <= 6) {
-                    int n = 10;
-                    for (int a = 4; a < 7; a++) {
-                        if (movesf4[btn, 0] == a) {
-                            if (a == 4)
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], n, btn, movesf4);
-                            else if (a == 5) {
-                                n -= 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], n, btn, movesf4);
-                            }
-                            else {
-                                n += 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], n, btn, movesf4);
-                            }
-                        }
-                    }
-                }
-                else if (movesf4[btn, 0] > 6) {
-                    int n = 0;
-                    for (int a = 7; a < 12; a++) {
-                        n += 1;
-                        if (movesf4[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], n, btn, movesf4);
-                        }
-                    }
-                }
+                Move(hint.transform, InputField.button_list[btn].transform, movesf4[btn, 1], movesf4[btn, 0]-1, btn, movesf4);
             }
             if (fun == 4) {
                 Btnplay.func[fun].input_arr[btn].direct = movesf5[btn, 0];
                 Btnplay.func[fun].input_arr[btn].color = movesf5[btn, 1];
-                if (movesf5[btn, 0] < 4) {
-                    int n = 6;
-                    for (int a = 1; a < 4; a++) {
-                        n += 1;
-                        if (n == 9)
-                            n -= 3;
-                        if (movesf5[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], n, btn, movesf5);
-                        }
-                    }
-                }
-                else if (movesf5[btn, 0] <= 6) {
-                    int n = 10;
-                    for (int a = 4; a < 7; a++) {
-                        if (movesf5[btn, 0] == a) {
-                            if (a == 4)
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], n, btn, movesf5);
-                            else if (a == 5) {
-                                n -= 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], n, btn, movesf5);
-                            }
-                            else {
-                                n += 1;
-                                Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], n, btn, movesf5);
-                            }
-                        }
-                    }
-                }
-                else if (movesf5[btn, 0] > 6) {
-                    int n = 0;
-                    for (int a = 7; a < 12; a++) {
-                        n += 1;
-                        if (movesf5[btn, 0] == a) {
-                            Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], n, btn, movesf5);
-                        }
-                    }
-                }
+                Move(hint.transform, InputField.button_list[btn].transform, movesf5[btn, 1], movesf5[btn, 0]-1, btn, movesf5);
             }
         }
     }
@@ -639,8 +430,6 @@ public class Choosebutton : MonoBehaviour
             Savegame.sv.moves5 = null;
         }
     }
-
-
 
     public IEnumerator UnvisiblePrefab(Transform child) {
         Image background;
@@ -763,6 +552,17 @@ public class Choosebutton : MonoBehaviour
         fath.GetChild(childs-1).GetComponent<RectTransform>().SetSiblingIndex(que);
     }
 
+    public void action_chose(int move, int but_num = -1) {
+        Image chill;
+        if (but_num == -1)
+            chill = InputField.button_list[btn].transform.GetChild(0).gameObject.GetComponent<Image>();
+        else
+            chill = InputField.button_list[but_num].transform.GetChild(0).gameObject.GetComponent<Image>();
+        chill.sprite = s1[move];
+        chill.transform.localScale = scale_for_move(move);
+        chill.color = new Color(chill.color.r, chill.color.g, chill.color.b, 1F);        
+    }
+
     public void Red_button() {
             btn = InputField.button;
             fun = InputField.func;
@@ -782,7 +582,7 @@ public class Choosebutton : MonoBehaviour
     public void Blue_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.color = new Color(0F, 0.2509804F, 1F, 0.45F);
+            InputField.button_list[btn]. image.color = new Color(0F, 0.2509804F, 1F, 0.45F);
             Btnplay.func[fun].input_arr[btn].color = (int) Input_Class.Colors.Blue;
             if (fun == 0)
                 Savegame.sv.moves1[btn, 1] = 1;
@@ -814,7 +614,7 @@ public class Choosebutton : MonoBehaviour
     public void f1_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[1];
+            action_chose(6);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f1;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 7;
@@ -830,7 +630,7 @@ public class Choosebutton : MonoBehaviour
     public void f2_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[2];
+            action_chose(7);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f2;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 8;
@@ -846,7 +646,7 @@ public class Choosebutton : MonoBehaviour
     public void f3_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[3];
+            action_chose(8);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f3;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 9;
@@ -862,7 +662,7 @@ public class Choosebutton : MonoBehaviour
     public void f4_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[4];
+            action_chose(9);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f4;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 10;
@@ -879,7 +679,7 @@ public class Choosebutton : MonoBehaviour
     public void f5_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[5];
+            action_chose(10);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.f5;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 11;
@@ -895,7 +695,7 @@ public class Choosebutton : MonoBehaviour
     public void Top_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[7];
+            action_chose(0);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.forward;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 1;
@@ -911,7 +711,7 @@ public class Choosebutton : MonoBehaviour
     public void Left_button() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[6];
+            action_chose(2);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.left; 
             if (fun == 0)
                 Savegame.sv.moves1[btn, 0] = 3;
@@ -926,8 +726,8 @@ public class Choosebutton : MonoBehaviour
     }
     public void Right_button() {
             btn = InputField.button;
-            InputField.button_list[btn].image.sprite = s1[8];
             fun = InputField.func;
+            action_chose(1);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.right;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 2;
@@ -943,7 +743,7 @@ public class Choosebutton : MonoBehaviour
     public void blue_scatch() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[10];
+            action_chose(3);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.scatch_blue;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 4;
@@ -960,7 +760,7 @@ public class Choosebutton : MonoBehaviour
     public void green_scatch() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[9];
+            action_chose(4);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.scatch_green;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 5;
@@ -977,7 +777,7 @@ public class Choosebutton : MonoBehaviour
     public void red_scatch() {
             btn = InputField.button;
             fun = InputField.func;
-            InputField.button_list[btn].image.sprite = s1[11];
+            action_chose(5);
             Btnplay.func[fun].input_arr[btn].direct = (int) Input_Class.Directs.scatch_red;
             if (fun == 0) 
                 Savegame.sv.moves1[btn, 0] = 6;
