@@ -438,6 +438,7 @@ public class Choosebutton : MonoBehaviour
         Image child_obj = child.GetChild(0).GetComponent<Image>();
         Color color_child = child_obj.color;
         float alf = color.a;
+        Debug.Log(alf + " alf");
         float alfa = color_child.a - alf;
         float speed = robot.fade_speed;
         if (speed != 0) {
@@ -450,9 +451,9 @@ public class Choosebutton : MonoBehaviour
                 child_obj.color = color_child;
                 if (speed != 0)
                     yield return new WaitForSeconds(speed);
-                else {
+                else
                     break;
-                }
+                Debug.Log(f + "&&&&");                
             }
         }
         GameObject.Destroy(child.gameObject);
@@ -526,6 +527,7 @@ public class Choosebutton : MonoBehaviour
         Color color = ColorGetting(col);
         float a = ColorIndeed(col).a;
         float alfa = (color_child.a - a)/20;
+        float norm = 0;
         ForFunc(num);
         float speed = robot.fade_speed;
         if (speed != 0) {
@@ -534,7 +536,8 @@ public class Choosebutton : MonoBehaviour
                     new_speed = false;
                 speed = robot.fade_speed;
                 color.a = f;
-                color_child.a = f+alfa;
+                color_child.a = norm;
+                norm += alfa+f;
                 background.color = color;                
                 child_obj.color = color_child;
                 if (speed != 0)
@@ -549,6 +552,7 @@ public class Choosebutton : MonoBehaviour
         else {
             color.a = a;
             background.color = color;
+            child_obj.color = color_child;
             if (new_speed)
                 new_speed = false;
         }
