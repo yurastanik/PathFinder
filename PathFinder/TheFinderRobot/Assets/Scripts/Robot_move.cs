@@ -155,6 +155,8 @@ public class Robot_move : MonoBehaviour {
             transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
             DirectAtStart();
         }
+        if (Input.GetKeyDown(KeyCode.A))
+            Time.timeScale = 0.1F;
         else if (ads.isClosed) {
             HintCount.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
             ads.isClosed = false;
