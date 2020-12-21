@@ -76,7 +76,7 @@ public class LevelAppear : MonoBehaviour
                     if (need.name == "1")
                         prv.SetActive(false);
                     else if (need.name == "97")
-                        nxt.SetActive(false);                    
+                        nxt.SetActive(false);
                     foreach (Transform chill in need.transform) {
                         Color color = chill.GetComponent<Image>().color;
                         color.a = 1;
