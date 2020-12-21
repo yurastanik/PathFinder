@@ -435,13 +435,19 @@ public class Choosebutton : MonoBehaviour
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
+        Image child_obj = child.GetChild(0).GetComponent<Image>();
+        Color color_child = child_obj.color;
         float alf = color.a;
+        float alfa = color_child.a - alf;
         float speed = robot.fade_speed;
         if (speed != 0) {
             for (float f = alf-alf/20; f >= 0; f -= alf/20) {
                 speed = robot.fade_speed;
                 color.a = f;
+                alfa -= alf/20;
+                color_child.a = f+alfa;
                 background.color = color;
+                child_obj.color = color_child;
                 if (speed != 0)
                     yield return new WaitForSeconds(speed);
                 else {
@@ -508,9 +514,9 @@ public class Choosebutton : MonoBehaviour
     public IEnumerator CreatePrefab(int col, int moven, int num) {
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
-        if (newChild.transform.GetSiblingIndex() == 1)
-            new_speed = true;
         newChild.transform.SetParent(ContentPrefab.transform);
+        Image child_obj = newChild.transform.GetChild(0).GetComponent<Image>();
+        Color color_child = child_obj.color;
         if (newChild.transform.GetSiblingIndex() == 0)
             newChild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
         else
@@ -519,6 +525,7 @@ public class Choosebutton : MonoBehaviour
         background = newChild.GetComponent<Image>();
         Color color = ColorGetting(col);
         float a = ColorIndeed(col).a;
+        float alfa = (color_child.a - a)/20;
         ForFunc(num);
         float speed = robot.fade_speed;
         if (speed != 0) {
@@ -527,7 +534,9 @@ public class Choosebutton : MonoBehaviour
                     new_speed = false;
                 speed = robot.fade_speed;
                 color.a = f;
-                background.color = color;
+                color_child.a = f+alfa;
+                background.color = color;                
+                child_obj.color = color_child;
                 if (speed != 0)
                     yield return new WaitForSeconds(speed);
                 else {
