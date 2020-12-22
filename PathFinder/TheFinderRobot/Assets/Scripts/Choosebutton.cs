@@ -51,6 +51,7 @@ public class Choosebutton : MonoBehaviour
     public Sprite[] s1;
     public bool fade = false;
     public bool fade_last = false;
+    public bool gucci = false;
     public List<int> func_num = new List<int>();
     Vector3 start_frame;
     Vector2 sizeDelt;
@@ -432,6 +433,7 @@ public class Choosebutton : MonoBehaviour
     }
 
     public IEnumerator UnvisiblePrefab(Transform child) {
+        yield return new WaitWhile(() => gucci);
         Image background;
         background = child.GetComponent<Image>();
         Color color = background.color;
@@ -453,7 +455,7 @@ public class Choosebutton : MonoBehaviour
                     yield return new WaitForSeconds(speed);
                 else
                     break;
-                Debug.Log(f + "&&&&");                
+                Debug.Log(f + "&&&&");
             }
         }
         GameObject.Destroy(child.gameObject);
@@ -513,6 +515,7 @@ public class Choosebutton : MonoBehaviour
     }
 
     public IEnumerator CreatePrefab(int col, int moven, int num) {
+        gucci = true;
         GameObject create = PrefabGetting(moven);
         GameObject newChild = GameObject.Instantiate(create) as GameObject;
         newChild.transform.SetParent(ContentPrefab.transform);
@@ -522,12 +525,11 @@ public class Choosebutton : MonoBehaviour
             newChild.transform.localScale = new Vector3(0.22F, 0.75F, 0);
         else
             newChild.transform.localScale = new Vector3(0.18F, 0.52F, 0);
-        Image background;
-        background = newChild.GetComponent<Image>();
+        Image background = newChild.GetComponent<Image>();
         Color color = ColorGetting(col);
         float a = ColorIndeed(col).a;
         float alfa = (color_child.a - a)/20;
-        float norm = 0;
+        float norm = alfa*-1;
         ForFunc(num);
         float speed = robot.fade_speed;
         if (speed != 0) {
@@ -537,14 +539,17 @@ public class Choosebutton : MonoBehaviour
                 speed = robot.fade_speed;
                 color.a = f;
                 color_child.a = norm;
-                norm += alfa+f;
-                background.color = color;                
+                norm += alfa+a/20;
+                background.color = color;
                 child_obj.color = color_child;
                 if (speed != 0)
                     yield return new WaitForSeconds(speed);
                 else {
                     color.a = a;
+                    color_child.a = 1;
+                    child_obj.color = color_child;
                     background.color = color;
+                    gucci = false;
                     yield break;
                 }
             }
@@ -556,6 +561,7 @@ public class Choosebutton : MonoBehaviour
             if (new_speed)
                 new_speed = false;
         }
+        gucci = false;
         yield break;
     }
 
