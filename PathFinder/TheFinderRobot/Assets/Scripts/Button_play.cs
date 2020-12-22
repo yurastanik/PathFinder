@@ -48,6 +48,10 @@ public class Button_play : MonoBehaviour {
 
 
     private void Start() {
+        if (Savegame.sv.music == true)
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
+        else
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);
         spr1 = Resources.Load<Sprite>("Sprites/Button/eye2");
         spr2 = Resources.Load<Sprite>("Sprites/Button/eye3");
         spr3 = Resources.Load<Sprite>("Sprites/Button/eye1");

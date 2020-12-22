@@ -61,6 +61,11 @@ public class Option : MonoBehaviour {
         gameObject.SetActive(true);
     }
 
+    public void returning() {
+        setting.transform.parent.gameObject.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
     public void choose_rus() {
         if (Savegame.sv.Languages != (int) Languages.Russion) {
             Savegame.sv.Languages = (int) Languages.Russion;

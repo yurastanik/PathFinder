@@ -20,10 +20,8 @@ public class LevelAppear : MonoBehaviour
     private Save sv;
 
     private void Awake() {
-        if (Savegame.sv.music == true) {
-            Debug.Log(GameObject.FindGameObjectsWithTag("Music")[0].name);
+        if (Savegame.sv.music == true)
             GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
-        }
         else
             GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);            
         if (MaplevelChose.quit == true) {
