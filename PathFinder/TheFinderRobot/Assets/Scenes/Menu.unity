@@ -5350,8 +5350,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 119, y: 0}
-  m_SizeDelta: {x: 1320.7999, y: 378.70007}
+  m_AnchoredPosition: {x: -132, y: 0}
+  m_SizeDelta: {x: 1057.3458, y: 378.70007}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &468022671
 MonoBehaviour:
@@ -5379,7 +5379,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 260
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -13332,7 +13332,7 @@ GameObject:
   - component: {fileID: 1055564828}
   - component: {fileID: 1055564827}
   m_Layer: 5
-  m_Name: Lang
+  m_Name: Graphik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24496,6 +24496,10 @@ MonoBehaviour:
   - {fileID: 1479689391}
   - {fileID: 1973626306}
   - {fileID: 815546017}
+  - {fileID: 1682220984}
+  - {fileID: 468022671}
+  - {fileID: 1055564827}
+  - {fileID: 2112337892}
 --- !u!222 &1743224625
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -30,10 +30,10 @@ public class Option : MonoBehaviour {
         else
             flag.GetComponent<Image>().sprite = spr4;
         if (Savegame.sv.music == true) {
-            music_but.text = "Music: on";
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["On"];
         }
         else {
-            music_but.text = "Music: off";            
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["Off"];
         }
     }
 
@@ -44,13 +44,13 @@ public class Option : MonoBehaviour {
     public void music() {
         if (Savegame.sv.music == true) {
             // Debug.Log("викл");
-            music_but.text = "Music: off";
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["Off"];
             Savegame.sv.music = false;
             GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);
         }
         else {
             // Debug.Log("вкл");
-            music_but.text = "Music: on";
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["On"];
             Savegame.sv.music = true;
             GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
         }
