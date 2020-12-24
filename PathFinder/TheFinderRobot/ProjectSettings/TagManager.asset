@@ -16,6 +16,7 @@ TagManager:
   - Blue
   - FadeInFadeOut
   - Music
+  - Sound
   layers:
   - Default
   - TransparentFX

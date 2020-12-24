@@ -65,6 +65,8 @@
      <Compile Include="Assets\Scripts\Savegame.cs" />
      <Compile Include="Assets\Scripts\ScreenshotScript.cs" />
      <Compile Include="Assets\Scripts\SkipIntro.cs" />
+     <Compile Include="Assets\Scripts\SoundController.cs" />
+     <Compile Include="Assets\Scripts\SoundObject.cs" />
      <Compile Include="Assets\Scripts\SprayParticle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

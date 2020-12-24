@@ -8,8 +8,8 @@ public class FadeInOut : MonoBehaviour {
 
     private Image img;
 
-    private const float pauseTime = 0.01f;
-    private const float alphaDecrement = 0.01f;
+    private const float pauseTime = 0.001f;
+    private const float alphaDecrement = 0.02f;
 
     bool inAccess = false;
 
@@ -19,19 +19,27 @@ public class FadeInOut : MonoBehaviour {
     }
 
     public IEnumerator FadeOut() {
+        YieldInstruction waitForFixedUpdate = new WaitForFixedUpdate();
+
         while (img.color.a > 0) {
             img.color = new Color(0, 0, 0, img.color.a - alphaDecrement);
-            yield return new WaitForSeconds(pauseTime * Time.deltaTime);
+
+            for (float duration = pauseTime; duration > 0; duration -= Time.fixedDeltaTime)
+                yield return waitForFixedUpdate;
         }
         inAccess = true;
     }
 
     public IEnumerator FadeIn(string sceneName) {
         if (inAccess) {
+            YieldInstruction waitForFixedUpdate = new WaitForFixedUpdate();
+
             img.raycastTarget = true;
             while (img.color.a < 1) {
                 img.color = new Color(0, 0, 0, img.color.a + alphaDecrement);
-                yield return new WaitForSeconds(pauseTime * Time.deltaTime);
+
+                for (float duration = pauseTime; duration > 0; duration -= Time.fixedDeltaTime)
+                    yield return waitForFixedUpdate;
             }
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }

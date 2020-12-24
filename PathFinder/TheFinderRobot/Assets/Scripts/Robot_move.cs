@@ -70,6 +70,7 @@ public class Robot_move : MonoBehaviour {
         AtStart();
         DirectAtStart();
         transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
+        GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundController>().PlayAccept();
     }
 
     public void MovesInit(int[,] moves1, int[,] moves2, int[,] moves3, int[,] moves4, int[,] moves5) {
