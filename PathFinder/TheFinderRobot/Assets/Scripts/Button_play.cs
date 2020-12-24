@@ -9,7 +9,7 @@ public class Button_play : MonoBehaviour {
     private int func_count;
     [SerializeField] private Choosebutton choosebutton;
     [SerializeField] private Robot_move player;
-
+    [SerializeField] private MapLoader mapa;
 
     [SerializeField] private GameObject pausepanel;
     [SerializeField] private Text sped;
@@ -48,6 +48,10 @@ public class Button_play : MonoBehaviour {
 
 
     private void Start() {
+        if (Savegame.sv.music == true)
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
+        else
+            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);
         spr1 = Resources.Load<Sprite>("Sprites/Button/eye2");
         spr2 = Resources.Load<Sprite>("Sprites/Button/eye3");
         spr3 = Resources.Load<Sprite>("Sprites/Button/eye1");
@@ -263,6 +267,7 @@ public class Button_play : MonoBehaviour {
         Camera.main.transform.position = cameraFirst;
         Camera.main.orthographicSize = camsize;
         Camera.main.orthographic = false;
+        Camera.main.fieldOfView = mapa.loadedMap.cameraSize;
         camerastate++;
     }
 

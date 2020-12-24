@@ -25,5 +25,12 @@
             "Manual", "Manual",
             "tutor", "Tutorial",
             "Congratulation", "You have successfully completed the tutorial, now you can start passing the levels.",
-            "Back", "Back"]
+            "Back", "Back",
+            "AboutUs", "About Us",
+            "Music", "Music: ",
+            "Lang", "Language: ",
+            "Graphik", "Graphics",
+            "Sounds", "Sounds: ",
+            "On", "On",
+            "Off", "Off"]
 }

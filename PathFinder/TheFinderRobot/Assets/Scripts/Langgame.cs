@@ -42,6 +42,14 @@ public class Langgame : MonoBehaviour
             if (item.name == "Game speed") {
                 item.text = fills.dict[item.name] +  Savegame.sv.speed/2;
             }
+            else if (item.name == "Music") {
+                if (Savegame.sv.music) {
+                    item.text = fills.dict[item.name] +  fills.dict["On"];
+                }
+                else {
+                    item.text = fills.dict[item.name] +  fills.dict["Off"];
+                }
+            }
             else
                 item.text = fills.dict[item.name];
             

@@ -45,8 +45,6 @@ public class Robot_move : MonoBehaviour {
     private int[,] quene = new int[0,0];
     private int[,] targeti;
 
-    bool test = false;
-
     private void LoadMap(bool lose = false) {
         Map loadedMap = loader.GetMap();
         card = MapLoader.OneDToTwoDArray(loadedMap.map, loadedMap.mapWidth);
@@ -70,7 +68,6 @@ public class Robot_move : MonoBehaviour {
         AtStart();
         DirectAtStart();
         transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
-        GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundController>().PlayAccept();
     }
 
     public void MovesInit(int[,] moves1, int[,] moves2, int[,] moves3, int[,] moves4, int[,] moves5) {
@@ -158,6 +155,8 @@ public class Robot_move : MonoBehaviour {
             transform.position = new Vector3(startPos.y * 2, 0, startPos.x * -2);
             DirectAtStart();
         }
+        if (Input.GetKeyDown(KeyCode.A))
+            Time.timeScale = 0.1F;
         else if (ads.isClosed) {
             HintCount.GetComponentInChildren<Text>().text = Langgame.fills.dict["hint left"] + Savegame.sv.hint;
             ads.isClosed = false;
@@ -221,10 +220,8 @@ public class Robot_move : MonoBehaviour {
             }
         } 
         else if (arr[movenum, 0] == 3) {
-            if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y]) {
-                test = true;
+            if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y])
                 ChangeDirection(currentDirection, 3);
-            }
             if (arr == quene) {
                 SizeReArray(ref quene, movenum);
                 movenum -= 1;
@@ -485,13 +482,6 @@ public class Robot_move : MonoBehaviour {
         for (i = 0; i < quene.GetLength(0); i++) {
             if (isActive) {
                 movename = "Other";
-                if (test) {
-                    for (int i = 0; i < quene.GetLength(0); i++)
-                        Debug.Log(IntToMove(quene[i, 0], false) + " -- " + quene[i, 1]);
-                    Debug.Log("the end");
-                    Debug.Log("|");
-                    Debug.Log("|");
-                }
                 Vector3 currentPosRun = anim.transform.position;
                 if (quene[movenum, 1] == card[startPos.x, startPos.y] || quene[movenum, 1] == 0 || quene[movenum, 0] == 4) {
                     movename = IntToMove(quene[movenum, 0], false);
@@ -631,6 +621,7 @@ public class Robot_move : MonoBehaviour {
                 }
                 if (winner) {
                     loader.OnMapUpdate(null, PointDes(targets));
+                    GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundController>().PlayAccept();
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
                     try {

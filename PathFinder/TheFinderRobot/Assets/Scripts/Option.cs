@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Option : MonoBehaviour {
     [SerializeField] private GameObject langPanel;
-    [SerializeField] private Button music_but;
+    [SerializeField] private Button setting;
+    [SerializeField] private Text music_but;
     private Sprite spr1, spr2, spr3 ,spr4, spr5;
     [SerializeField] private Image flag;
     [SerializeField] private Langgame langclass;
@@ -29,13 +30,10 @@ public class Option : MonoBehaviour {
         else
             flag.GetComponent<Image>().sprite = spr4;
         if (Savegame.sv.music == true) {
-            music_but.GetComponent<Image>().sprite = spr1;
-            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["On"];
         }
         else {
-            music_but.GetComponent<Image>().sprite = spr2;
-            GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);
-            
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["Off"];
         }
     }
 
@@ -46,16 +44,26 @@ public class Option : MonoBehaviour {
     public void music() {
         if (Savegame.sv.music == true) {
             // Debug.Log("викл");
-            music_but.GetComponent<Image>().sprite = spr2;
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["Off"];
             Savegame.sv.music = false;
             GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0);
         }
         else {
             // Debug.Log("вкл");
-            music_but.GetComponent<Image>().sprite = spr1;
+            music_but.text = Langgame.fills.dict["Music"] + Langgame.fills.dict["On"];
             Savegame.sv.music = true;
             GameObject.FindGameObjectsWithTag("Music")[0].GetComponent<MusicController>().ChangeVolume(0.5f);
         }
+    }
+
+    public void settings() {
+        setting.transform.parent.gameObject.SetActive(false);
+        gameObject.SetActive(true);
+    }
+
+    public void returning() {
+        setting.transform.parent.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void choose_rus() {
@@ -86,7 +94,6 @@ public class Option : MonoBehaviour {
     }
 
     public void back() {
-
         langPanel.gameObject.SetActive(false);
     }
 }

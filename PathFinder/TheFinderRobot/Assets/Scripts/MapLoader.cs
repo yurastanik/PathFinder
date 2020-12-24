@@ -11,7 +11,7 @@ public class MapLoader : MonoBehaviour {
 
     private StreamReader stream;
     private string path;
-    private Map loadedMap;
+    public Map loadedMap;
     //public Panel_button panel;
     [SerializeField] private Camera camer;
     [SerializeField] private Education education;

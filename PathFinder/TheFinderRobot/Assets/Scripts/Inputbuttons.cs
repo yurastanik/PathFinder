@@ -92,8 +92,9 @@ public class Inputbuttons : MonoBehaviour
         }
         Panel_input.GetComponent<HorizontalLayoutGroup>().padding.right = spac;
         button = 0;
-        func = 0;
+        func = 0;        
         button_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[0].GetComponent<RectTransform>().rect.width)*delata, button_list[0].GetComponent<RectTransform>().rect.height*delata);
+        button_list[0].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[0].GetComponent<RectTransform>().sizeDelta;
         func_list[0].GetComponent<RectTransform>().sizeDelta = new Vector2 ((func_list[0].GetComponent<RectTransform>().rect.width)*delata_func, func_list[0].GetComponent<RectTransform>().rect.height*delata_func);
         func_list[0].GetComponent<RectTransform>().anchoredPosition = new Vector2 (func_list[0].GetComponent<RectTransform>().anchoredPosition.x, func_list[0].GetComponent<RectTransform>().sizeDelta.y/2.0006029999f);
         func_list[0].GetComponent<Image>().color = new Color(0.8627451F, 0.8784314F, 0.7333333F, 1F);
@@ -108,6 +109,8 @@ public class Inputbuttons : MonoBehaviour
         func_list[func].GetComponent<RectTransform>().anchoredPosition = new Vector2 (func_list[0].GetComponent<RectTransform>().anchoredPosition.x, func_list[0].GetComponent<RectTransform>().sizeDelta.y/2.0006029999f);
         func_list[func].GetComponent<Image>().color = new Color(0.7333333F, 0.7843137F, 0.8784314F, 1F);
         button_list[button].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button].GetComponent<RectTransform>().rect.width)/delata, button_list[button].GetComponent<RectTransform>().rect.height/delata);
+        button_list[button].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[button].GetComponent<RectTransform>().sizeDelta;
+
     }
 
 
@@ -204,19 +207,22 @@ public class Inputbuttons : MonoBehaviour
             func_list[func_num].GetComponent<RectTransform>().anchoredPosition = new Vector2(func_list[func_num].GetComponent<RectTransform>().anchoredPosition.x, func_list[func_num].GetComponent<RectTransform>().sizeDelta.y/2.0006029999f);
             func_list[func_num].GetComponent<Image>().color = new Color(0.8627451F, 0.8784314F, 0.7333333F, 1F);
             button_list[button].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button].GetComponent<RectTransform>().rect.width)/delata, button_list[button].GetComponent<RectTransform>().rect.height/delata);
+            button_list[button].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[button].GetComponent<RectTransform>().sizeDelta;
             delta_transofrm_x = firs_pos;
             button_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(width_frame, height_frame);
             for (int i = 0; i < buton_num; i++) {
-                button_list[i].image.sprite = choosebutton.s1[0];
                 button_list[i].image.color = new Color(0.7333333F, 0.7843138F, 0.8784314F, 1F);
+                Color tmp = button_list[i].transform.GetChild(0).GetComponent<Image>().color;
+                tmp = new Color(tmp.r, tmp.g, tmp.b, 0F);
+                button_list[i].transform.GetChild(0).GetComponent<Image>().color = tmp;
                 if (buton_num == 7 || buton_num == 8) {
                     button_list[i].GetComponent<RectTransform>().sizeDelta = new Vector2 (width, height);
+                    button_list[i].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[i].GetComponent<RectTransform>().sizeDelta;
                     button_list[i].GetComponent<RectTransform>().localPosition = new Vector3(delta_transofrm_x, button_list[i].GetComponent<RectTransform>().localPosition.y, 0);
                     delta_transofrm_x += 296F;
                 }
             }
             next_buton_num = choosebutton.func_num[func_num];
-            Debug.Log(next_buton_num);
             spac = 190;
             for (int i = 0; i < choosebutton.func_num.Count; i++) {
                 if (i == 2)
@@ -248,10 +254,7 @@ public class Inputbuttons : MonoBehaviour
                     }
                 }
             }
-            if (buton_num >= 7) 
-                Buttonact(ref button, 0, false);
-            else
-                Buttonact(ref button, 0, false);
+            Buttonact(ref button, 0, false);
             Panel_input.GetComponent<HorizontalLayoutGroup>().padding.right = spac;
             for (int i = 0; i < buton_num; i++) {
                 if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Red)
@@ -261,27 +264,27 @@ public class Inputbuttons : MonoBehaviour
                 else if (playbutton.func[func_num].input_arr[i].color == (int) Input_Class.Colors.Green)
                     button_list[i].image.color = new Color(0F, 1F, 0.1098039F, 0.45F);
                 if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.left)
-                    button_list[i].image.sprite = choosebutton.s1[6];
+                    choosebutton.action_chose(2, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.right)
-                    button_list[i].image.sprite = choosebutton.s1[8];
+                    choosebutton.action_chose(1, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.forward)
-                    button_list[i].image.sprite = choosebutton.s1[7];
+                    choosebutton.action_chose(0, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.scatch_blue)
-                    button_list[i].image.sprite = choosebutton.s1[10];
+                    choosebutton.action_chose(3, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.scatch_green)
-                    button_list[i].image.sprite = choosebutton.s1[9];
+                    choosebutton.action_chose(4, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.scatch_red)
-                    button_list[i].image.sprite = choosebutton.s1[11];
+                    choosebutton.action_chose(5, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f1)
-                    button_list[i].image.sprite = choosebutton.s1[1];
+                    choosebutton.action_chose(6, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f2)
-                    button_list[i].image.sprite = choosebutton.s1[2];
+                    choosebutton.action_chose(7, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f3)
-                    button_list[i].image.sprite = choosebutton.s1[3];
+                    choosebutton.action_chose(8, i);
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f4)
-                    button_list[i].image.sprite = choosebutton.s1[4];
+                    choosebutton.action_chose(9, i); 
                 else if (playbutton.func[func_num].input_arr[i].direct == (int) Input_Class.Directs.f5)
-                    button_list[i].image.sprite = choosebutton.s1[5];
+                    choosebutton.action_chose(10, i);
             }
         }
 
@@ -289,11 +292,14 @@ public class Inputbuttons : MonoBehaviour
     }
     public void Buttonact(ref int button_num, int button, bool flag) {
         if ((button_num != button || flag == false) && move_btn == true) {
-            if (flag)
+            if (flag) {
                 button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)/delata, button_list[button_num].GetComponent<RectTransform>().rect.height/delata);
+                button_list[button_num].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[button_num].GetComponent<RectTransform>().sizeDelta;
+            }
             button_num = button;
-            move_btn = false;
+            move_btn = false;            
             button_list[button_num].GetComponent<RectTransform>().sizeDelta = new Vector2 ((button_list[button_num].GetComponent<RectTransform>().rect.width)*delata, button_list[button_num].GetComponent<RectTransform>().rect.height*delata);
+            button_list[button_num].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[button_num].GetComponent<RectTransform>().sizeDelta;
             Move(button_frame.transform, button_list[button].transform, 0.45F);
         }
     }
@@ -303,6 +309,7 @@ public class Inputbuttons : MonoBehaviour
             for (int i = 0; i < buton_num; i++) {
                 button_list[i].gameObject.SetActive(true);
                 button_list[i].GetComponent<RectTransform>().sizeDelta = new Vector2 ((width)/1.2606F, height/1.255955F);
+                button_list[i].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[i].GetComponent<RectTransform>().sizeDelta;
                 button_list[i].GetComponent<RectTransform>().localPosition = new Vector3(delta_transofrm_x, button_list[i].GetComponent<RectTransform>().localPosition.y, 0);
                 delta_transofrm_x += 260.1001F;
                 if (i > 2 && spac > 100) {
@@ -315,6 +322,7 @@ public class Inputbuttons : MonoBehaviour
             for (int i = 0; i < buton_num; i++) {
                 button_list[i].gameObject.SetActive(true);
                 button_list[i].GetComponent<RectTransform>().sizeDelta = new Vector2 (width/1.1382F, height/1.326F);
+                button_list[i].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = button_list[i].GetComponent<RectTransform>().sizeDelta;
                 button_list[i].GetComponent<RectTransform>().localPosition = new Vector3(delta_transofrm_x, button_list[i].GetComponent<RectTransform>().localPosition.y, 0);
                 delta_transofrm_x += 232;
                 if (i > 2 && spac > 100) {
