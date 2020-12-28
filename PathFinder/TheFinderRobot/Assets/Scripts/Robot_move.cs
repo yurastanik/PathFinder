@@ -9,6 +9,7 @@ public class Robot_move : MonoBehaviour {
     [SerializeField] private Inputbuttons func;
     [SerializeField] private Choosebutton button;
     [SerializeField] private Admob ads;
+    [SerializeField] private SoundController music;
     [SerializeField] private Image HintCount;
     private int[,] card;
     private int[,] movesf1;
@@ -32,6 +33,7 @@ public class Robot_move : MonoBehaviour {
     bool winner = false;
     bool trans = false;
     bool isDestroy = false;
+    bool mus_play = false;
     int i = 0;
     int t = 0;
     int movenum = 0;
@@ -203,6 +205,7 @@ public class Robot_move : MonoBehaviour {
             if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y]) {
                 FaceDirection(currentDirection);
                 CheckTarget();
+                mus_play = true;
             }
             if (arr == quene) {
                 SizeReArray(ref quene, movenum);
@@ -212,7 +215,10 @@ public class Robot_move : MonoBehaviour {
         }
         else if (arr[movenum, 0] == 2) {
             if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y])
+            {
                 ChangeDirection(currentDirection, 2);
+                mus_play = true;
+            }
             if (arr == quene) {
                 SizeReArray(ref quene, movenum);
                 movenum -= 1;
@@ -221,7 +227,10 @@ public class Robot_move : MonoBehaviour {
         } 
         else if (arr[movenum, 0] == 3) {
             if (arr[movenum, 1] == 0 || arr[movenum, 1] == card[startPos.x, startPos.y])
+            {
                 ChangeDirection(currentDirection, 3);
+                mus_play = true;
+            }
             if (arr == quene) {
                 SizeReArray(ref quene, movenum);
                 movenum -= 1;
@@ -382,6 +391,18 @@ public class Robot_move : MonoBehaviour {
         }
     }
 
+    private void sounding(int color) {
+        if (color == 1)
+            music.PlayJump3();
+        else if (color == 2)
+            music.PlayJump2();
+        else if (color == 3)
+            music.PlayJump1();
+        else
+            music.PlayJump4();
+        mus_play = false;
+    }
+
     private int[,] PointDes(int[,] points) {
         int nu = 0;
         for (int x = 0; x < points.GetLength(0); x++) {
@@ -515,11 +536,11 @@ public class Robot_move : MonoBehaviour {
                     isDel = true;
                 else {
                     yield return new WaitWhile(() => button.new_speed);
-                    Debug.Log(movename);
                     button.DestroyPrefab();
                     yield return new WaitWhile(() => button.fade);
                 }
                 if (winner) {
+                    sounding(4);
                     loader.OnMapUpdate(null, PointDes(targets));
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
@@ -529,7 +550,7 @@ public class Robot_move : MonoBehaviour {
                         func.gameObject.SetActive(true);
                         button.ButtonLoad(false); 
                         func.FuncLoad(false);
-                        input.ReStart();
+                        anim.Play("LookArrow", 0);
                     }
                     catch(FileNotFoundException e) {
 #if UNITY_EDITOR
@@ -540,6 +561,7 @@ public class Robot_move : MonoBehaviour {
                     yield break;
                 }
                 else if (looser) {
+                    mus_play = false;
                     anim.Play("Fall");
                     yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
                     yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));                    
@@ -549,8 +571,13 @@ public class Robot_move : MonoBehaviour {
                     yield break;
                 }
                 else if (isDestroy) {
+                    sounding(4);
                     loader.OnMapUpdate(null, PointDes(targets));
                     isDestroy = false;
+                }
+                if (mus_play)
+                {
+                    sounding(quene[movenum-1, 1]);
                 }
             }            
             if (switchLst) {
@@ -620,8 +647,8 @@ public class Robot_move : MonoBehaviour {
                     yield return new WaitWhile(() => button.fade);
                 }
                 if (winner) {
+                    sounding(4);
                     loader.OnMapUpdate(null, PointDes(targets));
-                    GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundController>().PlayAccept();
                     yield return new WaitForSeconds(0.5f);
                     i = 0;
                     try {
@@ -630,7 +657,6 @@ public class Robot_move : MonoBehaviour {
                         func.gameObject.SetActive(true);
                         button.ButtonLoad(false);     
                         func.FuncLoad(false);
-                        input.ReStart();              
                         anim.Play("LookArrow", 0);
                     }
                     catch(FileNotFoundException) {
@@ -639,17 +665,23 @@ public class Robot_move : MonoBehaviour {
                     yield break;
                 }
                 else if (looser) {
-                        anim.Play("Fall");
-                        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
-                        Level(true);
-                        button.ReturnAll(true);
-                        func.gameObject.SetActive(true);
-                        yield break;                
+                    mus_play = false;
+                    anim.Play("Fall");
+                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
+                    yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Fall"));
+                    Level(true);
+                    button.ReturnAll(true);
+                    func.gameObject.SetActive(true);
+                    yield break;                
                 }
                 else if (isDestroy) {
+                    sounding(4);
                     loader.OnMapUpdate(null, PointDes(targets));
                     isDestroy = false;
+                }
+                if (mus_play)
+                {
+                    sounding(allarrays[movenum-1, 1]);
                 }
             }
             if (switchLst) {

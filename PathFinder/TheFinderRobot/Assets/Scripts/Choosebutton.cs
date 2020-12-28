@@ -81,6 +81,7 @@ public class Choosebutton : MonoBehaviour
                 Color tmp = InputField.button_list[a].transform.GetChild(0).GetComponent<Image>().color;
                 tmp = new Color(tmp.r, tmp.g, tmp.b, 0F);
                 InputField.button_list[a].image.color = new Color(0.7333333f, 0.7843138f, 0.8784314f, 1f);
+                InputField.button_list[a].transform.GetChild(0).GetComponent<Image>().color = tmp;
                 Btnplay.func[i].input_arr[a].direct = 0;
                 Btnplay.func[i].input_arr[a].color = 0;
             }
